@@ -543,7 +543,6 @@
             min-height: 0;
             position: relative;
             overscroll-behavior: contain;
-            -webkit-overflow-scrolling: touch;
             scroll-behavior: smooth;
         }
         .settings-content-area::-webkit-scrollbar {
@@ -559,6 +558,7 @@
 
         .settings-tab-content {
             display: none;
+            will-change: transform, opacity;
         }
         .settings-tab-content.active {
             display: block;
@@ -908,23 +908,67 @@
             const tabContents = document.querySelectorAll('.settings-tab-content');
             const contentArea = document.getElementById('settingsContentArea');
             let activeTabName = 'appearance';
+            let springAnimId = null;
+
+            function springAnimation(target, initial, velocity, stiffness, damping, mass, onUpdate, onComplete) {
+                let current = initial;
+                let vel = velocity;
+                const step = () => {
+                    const force = -stiffness * (current - target);
+                    const dampingForce = -damping * vel;
+                    const acceleration = (force + dampingForce) / mass;
+                    vel += acceleration * 0.016;
+                    current += vel * 0.016;
+                    if (Math.abs(current - target) < 0.01 && Math.abs(vel) < 0.1) {
+                        onUpdate(target);
+                        if (onComplete) onComplete();
+                        return;
+                    }
+                    onUpdate(current);
+                    springAnimId = requestAnimationFrame(step);
+                };
+                springAnimId = requestAnimationFrame(step);
+            }
+
+            function animateTabContentIn(tabElement) {
+                if (springAnimId) {
+                    cancelAnimationFrame(springAnimId);
+                    springAnimId = null;
+                }
+                tabElement.style.opacity = '0';
+                tabElement.style.transform = 'translateY(6px)';
+                tabElement.style.display = 'block';
+                const startTime = performance.now();
+                springAnimation(1, 0, 0, 180, 12, 1,
+                    (val) => {
+                        tabElement.style.opacity = val;
+                        tabElement.style.transform = `translateY(${(1 - val) * 6}px)`;
+                    },
+                    () => {
+                        tabElement.style.transform = 'translateY(0)';
+                        tabElement.style.opacity = '1';
+                    }
+                );
+            }
 
             function switchTab(tabName) {
                 if (activeTabName === tabName) return;
                 tabContents.forEach(tc => {
                     tc.classList.remove('active');
+                    tc.style.display = 'none';
                 });
                 navBtns.forEach(nb => nb.classList.remove('active'));
                 const targetTab = document.getElementById('tab-' + tabName);
                 const targetNav = document.querySelector('.settings-nav-btn[data-tab="' + tabName + '"]');
                 if (targetTab) {
                     targetTab.classList.add('active');
+                    animateTabContentIn(targetTab);
                 }
                 if (targetNav) {
                     targetNav.classList.add('active');
                 }
                 if (contentArea) {
-                    contentArea.scrollTo({ top: 0, behavior: 'smooth' });
+                    contentArea.scrollTop = 0;
                 }
                 activeTabName = tabName;
             }
@@ -935,6 +979,48 @@
                     if (tabName) switchTab(tabName);
                 });
             });
+
+            const contentScrollEl = document.getElementById('settingsContentArea');
+            if (contentScrollEl) {
+                let overscrollY = 0;
+                let overscrollAnimId = null;
+                function applyOverscroll(y) {
+                    contentScrollEl.style.transform = `translateY(${y}px)`;
+                }
+                function resetOverscroll() {
+                    if (overscrollAnimId) cancelAnimationFrame(overscrollAnimId);
+                    springAnimation(0, overscrollY, 0, 200, 14, 1,
+                        (val) => {
+                            overscrollY = val;
+                            applyOverscroll(val);
+                        },
+                        () => {
+                            overscrollY = 0;
+                            applyOverscroll(0);
+                        }
+                    );
+                }
+                contentScrollEl.addEventListener('wheel', (e) => {
+                    const { scrollTop, scrollHeight, clientHeight } = contentScrollEl;
+                    const atTop = scrollTop <= 0;
+                    const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
+                    if ((atTop && e.deltaY < 0) || (atBottom && e.deltaY > 0)) {
+                        e.preventDefault();
+                        overscrollY += e.deltaY * 0.3;
+                        overscrollY = Math.max(-40, Math.min(40, overscrollY));
+                        applyOverscroll(overscrollY);
+                        if (overscrollAnimId) cancelAnimationFrame(overscrollAnimId);
+                        overscrollAnimId = requestAnimationFrame(() => {
+                            resetOverscroll();
+                        });
+                    }
+                }, { passive: false });
+                contentScrollEl.addEventListener('touchstart', () => {
+                    if (overscrollAnimId) cancelAnimationFrame(overscrollAnimId);
+                    overscrollY = 0;
+                    applyOverscroll(0);
+                }, { passive: true });
+            }
 
             const themeBtns = document.querySelectorAll('.theme-btn');
             let currentTheme = localStorage.getItem('preferred-theme') || 'auto';
