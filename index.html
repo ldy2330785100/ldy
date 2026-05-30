@@ -803,15 +803,15 @@
             <ul class="contact-list">
                 <li><span class="icon">📧</span> 邮箱: 请通过社交媒体或 GitHub 联系</li>
                 <li><span class="icon">📱</span> 电话: 请通过社交媒体或 GitHub 联系</li>
-                <li><span class="icon">💻</span> 仓库: <a href="https://github.com/ldy2330785100" target="_blank">https://github.com/ldy2330785100</a></li>
-                <li><span class="icon">🌐</span> 网站: <a href="https://ldy2330785100.github.io/ldy/" target="_blank">https://ldy2330785100.github.io/ldy</a></li>
+                <li><span class="icon">💻</span> 仓库: <a href="https://github.com/lxj13533251583" target="_blank">https://github.com/lxj13533251583</a></li>
+                <li><span class="icon">🌐</span> 网站: <a href="https://lxj13533251583.github.io/ldy/" target="_blank">https://lxj13533251583.github.io/ldy</a></li>
                 <li><span class="icon">🏢</span> 国家: 中国</li>
             </ul>
         </section>
         <section>
             <h2>📱 社交媒体</h2>
             <div class="social-grid">
-                <a href="https://github.com/ldy2330785100" class="social-btn" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://github.com/lxj13533251583" class="social-btn" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                 <a href="#" class="social-btn wechat-qq" data-type="wechat"><i class="fab fa-weixin" style="color:#07C160;"></i> 微信</a>
                 <a href="#" class="social-btn wechat-qq" data-type="qq"><i class="fab fa-qq" style="color:#12B7F5;"></i> QQ</a>
                 <a href="https://b23.tv/085t3Ls" class="social-btn" target="_blank"><i class="fab fa-bilibili" style="color:#FB7299;"></i> Bilibili</a>
@@ -880,7 +880,7 @@
         </div>
     </div>
     <footer>
-        <div>© <span id="current-year"></span> <a href="https://github.com/ldy2330785100/" target="_blank" style="text-decoration: none; color: inherit;">旅冬亦</a> 版权所有</div>
+        <div>© <span id="current-year"></span> <a href="https://github.com/lxj13533251583/" target="_blank" style="text-decoration: none; color: inherit;">旅冬亦</a> 版权所有</div>
     </footer>
     <script>
         (function() {
@@ -1022,6 +1022,39 @@
                 }, { passive: true });
             }
 
+                let startTouchY = 0;
+                let startOverscrollY = 0;
+                let touchMoveId = null;
+
+                contentScrollEl.addEventListener('touchmove', (e) => {
+                    const { scrollTop, scrollHeight, clientHeight } = contentScrollEl;
+                    const atTop = scrollTop <= 0;
+                    const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
+                    if (!atTop && !atBottom) return;
+
+                    const deltaY = e.touches[0].clientY - startTouchY;
+                    let newOffset = startOverscrollY + deltaY * 0.5;
+                    newOffset = Math.max(-50, Math.min(50, newOffset));
+                    overscrollY = newOffset;
+                    applyOverscroll(overscrollY);
+
+                    if ((atTop && deltaY > 0) || (atBottom && deltaY < 0)) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+
+                contentScrollEl.addEventListener('touchstart', (e) => {
+                    startTouchY = e.touches[0].clientY;
+                    startOverscrollY = overscrollY;
+                    if (touchMoveId) cancelAnimationFrame(touchMoveId);
+                });
+
+                contentScrollEl.addEventListener('touchend', () => {
+                    if (touchMoveId) cancelAnimationFrame(touchMoveId);
+                    touchMoveId = requestAnimationFrame(() => {
+                        resetOverscroll();
+                    });
+                });
             const themeBtns = document.querySelectorAll('.theme-btn');
             let currentTheme = localStorage.getItem('preferred-theme') || 'auto';
 
@@ -1104,7 +1137,7 @@
             if (refreshBtn) refreshBtn.addEventListener('click', () => location.reload());
             const changelogBtn = document.getElementById('gotoChangelog');
             if (changelogBtn) changelogBtn.addEventListener('click', () => window.open(
-                'https://ldy2330785100.github.io/ldy/changelog.html', '_blank'));
+                'https://lxj13533251583.github.io/ldy/changelog.html', '_blank'));
 
             function addPressEffect(btn) {
                 btn.classList.add('pressed');
