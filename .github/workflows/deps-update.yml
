@@ -1,0 +1,32 @@
+name: Update
+on:
+  schedule:
+    - cron: '0 18 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 配置Node环境
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: 安装依赖更新工具
+        run: npm install -g npm-check-updates
+
+      - name: 更新所有依赖版本
+        run: |
+          ncu -u
+          npm install
+
+      - name: 提交更新并创建PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 自动更新项目依赖
+          title: 【自动任务】依赖版本更新
+          body: 机器人检测到依赖有新版本，自动生成此更新请求，请审核合并。
