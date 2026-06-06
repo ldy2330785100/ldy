@@ -1,0 +1,25 @@
+{
+  "featuredVideos": [
+    {
+      "title": "Wallpaper手机版教程",
+      "bvid": "BV1ddt8zeE7W",
+      "description": "简介"
+    }
+  ],
+  "projects": [
+    {
+      "title": "个人网站",
+      "description": "响应式个人网站，支持深色/浅色主题、自定义字体、毛玻璃特效。",
+      "techStack": ["HTML5", "CSS3", "JavaScript"],
+      "githubUrl": "https://github.com/ldy2330785100/ldy",
+      "liveUrl": "https://ldy2330785100.github.io/ldy/"
+    },
+    {
+      "title": "WT权限站",
+      "description": "一个测试可以获取到用户的权限的网站",
+      "techStack": ["Permission"],
+      "githubUrl": "https://github.com/ldy2330785100/WT-Permission",
+      "liveUrl": "https://ldy2330785100.github.io/WT-Permission/"
+    }
+  ]
+}
