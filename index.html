@@ -76,7 +76,7 @@
             font-size: clamp(14px, 2.5vw, 16px);
             line-height: 1.5;
             margin: 0;
-            padding: 20px;
+            padding: 12px;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
@@ -115,7 +115,7 @@
             color: #1c1b1f;
         }
         body.light-theme .info-box {
-            background: rgba(245, 245, 247, 0.8);
+            background: rgba(0, 0, 0, 0.04);
             border-color: #e2e2e6;
             color: #3c3a41;
         }
@@ -165,7 +165,7 @@
         }
 
         body.dark-theme {
-            background-color: #0a0a0f;
+            background-color: #000000;
             color: #e6e1e5;
         }
         body.dark-theme .card {
@@ -181,7 +181,7 @@
         }
         body.dark-theme h1,
         body.dark-theme h2 {
-            color: #7ad0ff;
+            color: #00668B;
         }
         body.dark-theme .title {
             color: #c7c2cd;
@@ -190,10 +190,10 @@
             color: #b7b2bd;
         }
         body.dark-theme a {
-            color: #7ad0ff;
+            color: #00668B;
         }
         body.dark-theme a:hover {
-            color: #aae0ff;
+            color: #D9E9F1;
         }
         body.dark-theme .social-btn {
             background: rgba(42, 42, 49, 0.7);
@@ -202,8 +202,8 @@
             color: #e6e1e5;
         }
         body.dark-theme .social-btn:hover {
-            background: rgba(122, 208, 255, 0.15);
-            color: #c3e8ff;
+            background: rgba(217, 233, 241, 0.15);
+            color: #D9E9F1;
         }
         body.dark-theme .social-btn i.fa-github {
             color: #e3edf5 !important;
@@ -236,7 +236,7 @@
             border-bottom-color: #2f2e38;
         }
         body.dark-theme .settings-header h3 {
-            color: #7ad0ff;
+            color: #00668B;
         }
         body.dark-theme .settings-group h4 {
             color: #cdc6d2;
@@ -262,7 +262,7 @@
             border-color: #00668B;
         }
         body.dark-theme .info-box {
-            background: rgba(21, 20, 26, 0.9);
+            background: rgba(255, 255, 255, 0.08);
             border-color: #2f2e38;
             color: #cfc9d4;
         }
@@ -333,13 +333,13 @@
 
         .card {
             border-radius: 12px;
-            padding: 28px 32px;
-            margin-bottom: 24px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
             transition: background 0.2s, box-shadow 0.2s, backdrop-filter 0.2s;
         }
         @media (max-width: 600px) {
             .card {
-                padding: 20px 24px;
+                padding: 16px 20px;
                 border-radius: 12px;
             }
         }
@@ -389,7 +389,7 @@
             padding-left: 0;
         }
         .contact-list li {
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             flex-wrap: wrap;
@@ -400,10 +400,10 @@
             font-weight: 600;
         }
         .icon {
-            margin-right: 10px;
+            margin-right: 8px;
             color: #00668B;
             font-weight: bold;
-            width: 28px;
+            width: auto;
             display: inline-block;
         }
         a {
@@ -447,24 +447,6 @@
             transform: scale(0.98);
             transition: transform 0.1s var(--spring-easing);
         }
-        .settings-container {
-            text-align: center;
-            margin-top: 12px;
-            margin-bottom: 16px;
-        }
-        .settings-toggle-btn {
-            border: 1px solid #e2e2e6;
-            padding: 10px 24px;
-            font-size: 0.9rem;
-            font-weight: 550;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s var(--spring-easing);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            border-radius: 12px;
-        }
         .sticky-header {
             position: fixed;
             top: 0;
@@ -475,14 +457,14 @@
             align-items: center;
             justify-content: center;
             padding: 8px 20px;
-            transform: translateY(-100%) scale(0.96);
+            transform: translateY(-100%);
             opacity: 0;
-            transition: transform 0.35s var(--spring-easing), opacity 0.25s ease, scale 0.35s var(--spring-easing);
+            transition: transform 0.35s var(--spring-easing), opacity 0.25s ease;
             pointer-events: none;
             border-radius: 0 0 12px 12px;
         }
         .sticky-header.show {
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
             opacity: 1;
             pointer-events: auto;
         }
@@ -519,18 +501,21 @@
                 font-size: 1rem;
             }
         }
-        .sticky-header a {
-            padding: 0;
+        .sticky-header .settings-icon {
             margin-left: auto;
-            font-size: 0.8rem;
             background: transparent;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            padding: 0;
             border-radius: 12px;
+            color: inherit;
         }
-        body.light-theme .sticky-header a {
+        body.light-theme .sticky-header .settings-icon {
             color: #00668B;
         }
-        body.dark-theme .sticky-header a {
-            color: #7ad0ff;
+        body.dark-theme .sticky-header .settings-icon {
+            color: #00668B;
         }
 
         .settings-overlay {
@@ -868,13 +853,13 @@
                 border-color: #cbdff2;
             }
             body.dark-theme .social-btn:hover {
-                background: rgba(122, 208, 255, 0.15);
+                background: rgba(217, 233, 241, 0.15);
             }
             .settings-toggle-btn:hover {
                 background: rgba(0, 102, 139, 0.08);
             }
             body.dark-theme .settings-toggle-btn:hover {
-                background: rgba(122, 208, 255, 0.12);
+                background: rgba(217, 233, 241, 0.12);
             }
         }
 
@@ -892,7 +877,7 @@
             transition: 0.2s;
         }
         body.dark-theme .project-card {
-            background: rgba(122, 208, 255, 0.08);
+            background: rgba(0, 102, 139, 0.15);
         }
 
         .project-card h3 {
@@ -919,7 +904,7 @@
             background: rgba(0, 102, 139, 0.2);
         }
         body.dark-theme .separator {
-            background: rgba(122, 208, 255, 0.2);
+            background: rgba(0, 102, 139, 0.3);
         }
 
         .video-container {
@@ -982,17 +967,17 @@
             display: inline-block;
             margin-top: 8px;
             padding: 8px 18px;
-            background: #00a1d6;
+            background: #00668B;
             color: white;
             border-radius: 12px;
             font-size: 0.85rem;
             transition: background 0.2s;
         }
         .bili-link:hover {
-            background: #008bb3;
+            background: #004c6b;
         }
         body.dark-theme .bili-link {
-            background: #2c7cb6;
+            background: #00668B;
         }
     </style>
 </head>
@@ -1001,7 +986,7 @@
         <div class="sticky-content">
             <img src="Picture/profile.jpg" alt="" class="sticky-avatar">
             <span class="sticky-name">旅冬亦</span>
-            <a href="#" id="stickyHomeLink" style="margin-left: auto; font-size: 0.8rem;"><i class="fas fa-arrow-up"></i> 顶部</a>
+            <button id="stickySettingsBtn" class="settings-icon"><i class="fas fa-cog"></i></button>
         </div>
     </div>
 
@@ -1027,8 +1012,8 @@
             <ul class="contact-list">
                 <li><span class="icon">📧</span> 邮箱: 请通过社交媒体或 GitHub 联系</li>
                 <li><span class="icon">📱</span> 电话: 请通过社交媒体或 GitHub 联系</li>
-                <li><span class="icon">💻</span> 仓库: <a href="https://github.com/ldy2330785100" target="_blank">前往查看</a></li>
-                <li><span class="icon">🌐</span> 网站: <a href="https://ldy2330785100.github.io/ldy/" target="_blank">前往体验</a></li>
+                <li><span class="icon">💻</span> 仓库: <a href="https://github.com/ldy2330785100" target="_blank">https://github.com/ldy2330785100</a></li>
+                <li><span class="icon">🌐</span> 网站: <a href="https://ldy2330785100.github.io/ldy/" target="_blank">https://ldy2330785100.github.io/ldy</a></li>
                 <li><span class="icon">🏢</span> 国家: 中国</li>
             </ul>
 
@@ -1046,9 +1031,6 @@
         </div>
     </div>
 
-    <div class="settings-container">
-        <button id="settingsToggle" class="settings-toggle-btn">⚙️ 设置</button>
-    </div>
     <div id="settingsOverlay" class="settings-overlay"></div>
     <div id="settingsPanel" class="settings-panel">
         <div class="settings-header">
@@ -1114,6 +1096,7 @@
             const settingsOverlay = document.getElementById('settingsOverlay');
             const settingsPanel = document.getElementById('settingsPanel');
             const closeSettingsBtn = document.getElementById('closeSettings');
+            const stickySettingsBtn = document.getElementById('stickySettingsBtn');
 
             function openSettings() {
                 settingsOverlay.classList.add('show');
@@ -1126,7 +1109,7 @@
                 settingsOverlay.classList.remove('show');
                 document.body.style.overflow = '';
             }
-            if (settingsToggle) settingsToggle.addEventListener('click', openSettings);
+            if (stickySettingsBtn) stickySettingsBtn.addEventListener('click', openSettings);
             if (closeSettingsBtn) closeSettingsBtn.addEventListener('click', closeSettings);
             if (settingsOverlay) settingsOverlay.addEventListener('click', closeSettings);
 
@@ -1335,7 +1318,7 @@
                 btn.classList.add('pressed');
                 setTimeout(() => btn.classList.remove('pressed'), 100);
             }
-            document.querySelectorAll('.social-btn, .settings-toggle-btn').forEach(btn => {
+            document.querySelectorAll('.social-btn').forEach(btn => {
                 btn.addEventListener('touchstart', () => addPressEffect(btn));
                 btn.addEventListener('mousedown', () => addPressEffect(btn));
             });
@@ -1452,8 +1435,8 @@
                         <p>${escapeHtml(proj.description)}</p>
                         <p class="project-tech">${proj.techStack.join(' · ')}</p>
                         <div class="project-links">
-                            ${proj.githubUrl ? `<a href="${proj.githubUrl}" target="_blank" class="project-link">GitHub →</a>` : ''}
-                            ${proj.liveUrl ? `<a href="${proj.liveUrl}" target="_blank" class="project-link">在线预览 →</a>` : ''}
+                            ${proj.githubUrl ? `<a href="${proj.githubUrl}" target="_blank" class="project-link">查看仓库 →</a>` : ''}
+                            ${proj.liveUrl ? `<a href="${proj.liveUrl}" target="_blank" class="project-link">前往体验 →</a>` : ''}
                         </div>
                     </div>
                 `).join('');
@@ -1469,11 +1452,11 @@
 
         const stickyHeader = document.getElementById('stickyHeader');
         const profileCard = document.getElementById('profileCard');
-        const stickyHomeLink = document.getElementById('stickyHomeLink');
+        const targetElement = document.querySelector('#profileCard > div:first-child');
 
         function handleStickyHeader() {
-            if (!profileCard || !stickyHeader) return;
-            const rect = profileCard.getBoundingClientRect();
+            if (!targetElement || !stickyHeader) return;
+            const rect = targetElement.getBoundingClientRect();
             const isOut = rect.bottom < 0;
             if (isOut) {
                 stickyHeader.classList.add('show');
@@ -1486,9 +1469,9 @@
         window.addEventListener('resize', handleStickyHeader);
         handleStickyHeader();
 
-        if (stickyHomeLink) {
-            stickyHomeLink.addEventListener('click', (e) => {
-                e.preventDefault();
+        if (stickyHeader) {
+            stickyHeader.addEventListener('dblclick', function(e) {
+                if (e.target.closest('.settings-icon')) return;
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         }
