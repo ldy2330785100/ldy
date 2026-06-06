@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 jobs:
-  release-and-notify:
+  release:
     runs-on: ubuntu-latest
     outputs:
       new_tag: ${{ steps.tag_version.outputs.new_tag }}
@@ -21,15 +21,82 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Remove comments from HTML files
+        run: |
+          python -c "
+import re
+import sys
+
+def remove_comments(file_path):
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    stats = {'html': 0, 'css': 0, 'js_line': 0, 'js_block': 0}
+    deleted_html = []
+    deleted_css = []
+    deleted_js_line = []
+    deleted_js_block = []
+
+    def repl_html(m):
+        stats['html'] += 1
+        deleted_html.append(m.group(0))
+        return ''
+    content = re.sub(r'<!--.*?-->', repl_html, content, flags=re.DOTALL)
+
+    def repl_css(m):
+        style_content = m.group(1)
+        def repl_css_comment(cm):
+            stats['css'] += 1
+            deleted_css.append(cm.group(0))
+            return ''
+        new_style = re.sub(r'/\*.*?\*/', repl_css_comment, style_content, flags=re.DOTALL)
+        return f'<style>{new_style}</style>'
+    content = re.sub(r'<style>(.*?)</style>', repl_css, content, flags=re.DOTALL)
+
+    def repl_js(m):
+        script_content = m.group(1)
+        def repl_js_line(cm):
+            stats['js_line'] += 1
+            deleted_js_line.append(cm.group(0))
+            return ''
+        new_script = re.sub(r'//.*?$', repl_js_line, script_content, flags=re.MULTILINE)
+        def repl_js_block(cm):
+            stats['js_block'] += 1
+            deleted_js_block.append(cm.group(0))
+            return ''
+        new_script = re.sub(r'/\*.*?\*/', repl_js_block, new_script, flags=re.DOTALL)
+        return f'<script>{new_script}</script>'
+    content = re.sub(r'<script>(.*?)</script>', repl_js, content, flags=re.DOTALL)
+
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write(content)
+    return stats, deleted_html, deleted_css, deleted_js_line, deleted_js_block
+
+def print_deleted(title, items, limit=80):
+    if not items:
+        print(f'  {title}: 0 个')
+        return
+    print(f'  {title}: {len(items)} 个')
+    for idx, item in enumerate(items, 1):
+        short = item[:limit] + ('…' if len(item) > limit else '')
+        print(f'    [{idx}] {short}')
+
+for file in ['index.html', 'changelog.html']:
+    print(f'\n📄 处理 {file}')
+    stats, html_comments, css_comments, js_line_comments, js_block_comments = remove_comments(file)
+    print_deleted('HTML 注释', html_comments)
+    print_deleted('CSS 注释', css_comments)
+    print_deleted('JS 行注释', js_line_comments)
+    print_deleted('JS 块注释', js_block_comments)
+    print(f'✅ 总计删除: HTML {stats[\"html\"]}, CSS {stats[\"css\"]}, JS行 {stats[\"js_line\"]}, JS块 {stats[\"js_block\"]}')
+"
+
       - name: Extract latest changelog entry
         id: extract
         run: |
-          # 使用 htmlq 提取第一个 .entry 块的内容（需要先安装）
           sudo apt-get update && sudo apt-get install -y htmlq
           ENTRY=$(htmlq -f changelog.html '.entry' -r 0)
           DATE=$(echo "$ENTRY" | htmlq '.date' -t)
           CONTENT=$(echo "$ENTRY" | htmlq -r 1 -t | sed -n '/<strong>/,/<\/div>/p' | sed 's/<[^>]*>//g' | tr -d '\n' | sed 's/  */ /g')
-          # 构造 body
           BODY="### **${DATE}**\n\n${CONTENT}"
           echo "body<<EOF" >> $GITHUB_OUTPUT
           echo "$BODY" >> $GITHUB_OUTPUT
@@ -56,22 +123,47 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Send build status email
-        if: always()
-        uses: dawidd6/action-send-mail@v3
+  test:
+    runs-on: ubuntu-latest
+    needs: release
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          server_address: smtp.qq.com
-          server_port: 465
-          username: ${{ secrets.MAIL_USER }}
-          password: ${{ secrets.MAIL_PASS }}
-          subject: |
-            ${{ job.status == 'success' && '✅' || '❌' }} Website Release ${{ job.status == 'success' && 'Succeeded' || 'Failed' }} - ${{ steps.tag_version.outputs.new_tag || 'unknown' }}
-          to: 2330785100@qq.com
-          from: GitHub Actions <${{ secrets.MAIL_USER }}>
-          html_body: |
-            <h2>${{ job.status == 'success' && '✅ Release Successful' || '❌ Release Failed' }}</h2>
-            <p><strong>Version:</strong> ${{ steps.tag_version.outputs.new_tag || 'Not generated' }}</p>
-            <p><strong>Branch:</strong> ${{ github.ref_name }}</p>
-            <p><strong>Commit message:</strong> ${{ github.event.head_commit.message }}</p>
-            <hr />
-            <p><a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">🔍 View detailed run log</a></p>
+          node-version: '20'
+
+      - name: Install Lighthouse
+        run: npm install -g lighthouse
+
+      - name: Run Lighthouse performance test
+        run: python .github/scripts/run_lighthouse.py
+        env:
+          SITE_URL: https://ldy2330785100.github.io/ldy/
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Playwright
+        run: |
+          pip install playwright
+          playwright install chromium firefox webkit
+
+      - name: Run compatibility tests
+        run: python .github/scripts/test_compatibility.py
+        env:
+          SITE_URL: https://ldy2330785100.github.io/ldy/
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            lighthouse-report.html
+            lighthouse-summary.json
+            compatibility-report.json
