@@ -1,0 +1,68 @@
+name: 发布新版本与邮件通知
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-and-notify:
+    runs-on: ubuntu-latest
+    outputs:
+      new_tag: ${{ steps.tag_version.outputs.new_tag }}
+      changelog: ${{ steps.tag_version.outputs.changelog }}
+    
+    steps:
+      - name: 📂 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: 🔍 校验 HTML 语法
+        run: |
+          docker run --rm -v $(pwd):/data cytopia/tidy-html5 -e index.html || true
+        continue-on-error: true
+
+      - name: 🏷️ 生成版本号
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: patch
+          tag_prefix: "v"
+          release_branches: main
+
+      - name: 🚀 创建发行版
+        uses: softprops/action-gh-release@v2
+        if: ${{ steps.tag_version.outputs.new_tag != '' }}
+        with:
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+          files: |
+            index.html
+            Picture/**
+            Font/**
+            icon/**
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📧 发送构建状态邮件
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.qq.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USER }}
+          password: ${{ secrets.MAIL_PASS }}
+          subject: |
+            ${{ job.status == 'success' && '✅' || '❌' }} 个人网站发布${{ job.status == 'success' && '成功' || '失败' }} - ${{ steps.tag_version.outputs.new_tag || '未知版本' }}
+          to: 2330785100@qq.com
+          from: GitHub Actions <${{ secrets.MAIL_USER }}>
+          html_body: |
+            <h2>${{ job.status == 'success' && '✅ 发布成功' || '❌ 发布失败' }}</h2>
+            <p><strong>版本号:</strong> ${{ steps.tag_version.outputs.new_tag || '未生成' }}</p>
+            <p><strong>触发分支:</strong> ${{ github.ref_name }}</p>
+            <p><strong>提交信息:</strong> ${{ github.event.head_commit.message }}</p>
+            <hr/>
+            <p><a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">👉 点击查看详细运行日志</a></p>
