@@ -1,9 +1,12 @@
-name: 发布新版本与邮件通知
+name: Release and Notify
 
 on:
   push:
     branches:
       - main
+
+permissions:
+  contents: write
 
 jobs:
   release-and-notify:
@@ -11,19 +14,22 @@ jobs:
     outputs:
       new_tag: ${{ steps.tag_version.outputs.new_tag }}
       changelog: ${{ steps.tag_version.outputs.changelog }}
-    
+
     steps:
-      - name: 📂 检出代码
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 
+          fetch-depth: 0
 
-      - name: 🔍 校验 HTML 语法
-        run: |
-          docker run --rm -v $(pwd):/data cytopia/tidy-html5 -e index.html || true
+      - name: Validate HTML syntax
         continue-on-error: true
+        run: |
+          docker run --rm -v "$(pwd):/data" cytopia/tidy-html5 \
+            -quiet \
+            -e index.html \
+            || echo "HTML validation warnings (ignored)"
 
-      - name: 🏷️ 生成版本号
+      - name: Generate next version tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.2
         with:
@@ -32,9 +38,9 @@ jobs:
           tag_prefix: "v"
           release_branches: main
 
-      - name: 🚀 创建发行版
+      - name: Create GitHub Release
+        if: steps.tag_version.outputs.new_tag != ''
         uses: softprops/action-gh-release@v2
-        if: ${{ steps.tag_version.outputs.new_tag != '' }}
         with:
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
@@ -47,7 +53,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📧 发送构建状态邮件
+      - name: Send build status email
         if: always()
         uses: dawidd6/action-send-mail@v3
         with:
@@ -56,13 +62,13 @@ jobs:
           username: ${{ secrets.MAIL_USER }}
           password: ${{ secrets.MAIL_PASS }}
           subject: |
-            ${{ job.status == 'success' && '✅' || '❌' }} 个人网站发布${{ job.status == 'success' && '成功' || '失败' }} - ${{ steps.tag_version.outputs.new_tag || '未知版本' }}
+            ${{ job.status == 'success' && '✅' || '❌' }} Website Release ${{ job.status == 'success' && 'Succeeded' || 'Failed' }} - ${{ steps.tag_version.outputs.new_tag || 'unknown' }}
           to: 2330785100@qq.com
           from: GitHub Actions <${{ secrets.MAIL_USER }}>
           html_body: |
-            <h2>${{ job.status == 'success' && '✅ 发布成功' || '❌ 发布失败' }}</h2>
-            <p><strong>版本号:</strong> ${{ steps.tag_version.outputs.new_tag || '未生成' }}</p>
-            <p><strong>触发分支:</strong> ${{ github.ref_name }}</p>
-            <p><strong>提交信息:</strong> ${{ github.event.head_commit.message }}</p>
-            <hr/>
-            <p><a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">👉 点击查看详细运行日志</a></p>
+            <h2>${{ job.status == 'success' && '✅ Release Successful' || '❌ Release Failed' }}</h2>
+            <p><strong>Version:</strong> ${{ steps.tag_version.outputs.new_tag || 'Not generated' }}</p>
+            <p><strong>Branch:</strong> ${{ github.ref_name }}</p>
+            <p><strong>Commit message:</strong> ${{ github.event.head_commit.message }}</p>
+            <hr />
+            <p><a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">🔍 View detailed run log</a></p>
