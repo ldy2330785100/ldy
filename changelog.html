@@ -20,7 +20,7 @@
             font-size: 14px;
             line-height: 1.5;
             margin: 0;
-            padding: 20px;
+            padding: 12px;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
@@ -65,7 +65,7 @@
         }
 
         body.dark-theme {
-            background-color: #0a0a0f;
+            background-color: #000000;
             color: #e6e1e5;
         }
         body.dark-theme .entry {
@@ -81,7 +81,7 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         body.dark-theme h1 {
-            color: #7ad0ff;
+            color: #00668B;
         }
         body.dark-theme .entry .date {
             color: #b7b2bd;
@@ -101,7 +101,10 @@
             border-top-color: rgba(255, 255, 255, 0.08);
         }
         body.dark-theme .sticky-header a {
-            color: #7ad0ff;
+            color: #00668B;
+        }
+        body.dark-theme .sticky-header a:hover {
+            color: #D9E9F1;
         }
 
         @supports not (backdrop-filter: blur(1px)) {
@@ -133,14 +136,14 @@
             align-items: center;
             justify-content: center;
             padding: 8px 20px;
-            transform: translateY(-100%) scale(0.96);
+            transform: translateY(-100%);
             opacity: 0;
-            transition: transform 0.35s var(--spring-easing), opacity 0.25s ease, scale 0.35s var(--spring-easing);
+            transition: transform 0.35s var(--spring-easing), opacity 0.25s ease;
             pointer-events: none;
             border-radius: 0 0 12px 12px;
         }
         .sticky-header.show {
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
             opacity: 1;
             pointer-events: auto;
         }
@@ -163,13 +166,18 @@
             font-weight: 600;
             margin: 0;
         }
-        .sticky-header a {
-            padding: 0;
+        .sticky-header .goto-site {
             margin-left: auto;
-            font-size: 0.8rem;
-            background: transparent;
+            padding: 6px 16px;
+            background: #00668B;
+            color: white !important;
             border-radius: 12px;
+            font-size: 0.8rem;
             text-decoration: none;
+            transition: background 0.2s;
+        }
+        .sticky-header .goto-site:hover {
+            background: #004c6b;
         }
         @media (max-width: 600px) {
             .sticky-header {
@@ -219,7 +227,7 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
         body.dark-theme .entry:hover {
-            box-shadow: 0 8px 20px rgba(122, 208, 255, 0.12);
+            box-shadow: 0 8px 20px rgba(0, 102, 139, 0.15);
         }
         .entry .date {
             font-size: 0.8em;
@@ -259,7 +267,7 @@
 
         @media (max-width: 600px) {
             body {
-                padding: 16px;
+                padding: 12px;
             }
             .entry {
                 padding: 14px 18px;
@@ -276,12 +284,24 @@
         <div class="sticky-content">
             <img src="Picture/profile.jpg" alt="" class="sticky-avatar">
             <span class="sticky-name">旅冬亦 📝</span>
-            <a href="#" id="stickyHomeLink"><i class="fas fa-arrow-up"></i> 顶部</a>
+            <a href="index.html" class="goto-site">前往网站</a>
         </div>
     </div>
 
     <div class="content-wrapper">
         <h1>📝 更新日志</h1>
+
+        <div class="entry">
+            <div class="date">2026/06/07 02:45:00</div>
+            <div><strong>v1.2.5</strong><br>
+            🚀 新增：双击顶栏会顶<br>
+            ⚙️ 调整：设置按钮移至顶栏<br>
+            ⚡ 优化：主题色<br>
+            ⚡ 优化：页面排版更紧凑<br>
+            ⏪ 回溯：联系方式链接显示效果<br>
+            🐛 问题：精选视频展示异常
+            </div>
+        </div>
 
         <div class="entry">
             <div class="date">2026/06/06 23:10:00</div>
@@ -540,12 +560,11 @@
             entries.forEach(entry => observer.observe(entry));
 
             const stickyHeader = document.getElementById('stickyHeader');
-            const firstCard = document.querySelector('.entry'); // 以第一个日志条目为基准
-            const stickyHomeLink = document.getElementById('stickyHomeLink');
+            const targetElement = document.querySelector('h1');
 
             function handleStickyHeader() {
-                if (!firstCard || !stickyHeader) return;
-                const rect = firstCard.getBoundingClientRect();
+                if (!targetElement || !stickyHeader) return;
+                const rect = targetElement.getBoundingClientRect();
                 const isOut = rect.bottom < 0;
                 if (isOut) {
                     stickyHeader.classList.add('show');
@@ -558,9 +577,9 @@
             window.addEventListener('resize', handleStickyHeader);
             handleStickyHeader();
 
-            if (stickyHomeLink) {
-                stickyHomeLink.addEventListener('click', (e) => {
-                    e.preventDefault();
+            if (stickyHeader) {
+                stickyHeader.addEventListener('dblclick', function(e) {
+                    if (e.target.closest('.goto-site')) return;
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             }
