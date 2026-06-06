@@ -2,9 +2,10 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>更新日志 - 旅冬亦的个人网站</title>
     <link rel="icon" type="image/jpeg" href="Picture/profile.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
             --spring-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -21,27 +22,29 @@
             margin: 0;
             padding: 20px;
             transition: background-color 0.3s ease, color 0.3s ease;
-            background-color: #f5f5f7;
-            color: #1c1b1f;
         }
 
         body.light-theme {
-            background-color: #f5f5f7;
+            background-color: #f0f2f5;
             color: #1c1b1f;
+        }
+        body.light-theme .entry {
+            background-color: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.02);
+            color: #1c1b1f;
+        }
+        body.light-theme .sticky-header {
+            background-color: rgba(255, 255, 255, 0.68);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
         }
         body.light-theme h1 {
             color: #00668B;
         }
-        body.light-theme .entry {
-            background: #ffffff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.02);
-            color: #1c1b1f;
-        }
         body.light-theme .entry .date {
             color: #6f6e77;
-        }
-        body.light-theme .entry:hover {
-            box-shadow: 0 4px 12px rgba(0, 102, 139, 0.1);
         }
         body.light-theme .entry strong {
             color: #1c1b1f;
@@ -55,25 +58,33 @@
         }
         body.light-theme footer {
             color: #6f6e77;
+            border-top-color: rgba(0, 0, 0, 0.08);
+        }
+        body.light-theme .sticky-header a {
+            color: #00668B;
         }
 
         body.dark-theme {
-            background-color: #121217;
+            background-color: #0a0a0f;
             color: #e6e1e5;
+        }
+        body.dark-theme .entry {
+            background-color: rgba(28, 27, 32, 0.75);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            color: #e6e1e5;
+        }
+        body.dark-theme .sticky-header {
+            background-color: rgba(18, 18, 24, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         body.dark-theme h1 {
             color: #7ad0ff;
         }
-        body.dark-theme .entry {
-            background: #252429;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08);
-            color: #e6e1e5;
-        }
         body.dark-theme .entry .date {
             color: #b7b2bd;
-        }
-        body.dark-theme .entry:hover {
-            box-shadow: 0 4px 12px rgba(122, 208, 255, 0.15);
         }
         body.dark-theme .entry strong {
             color: #ffffff;
@@ -87,11 +98,98 @@
         }
         body.dark-theme footer {
             color: #9e9aa8;
+            border-top-color: rgba(255, 255, 255, 0.08);
+        }
+        body.dark-theme .sticky-header a {
+            color: #7ad0ff;
+        }
+
+        @supports not (backdrop-filter: blur(1px)) {
+            body.light-theme .entry {
+                background-color: rgba(255, 255, 255, 0.88);
+                backdrop-filter: none;
+            }
+            body.light-theme .sticky-header {
+                background-color: rgba(255, 255, 255, 0.92);
+                backdrop-filter: none;
+            }
+            body.dark-theme .entry {
+                background-color: rgba(28, 27, 32, 0.92);
+                backdrop-filter: none;
+            }
+            body.dark-theme .sticky-header {
+                background-color: rgba(18, 18, 24, 0.94);
+                backdrop-filter: none;
+            }
+        }
+
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 997;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 20px;
+            transform: translateY(-100%) scale(0.96);
+            opacity: 0;
+            transition: transform 0.35s var(--spring-easing), opacity 0.25s ease, scale 0.35s var(--spring-easing);
+            pointer-events: none;
+            border-radius: 0 0 12px 12px;
+        }
+        .sticky-header.show {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .sticky-header .sticky-content {
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sticky-header .sticky-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(0, 102, 139, 0.3);
+        }
+        .sticky-header .sticky-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        .sticky-header a {
+            padding: 0;
+            margin-left: auto;
+            font-size: 0.8rem;
+            background: transparent;
+            border-radius: 12px;
+            text-decoration: none;
+        }
+        @media (max-width: 600px) {
+            .sticky-header {
+                padding: 6px 16px;
+                border-radius: 0 0 12px 12px;
+            }
+            .sticky-header .sticky-avatar {
+                width: 32px;
+                height: 32px;
+                border-radius: 12px;
+            }
+            .sticky-header .sticky-name {
+                font-size: 1rem;
+            }
         }
 
         .content-wrapper {
             max-width: 800px;
             margin: 0 auto;
+            margin-top: 0;
         }
 
         h1 {
@@ -103,30 +201,34 @@
         }
 
         .entry {
-            padding: 14px 16px;
-            border-radius: 14px;
-            margin-bottom: 10px;
-            transition: transform 0.2s var(--spring-easing), box-shadow 0.2s var(--spring-easing), opacity 0.2s var(--spring-easing);
-            will-change: transform, opacity;
-            opacity: 0;
-            transform: translateY(6px);
+            padding: 18px 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            transition: all 0.2s var(--spring-easing);
             word-wrap: break-word;
             overflow-wrap: break-word;
+            opacity: 0;
+            transform: translateY(6px);
         }
         .entry.visible {
             opacity: 1;
             transform: translateY(0);
         }
         .entry:hover {
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        body.dark-theme .entry:hover {
+            box-shadow: 0 8px 20px rgba(122, 208, 255, 0.12);
         }
         .entry .date {
             font-size: 0.8em;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 500;
         }
         .entry strong {
             font-weight: 650;
+            font-size: 1.05em;
         }
         .entry div {
             line-height: 1.55;
@@ -152,10 +254,7 @@
             font-size: 0.7rem;
             padding: 20px 0 10px;
             margin-top: 24px;
-            border-top: 1px solid rgba(0,0,0,0.08);
-        }
-        body.dark-theme footer {
-            border-top-color: rgba(255,255,255,0.08);
+            border-top: 1px solid;
         }
 
         @media (max-width: 600px) {
@@ -163,9 +262,8 @@
                 padding: 16px;
             }
             .entry {
-                padding: 12px 14px;
-                border-radius: 12px;
-                margin-bottom: 8px;
+                padding: 14px 18px;
+                margin-bottom: 16px;
             }
             h1 {
                 font-size: 1.4rem;
@@ -173,9 +271,28 @@
         }
     </style>
 </head>
-<body>
+<body class="light-theme">
+    <div class="sticky-header" id="stickyHeader">
+        <div class="sticky-content">
+            <img src="Picture/profile.jpg" alt="" class="sticky-avatar">
+            <span class="sticky-name">旅冬亦 📝</span>
+            <a href="#" id="stickyHomeLink"><i class="fas fa-arrow-up"></i> 顶部</a>
+        </div>
+    </div>
+
     <div class="content-wrapper">
         <h1>📝 更新日志</h1>
+
+        <div class="entry">
+            <div class="date">2026/06/06 23:10:00</div>
+            <div><strong>v1.2.4</strong><br>
+            🚀 新增：新版块：作品与视频展示<br>
+            ✨ 新增：顶栏<br>
+            ✨ 新增：毛玻璃模糊效果<br>
+            ⚡ 优化：在低版本设备运行时降级动画效果<br>
+            🐛 修复：字体切换问题
+            </div>
+        </div>
 
         <div class="entry">
             <div class="date">2026/04/26 09:30:00</div>
@@ -420,8 +537,33 @@
                     }
                 });
             }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
-
             entries.forEach(entry => observer.observe(entry));
+
+            const stickyHeader = document.getElementById('stickyHeader');
+            const firstCard = document.querySelector('.entry'); // 以第一个日志条目为基准
+            const stickyHomeLink = document.getElementById('stickyHomeLink');
+
+            function handleStickyHeader() {
+                if (!firstCard || !stickyHeader) return;
+                const rect = firstCard.getBoundingClientRect();
+                const isOut = rect.bottom < 0;
+                if (isOut) {
+                    stickyHeader.classList.add('show');
+                } else {
+                    stickyHeader.classList.remove('show');
+                }
+            }
+
+            window.addEventListener('scroll', handleStickyHeader);
+            window.addEventListener('resize', handleStickyHeader);
+            handleStickyHeader();
+
+            if (stickyHomeLink) {
+                stickyHomeLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
         })();
     </script>
 </body>
