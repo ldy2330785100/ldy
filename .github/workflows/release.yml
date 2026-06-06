@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'changelog.html'
 
 permissions:
   contents: write
@@ -13,21 +15,25 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       new_tag: ${{ steps.tag_version.outputs.new_tag }}
-      changelog: ${{ steps.tag_version.outputs.changelog }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Validate HTML syntax
-        continue-on-error: true
+      - name: Extract latest changelog entry
+        id: extract
         run: |
-          docker run --rm -v "$(pwd):/data" cytopia/tidy-html5 \
-            -quiet \
-            -e index.html \
-            || echo "HTML validation warnings (ignored)"
+          # 使用 htmlq 提取第一个 .entry 块的内容（需要先安装）
+          sudo apt-get update && sudo apt-get install -y htmlq
+          ENTRY=$(htmlq -f changelog.html '.entry' -r 0)
+          DATE=$(echo "$ENTRY" | htmlq '.date' -t)
+          CONTENT=$(echo "$ENTRY" | htmlq -r 1 -t | sed -n '/<strong>/,/<\/div>/p' | sed 's/<[^>]*>//g' | tr -d '\n' | sed 's/  */ /g')
+          # 构造 body
+          BODY="### **${DATE}**\n\n${CONTENT}"
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Generate next version tag
         id: tag_version
@@ -44,12 +50,9 @@ jobs:
         with:
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
+          body: ${{ steps.extract.outputs.body }}
           files: |
             index.html
-            Picture/**
-            Font/**
-            icon/**
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
