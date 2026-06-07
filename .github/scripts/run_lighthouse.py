@@ -8,22 +8,34 @@ OUTPUT_HTML = 'lighthouse-report.html'
 OUTPUT_JSON = 'lighthouse-summary.json'
 
 def run_lighthouse(url):
-    cmd = [
+    cmd_html = [
         'lighthouse', url,
         '--output=html',
-        '--output=json',
         f'--output-path={OUTPUT_HTML}',
-        '--chrome-flags="--headless"',
+        '--chrome-flags=--headless',
         '--preset=desktop',
         '--throttling-method=devtools'
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        print('Lighthouse 执行失败')
-        print(result.stderr)
+    result_html = subprocess.run(cmd_html, capture_output=True, text=True)
+    if result_html.returncode != 0:
+        print('Lighthouse HTML 生成失败')
+        print(result_html.stderr)
         sys.exit(1)
-    with open(OUTPUT_HTML, 'r', encoding='utf-8') as f:
-        html_content = f.read()
+
+    cmd_json = [
+        'lighthouse', url,
+        '--output=json',
+        f'--output-path={OUTPUT_JSON}',
+        '--chrome-flags=--headless',
+        '--preset=desktop',
+        '--throttling-method=devtools'
+    ]
+    result_json = subprocess.run(cmd_json, capture_output=True, text=True)
+    if result_json.returncode != 0:
+        print('Lighthouse JSON 生成失败')
+        print(result_json.stderr)
+        sys.exit(1)
+
     with open(OUTPUT_JSON, 'r', encoding='utf-8') as f:
         json_data = json.load(f)
     return json_data
