@@ -28,14 +28,11 @@ jobs:
         id: extract
         run: python .github/scripts/extract_changelog.py
 
-      - name: Generate next version tag
+      - name: Generate next version tag (ignore empty tags)
         id: tag_version
-        uses: mathieudutour/github-tag-action@v6.2
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          default_bump: patch
-          tag_prefix: "v"
-          release_branches: main
+        run: python .github/scripts/calculate_next_version.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         if: steps.tag_version.outputs.new_tag != ''
