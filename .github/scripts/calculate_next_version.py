@@ -39,7 +39,6 @@ def determine_bump_type(commit_messages):
     return "patch"
 
 def bump_version(version, bump_type):
-    # 版本号格式 v1.2.3
     match = re.match(r"v(\d+)\.(\d+)\.(\d+)", version)
     if not match:
         raise ValueError(f"Invalid version format: {version}")
@@ -51,7 +50,7 @@ def bump_version(version, bump_type):
     elif bump_type == "minor":
         minor += 1
         patch = 0
-    else:  # patch
+    else:
         patch += 1
     return f"v{major}.{minor}.{patch}"
 
@@ -70,8 +69,6 @@ def main():
     if not token:
         print("GITHUB_TOKEN 环境变量未设置")
         sys.exit(1)
-
-    run_cmd(f"echo {token} | gh auth login --with-token")
 
     latest_release_tag = get_latest_release_tag()
     if latest_release_tag:
