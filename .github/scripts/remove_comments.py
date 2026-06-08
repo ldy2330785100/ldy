@@ -54,7 +54,7 @@ def print_deleted(title, items, limit=80):
         short = item[:limit] + ('…' if len(item) > limit else '')
         print(f'    [{idx}] {short}')
 
-for file in ['index.html', 'changelog.html']:
+for file in ['index.html']:
     print(f'\n📄 处理 {file}')
     stats, html_comments, css_comments, js_line_comments, js_block_comments = remove_comments(file)
     print_deleted('HTML 注释', html_comments)
