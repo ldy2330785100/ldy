@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --spring-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --spring-easing: cubic-bezier(0.2, 0.9, 0.4, 1);
         }
         html {
             scroll-behavior: smooth;
@@ -26,27 +26,27 @@
         }
         @font-face {
             font-family: 'CustomFont1';
-            src: url('/Font/MiSans.ttf') format('truetype');
+            src: url('Font/MiSans.ttf') format('truetype');
         }
         @font-face {
             font-family: 'CustomFont2';
-            src: url('/Font/小米兰亭Pro.ttf') format('truetype');
+            src: url('Font/小米兰亭Pro.ttf') format('truetype');
         }
         @font-face {
             font-family: 'CustomFont3';
-            src: url('/Font/HarmonyOS Sans.ttf') format('truetype');
+            src: url('Font/HarmonyOS Sans.ttf') format('truetype');
         }
         @font-face {
             font-family: 'CustomFont4';
-            src: url('/Font/OPPO Sans.ttf') format('truetype');
+            src: url('Font/OPPO Sans.ttf') format('truetype');
         }
         @font-face {
             font-family: 'CustomFont5';
-            src: url('/Font/汉仪文黑.ttf') format('truetype');
+            src: url('Font/汉仪文黑.ttf') format('truetype');
         }
         @font-face {
             font-family: 'CustomFont6';
-            src: url('/Font/汉仪旗黑.ttf') format('truetype');
+            src: url('Font/汉仪旗黑.ttf') format('truetype');
         }
 
         body.use-font1 {
@@ -416,6 +416,15 @@
             transform: scale(0.98);
             background-color: rgba(0, 102, 139, 0.1);
         }
+        .contact-list a {
+            color: #00668B;
+        }
+        .contact-list a:hover {
+            color: #004c6b;
+        }
+        body.dark-theme .contact-list a:hover {
+            color: #D9E9F1;
+        }
         .social-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -459,7 +468,7 @@
             padding: 8px 20px;
             transform: translateY(-100%);
             opacity: 0;
-            transition: transform 0.35s var(--spring-easing), opacity 0.25s ease;
+            transition: transform 0.35s ease-out, opacity 0.25s ease;
             pointer-events: none;
             border-radius: 0 0 12px 12px;
         }
@@ -1334,6 +1343,7 @@
             document.getElementById('current-year').textContent = new Date().getFullYear();
         })();
 
+        let ticking = false;
         async function loadFeaturedVideo() {
             const container = document.getElementById('featured-video-card');
             if (container) container.innerHTML = '<p style="text-align:center;">⏳ 加载视频中...</p>';
@@ -1455,13 +1465,19 @@
         const targetElement = document.querySelector('#profileCard > div:first-child');
 
         function handleStickyHeader() {
-            if (!targetElement || !stickyHeader) return;
-            const rect = targetElement.getBoundingClientRect();
-            const isOut = rect.bottom < 0;
-            if (isOut) {
-                stickyHeader.classList.add('show');
-            } else {
-                stickyHeader.classList.remove('show');
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    if (!targetElement || !stickyHeader) return;
+                    const rect = targetElement.getBoundingClientRect();
+                    const isOut = rect.bottom < 0;
+                    if (isOut) {
+                        stickyHeader.classList.add('show');
+                    } else {
+                        stickyHeader.classList.remove('show');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
         }
 
