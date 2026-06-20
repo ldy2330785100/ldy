@@ -52,3 +52,4 @@ markdown_body = f'### **{version}** {date}\n\n{body_content}'
 
 with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
     f.write(f'body<<EOF\n{markdown_body}\nEOF\n')
+    f.write(f'new_version={version}\n')
