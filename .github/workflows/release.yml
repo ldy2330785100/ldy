@@ -28,7 +28,14 @@ jobs:
         run: python .github/scripts/extract_changelog.py
 
       - name: Display extracted version
-        run: echo "提取到的版本号: ${{ steps.extract.outputs.new_version }}"
+        run: |
+          echo "提取到的版本号: ${{ steps.extract.outputs.new_version }}"
+          echo "提取到的 body: ${{ steps.extract.outputs.body }}"
+
+      - name: Authenticate gh
+        run: gh auth status
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install packaging for version comparison
         run: pip install packaging
