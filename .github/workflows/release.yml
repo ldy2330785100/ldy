@@ -90,7 +90,7 @@ if latest and target <= latest:
       - name: Run Lighthouse performance test
         run: python .github/scripts/run_lighthouse.py
         env:
-          SITE_URL: https://ldy2330785100.github.io/ldy/
+  SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -105,7 +105,7 @@ if latest and target <= latest:
       - name: Run compatibility tests
         run: python .github/scripts/test_compatibility.py
         env:
-          SITE_URL: https://ldy2330785100.github.io/ldy/
+  SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
 
       - name: Upload test reports
         if: always()
