@@ -28,8 +28,12 @@ if not match:
 date = match.group(1).strip()
 inner = match.group(2)
 
-ver_match = re.search(r'<strong>(.*?)</strong>', inner)
-version = ver_match.group(1) if ver_match else 'unknown'
+ver_match = re.search(r'<strong>(v\d+\.\d+\.\d+(?:-[a-z]+\.[0-9]+)?)</strong>', inner)
+if ver_match:
+    version = ver_match.group(1)
+else:
+    version = 'unknown'
+    print('未找到有效版本号，使用 unknown')
 
 lines = re.split(r'<br\s*/?>', inner)
 body_lines = []
