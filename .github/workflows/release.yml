@@ -6,15 +6,15 @@ on:
       - main
     paths:
       - 'changelog.html'
+      - 'index.html'
 
 permissions:
   contents: write
 
 jobs:
   release:
+    if: contains(github.event.head_commit.modified, 'changelog.html')
     runs-on: ubuntu-latest
-    outputs:
-      new_tag: ${{ steps.tag_version.outputs.new_tag }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,30 +28,56 @@ jobs:
         id: extract
         run: python .github/scripts/extract_changelog.py
 
-      - name: Generate next version tag (ignore empty tags)
-        id: tag_version
-        run: python .github/scripts/calculate_next_version.py
+      - name: Install packaging
+        run: pip install packaging
+
+      - name: Validate and create tag from changelog version
+        id: create_tag
+        run: |
+          TARGET_VERSION="${{ steps.extract.outputs.new_version }}"
+          if [ -z "$TARGET_VERSION" ]; then
+            echo "未提取到版本号，终止"
+            exit 1
+          fi
+          LATEST_TAG=$(gh release list --limit 1 --json tagName --jq '.[0].tagName' || echo "")
+          echo "目标版本: $TARGET_VERSION"
+          echo "最新 Release: $LATEST_TAG"
+          python -c "
+from packaging.version import Version
+import sys
+target = Version('$TARGET_VERSION')
+latest = Version('$LATEST_TAG') if '$LATEST_TAG' else None
+if latest and target <= latest:
+    print('目标版本未递增，跳过发布')
+    sys.exit(1)
+"
+          if [ $? -ne 0 ]; then
+            echo "版本检查失败，终止"
+            exit 1
+          fi
+          if git rev-parse "$TARGET_VERSION" >/dev/null 2>&1; then
+            echo "标签 $TARGET_VERSION 已存在，直接复用"
+          else
+            git tag "$TARGET_VERSION"
+            git push origin "$TARGET_VERSION"
+            echo "创建并推送标签 $TARGET_VERSION"
+          fi
+          echo "new_tag=$TARGET_VERSION" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
-        if: steps.tag_version.outputs.new_tag != ''
+        if: steps.create_tag.outputs.new_tag != ''
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.tag_version.outputs.new_tag }}
-          name: ${{ steps.tag_version.outputs.new_tag }}
+          tag_name: ${{ steps.create_tag.outputs.new_tag }}
+          name: ${{ steps.create_tag.outputs.new_tag }}
           body: ${{ steps.extract.outputs.body }}
+          prerelease: ${{ contains(steps.create_tag.outputs.new_tag, '-') }}
           files: |
             index.html
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  test:
-    runs-on: ubuntu-latest
-    needs: release
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -90,3 +116,31 @@ jobs:
             lighthouse-report.html
             lighthouse-summary.json
             compatibility-report.json
+
+  update-asset:
+    if: contains(github.event.head_commit.modified, 'index.html') && !contains(github.event.head_commit.modified, 'changelog.html')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get latest release tag
+        id: get_tag
+        run: |
+          LATEST_TAG=$(gh release list --limit 1 --json tagName --jq '.[0].tagName')
+          if [ -z "$LATEST_TAG" ]; then
+            echo "没有找到任何 Release，无法更新附件"
+            exit 1
+          fi
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload index.html to latest release
+        run: |
+          TAG="${{ steps.get_tag.outputs.latest_tag }}"
+          echo "正在更新 Release $TAG 的附件 index.html"
+          gh release upload "$TAG" index.html --clobber
+          echo "✅ 附件更新成功"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
