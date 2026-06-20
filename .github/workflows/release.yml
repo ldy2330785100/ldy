@@ -6,14 +6,12 @@ on:
       - main
     paths:
       - 'changelog.html'
-      - 'index.html'
 
 permissions:
   contents: write
 
 jobs:
   release:
-    if: contains(github.event.head_commit.modified, 'changelog.html')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -90,7 +88,7 @@ if latest and target <= latest:
       - name: Run Lighthouse performance test
         run: python .github/scripts/run_lighthouse.py
         env:
-  SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+          SITE_URL: https://ldy2330785100.github.io/ldy/
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -105,7 +103,7 @@ if latest and target <= latest:
       - name: Run compatibility tests
         run: python .github/scripts/test_compatibility.py
         env:
-  SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+          SITE_URL: https://ldy2330785100.github.io/ldy/
 
       - name: Upload test reports
         if: always()
@@ -116,31 +114,3 @@ if latest and target <= latest:
             lighthouse-report.html
             lighthouse-summary.json
             compatibility-report.json
-
-  update-asset:
-    if: contains(github.event.head_commit.modified, 'index.html') && !contains(github.event.head_commit.modified, 'changelog.html')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Get latest release tag
-        id: get_tag
-        run: |
-          LATEST_TAG=$(gh release list --limit 1 --json tagName --jq '.[0].tagName')
-          if [ -z "$LATEST_TAG" ]; then
-            echo "没有找到任何 Release，无法更新附件"
-            exit 1
-          fi
-          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload index.html to latest release
-        run: |
-          TAG="${{ steps.get_tag.outputs.latest_tag }}"
-          echo "正在更新 Release $TAG 的附件 index.html"
-          gh release upload "$TAG" index.html --clobber
-          echo "✅ 附件更新成功"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
