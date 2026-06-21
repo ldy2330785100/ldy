@@ -28,14 +28,7 @@ jobs:
         run: python .github/scripts/extract_changelog.py
 
       - name: Display extracted version
-        run: |
-          echo "提取到的版本号: ${{ steps.extract.outputs.new_version }}"
-          echo "提取到的 body: ${{ steps.extract.outputs.body }}"
-
-      - name: Authenticate gh
-        run: gh auth status
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "提取到的版本号: ${{ steps.extract.outputs.new_version }}"
 
       - name: Install packaging for version comparison
         run: pip install packaging
@@ -99,8 +92,7 @@ if latest and target <= latest:
       - name: Run Lighthouse performance test
         run: python .github/scripts/run_lighthouse.py
         env:
-          SITE_URL: https://ldy2330785100.github.io/ldy/
-
+          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -114,7 +106,7 @@ if latest and target <= latest:
       - name: Run compatibility tests
         run: python .github/scripts/test_compatibility.py
         env:
-          SITE_URL: https://ldy2330785100.github.io/ldy/
+          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
 
       - name: Upload test reports
         if: always()
