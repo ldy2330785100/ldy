@@ -1,59 +1,119 @@
-import re
-import os
-from html.parser import HTMLParser
+name: Release and Notify
 
-class MLStripper(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.text = []
-    def handle_data(self, d):
-        self.text.append(d)
-    def get_data(self):
-        return ''.join(self.text)
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'changelog.html'
+  workflow_dispatch:
 
-def strip_tags(html_content):
-    s = MLStripper()
-    s.feed(html_content)
-    return s.get_data()
+permissions:
+  contents: write
 
-with open('changelog.html', 'r', encoding='utf-8') as f:
-    content = f.read()
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-entry_pattern = r'<div class="entry">.*?<div class="date">(.*?)</div>.*?<div>(.*?)</div>.*?</div>'
-match = re.search(entry_pattern, content, re.DOTALL)
-if not match:
-    print('未找到 entry')
-    exit(1)
+      - name: Remove comments from HTML files
+        run: python .github/scripts/remove_comments.py
 
-date = match.group(1).strip()
-inner = match.group(2)
+      - name: Extract latest changelog entry
+        id: extract
+        run: python .github/scripts/extract_changelog.py
 
-ver_match = re.search(r'<strong>(v\d+\.\d+\.\d+(?:-[a-z]+\.[0-9]+)?)</strong>', inner)
-if ver_match:
-    version = ver_match.group(1)
-else:
-    version = 'unknown'
-    print('未找到有效版本号，使用 unknown')
+      - name: Display extracted version
+        run: echo "提取到的版本号: ${{ steps.extract.outputs.new_version }}"
 
-lines = re.split(r'<br\s*/?>', inner)
-body_lines = []
-for line in lines[1:]:
-    line = strip_tags(line).strip()
-    if not line:
-        continue
-    m = re.match(r'^(\S+\s+)([^：]+)：(.*)$', line)
-    if m:
-        emoji_part = m.group(1)
-        type_text = m.group(2)
-        desc = m.group(3)
-        formatted = f'{emoji_part}**{type_text}**：{desc}'
-        body_lines.append(formatted)
-    else:
-        body_lines.append(line)
+      - name: Install packaging for version comparison
+        run: pip install packaging
 
-body_content = '<br>\n'.join(body_lines)
-markdown_body = f'### **{version}** {date}\n\n{body_content}'
+      - name: Validate and create tag from changelog version
+        id: create_tag
+        run: |
+          TARGET_VERSION="${{ steps.extract.outputs.new_version }}"
+          if [ -z "$TARGET_VERSION" ]; then
+            echo "未提取到版本号，终止"
+            exit 1
+          fi
+          LATEST_TAG=$(gh release list --limit 1 --json tagName --jq '.[0].tagName' --repo "${{ github.repository }}" || echo "")
+          echo "目标版本: $TARGET_VERSION"
+          echo "最新 Release: $LATEST_TAG"
+          python3 -c "
+from packaging.version import Version
+import sys
+target = Version('$TARGET_VERSION')
+latest = Version('$LATEST_TAG') if '$LATEST_TAG' else None
+if latest and target <= latest:
+    print('目标版本未递增，跳过发布')
+    sys.exit(1)
+"
+          if [ $? -ne 0 ]; then
+            echo "版本检查失败，终止"
+            exit 1
+          fi
+          if git rev-parse "$TARGET_VERSION" >/dev/null 2>&1; then
+            echo "标签 $TARGET_VERSION 已存在，直接复用"
+          else
+            git tag "$TARGET_VERSION"
+            git push origin "$TARGET_VERSION"
+            echo "创建并推送标签 $TARGET_VERSION"
+          fi
+          echo "new_tag=$TARGET_VERSION" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-    f.write(f'body<<EOF\n{markdown_body}\nEOF\n')
-    f.write(f'new_version={version}\n')
+      - name: Create GitHub Release
+        if: steps.create_tag.outputs.new_tag != ''
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.create_tag.outputs.new_tag }}
+          name: ${{ steps.create_tag.outputs.new_tag }}
+          body: ${{ steps.extract.outputs.body }}
+          prerelease: ${{ contains(steps.create_tag.outputs.new_tag, '-') }}
+          files: |
+            index.html
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Lighthouse
+        run: npm install -g lighthouse
+
+      - name: Run Lighthouse performance test
+        run: python .github/scripts/run_lighthouse.py
+        env:
+          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Playwright
+        run: |
+          pip install playwright
+          playwright install chromium firefox webkit
+
+      - name: Run compatibility tests
+        run: python .github/scripts/test_compatibility.py
+        env:
+          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            lighthouse-report.html
+            lighthouse-summary.json
+            compatibility-report.json
