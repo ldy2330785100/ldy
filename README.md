@@ -131,7 +131,7 @@
 - https://qianwen.aliyun.com & https://chat.deepseek.com 提供技术建议与代码优化
 - [Font Awesome](https://fontawesome.com) 提供图标库
 
-## 📱 讨论群聊
+## 💬 讨论群聊
 
 - [Telegram](https://t.me/WT_Permission)
 
