@@ -37,14 +37,17 @@ jobs:
         run: |
           git tag ${{ steps.parse.outputs.version }}
           git push origin ${{ steps.parse.outputs.version }}
-      - name: Start server and run Lighthouse
+      - name: Start HTTP server
+        run: |
+          python -m http.server 8080 &
+          sleep 3
+      - name: Run Lighthouse
         uses: treosh/lighthouse-ci-action@v10
         with:
           urls: 'http://localhost:8080/index.html'
-          startServerCommand: 'python -m http.server 8080'
           uploadArtifacts: true
           temporaryPublicStorage: true
-          continue-on-error: true
+        continue-on-error: true
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
