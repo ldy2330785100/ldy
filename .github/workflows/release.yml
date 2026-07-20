@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -22,6 +24,19 @@ jobs:
       - name: Parse changelog
         id: parse
         run: python .github/scripts/parse_changelog.py
+      - name: Check if tag exists
+        id: tag_exists
+        run: |
+          if git ls-remote --tags origin ${{ steps.parse.outputs.version }} | grep -q ${{ steps.parse.outputs.version }}; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Create and push tag
+        if: steps.tag_exists.outputs.exists == 'false'
+        run: |
+          git tag ${{ steps.parse.outputs.version }}
+          git push origin ${{ steps.parse.outputs.version }}
       - name: Start server and run Lighthouse
         uses: treosh/lighthouse-ci-action@v10
         with:
