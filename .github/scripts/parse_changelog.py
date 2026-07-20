@@ -47,5 +47,7 @@ if github_output:
     with open(github_output, 'a') as f:
         f.write(f"version={version}\n")
         f.write(f"date={date}\n")
-        f.write(f"body={body}\n")
         f.write(f"prerelease={prerelease}\n")
+        f.write("body<<EOF\n")
+        f.write(body + "\n")
+        f.write("EOF\n")
