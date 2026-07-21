@@ -38,7 +38,7 @@ for line in lines:
     type_part = left[1:].strip()
     body_lines.append(f"{emoji} **{type_part}**：{right}")
 
-body = f"### **{version}** {date}\n\n" + "\n".join(body_lines)
+body = f"### **{version}** {date}\n\n" + "<br>\n".join(body_lines)
 
 prerelease = 'true' if ('-alpha' in version or '-beta' in version or '-rc' in version) else 'false'
 
