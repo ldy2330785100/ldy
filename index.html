@@ -1,1716 +1,2738 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewfit=cover"
+    />
     <title>旅冬亦</title>
-    <link rel="icon" type="image/jpeg" href="Picture/profile.jpg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/jpeg" href="Picture/profile.jpg" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
     <style>
-        :root {
-            --spring-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
-        * {
-            box-sizing: border-box;
-        }
+      :root {
+        --spring-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+      * {
+        box-sizing: border-box;
+      }
 
-        @font-face {
-            font-family: 'MyCustomFont';
-            src: url('Font/小米兰亭Pro.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'CustomFont1';
-            src: url('Font/MiSans.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'CustomFont2';
-            src: url('Font/小米兰亭Pro.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'CustomFont3';
-            src: url('Font/HarmonyOS Sans.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'CustomFont4';
-            src: url('Font/OPPO Sans.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'CustomFont5';
-            src: url('Font/汉仪文黑.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'CustomFont6';
-            src: url('Font/汉仪旗黑.ttf') format('truetype');
-        }
+      @font-face {
+        font-family: "MyCustomFont";
+        src: url("Font/小米兰亭Pro.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "CustomFont1";
+        src: url("Font/MiSans.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "CustomFont2";
+        src: url("Font/小米兰亭Pro.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "CustomFont3";
+        src: url("Font/HarmonyOS Sans.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "CustomFont4";
+        src: url("Font/OPPO Sans.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "CustomFont5";
+        src: url("Font/汉仪文黑.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "CustomFont6";
+        src: url("Font/汉仪旗黑.ttf") format("truetype");
+      }
 
-        body.use-font1 {
-            font-family: 'CustomFont1', "PingFang SC", "Microsoft YaHei", sans-serif;
-        }
-        body.use-font2 {
-            font-family: 'CustomFont2', "PingFang SC", "Microsoft YaHei", sans-serif;
-        }
-        body.use-font3 {
-            font-family: 'CustomFont3', "PingFang SC", "Microsoft YaHei", sans-serif;
-        }
-        body.use-font4 {
-            font-family: 'CustomFont4', "PingFang SC", "Microsoft YaHei", sans-serif;
-        }
-        body.use-font5 {
-            font-family: 'CustomFont5', "PingFang SC", "Microsoft YaHei", sans-serif;
-        }
-        body.use-font6 {
-            font-family: 'CustomFont6', "PingFang SC", "Microsoft YaHei", sans-serif;
-        }
-        body.use-system {
-            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-        }
+      body.use-font1 {
+        font-family:
+          "CustomFont1", "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+      body.use-font2 {
+        font-family:
+          "CustomFont2", "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+      body.use-font3 {
+        font-family:
+          "CustomFont3", "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+      body.use-font4 {
+        font-family:
+          "CustomFont4", "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+      body.use-font5 {
+        font-family:
+          "CustomFont5", "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+      body.use-font6 {
+        font-family:
+          "CustomFont6", "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+      body.use-system {
+        font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
 
-        body {
-            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-            font-size: clamp(14px, 2.5vw, 16px);
-            line-height: 1.5;
-            margin: 0;
-            padding: 12px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
-        }
+      body {
+        font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-size: clamp(14px, 2.5vw, 16px);
+        line-height: 1.5;
+        margin: 0;
+        padding: 12px;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
 
-        body.light-theme {
-            background-color: #f0f2f5;
-            color: #1c1b1f;
-        }
+      body.light-theme {
+        background-color: #f0f2f5;
+        color: #1c1b1f;
+      }
+      body.light-theme .card,
+      body.light-theme .settings-panel {
+        background-color: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: none;
+      }
+      body.light-theme .sticky-header {
+        background-color: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: none;
+      }
+      body.light-theme h1,
+      body.light-theme h2 {
+        color: #00668b;
+      }
+      body.light-theme .social-btn,
+      body.light-theme .expand-btn {
+        background: #00668b;
+        border: none;
+        color: white;
+        box-shadow: none;
+        backdrop-filter: none;
+      }
+      body.light-theme .social-btn:hover,
+      body.light-theme .expand-btn:hover {
+        background: #004c6b;
+      }
+      body.light-theme .social-btn i,
+      body.light-theme .expand-btn i {
+        color: white !important;
+      }
+      body.light-theme .settings-toggle-btn {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(8px);
+        color: #1c1b1f;
+        border: 1px solid rgba(0, 102, 139, 0.3);
+      }
+      body.light-theme .contact-list li {
+        color: #1c1b1f;
+      }
+      body.light-theme .info-box {
+        background: rgba(0, 0, 0, 0.04);
+        border-color: #e2e2e6;
+        color: #3c3a41;
+      }
+      body.light-theme .font-option {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #cfcfd9;
+        color: #1c1b1f;
+      }
+      body.light-theme .font-option.selected {
+        background: #00668b;
+        border-color: #00668b;
+        color: white;
+      }
+      body.light-theme .theme-btn {
+        background: rgba(245, 245, 247, 0.8);
+        border-color: #cacad1;
+        color: #1c1b1f;
+      }
+      body.light-theme .theme-btn.active {
+        background: #00668b;
+        color: white;
+        border-color: #00668b;
+      }
+      body.light-theme .close-btn {
+        color: #6f6e77;
+      }
+      body.light-theme .close-btn:hover {
+        color: #1c1b1f;
+      }
+      body.light-theme .settings-nav-btn {
+        color: #4a4852;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      body.light-theme .settings-nav-btn:hover {
+        background: rgba(240, 240, 245, 0.9);
+        color: #1c1b1f;
+      }
+      body.light-theme .settings-nav-btn.active {
+        background: #00668b;
+        color: white;
+      }
+      body.light-theme .font-slider {
+        background: #00668b;
+      }
+
+      body.dark-theme {
+        background-color: #000000;
+        color: #e6e1e5;
+      }
+      body.dark-theme .card,
+      body.dark-theme .settings-panel {
+        background-color: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: none;
+      }
+      body.dark-theme .sticky-header {
+        background-color: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: none;
+      }
+      body.dark-theme h1,
+      body.dark-theme h2 {
+        color: #00668b;
+      }
+      body.dark-theme .title {
+        color: #c7c2cd;
+      }
+      body.dark-theme .contact-list strong {
+        color: #b7b2bd;
+      }
+      body.dark-theme a {
+        color: #00668b;
+      }
+      body.dark-theme a:hover {
+        color: #d9e9f1;
+      }
+      body.dark-theme .social-btn,
+      body.dark-theme .expand-btn {
+        background: #00668b;
+        border: none;
+        color: white;
+        box-shadow: none;
+        backdrop-filter: none;
+      }
+      body.dark-theme .social-btn:hover,
+      body.dark-theme .expand-btn:hover {
+        background: #004c6b;
+      }
+      body.dark-theme .social-btn i,
+      body.dark-theme .expand-btn i {
+        color: white !important;
+      }
+      body.dark-theme .settings-toggle-btn {
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #e6e1e5;
+      }
+      body.dark-theme .settings-header {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+      body.dark-theme .settings-header h3 {
+        color: #00668b;
+      }
+      body.dark-theme .settings-group h4 {
+        color: #cdc6d2;
+      }
+      body.dark-theme .theme-btn {
+        background: rgba(42, 42, 49, 0.8);
+        border-color: #484856;
+        color: #e6e1e5;
+      }
+      body.dark-theme .theme-btn.active {
+        background: #00668b;
+        color: white;
+        border-color: #00668b;
+      }
+      body.dark-theme .font-option {
+        background: rgba(42, 42, 49, 0.9);
+        border: 1px solid #484856;
+        color: #e6e1e5;
+      }
+      body.dark-theme .font-option.selected {
+        background: #00668b;
+        color: white;
+        border-color: #00668b;
+      }
+      body.dark-theme .info-box {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: #2f2e38;
+        color: #cfc9d4;
+      }
+      body.dark-theme .close-btn {
+        color: #9e9aa8;
+      }
+      body.dark-theme .close-btn:hover {
+        color: #f1f1f5;
+      }
+      body.dark-theme .contact-list li {
+        color: #e6e1e5;
+      }
+      body.dark-theme footer,
+      body.dark-theme footer div,
+      body.dark-theme footer p {
+        color: #9e9aa8 !important;
+      }
+      body.dark-theme .settings-nav-btn {
+        color: #b7b2bd;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      body.dark-theme .settings-nav-btn:hover {
+        background: rgba(42, 42, 51, 0.9);
+        color: #e6e1e5;
+      }
+      body.dark-theme .settings-nav-btn.active {
+        background: #00668b;
+        color: white;
+      }
+      body.dark-theme .font-slider {
+        background: #00668b;
+      }
+
+      @supports not (backdrop-filter: blur(1px)) {
         body.light-theme .card,
         body.light-theme .settings-panel {
-            background-color: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: none;
+          background-color: rgba(255, 255, 255, 0.88);
+          backdrop-filter: none;
         }
         body.light-theme .sticky-header {
-            background-color: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(6px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: none;
-        }
-        body.light-theme h1,
-        body.light-theme h2 {
-            color: #00668B;
+          background-color: rgba(255, 255, 255, 0.92);
+          backdrop-filter: none;
         }
         body.light-theme .social-btn,
         body.light-theme .expand-btn {
-            background: #00668B;
-            border: none;
-            color: white;
-            box-shadow: none;
-            backdrop-filter: none;
-        }
-        body.light-theme .social-btn:hover,
-        body.light-theme .expand-btn:hover {
-            background: #004c6b;
-        }
-        body.light-theme .social-btn i,
-        body.light-theme .expand-btn i {
-            color: white !important;
+          background-color: #00668b;
+          backdrop-filter: none;
         }
         body.light-theme .settings-toggle-btn {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-            color: #1c1b1f;
-            border: 1px solid rgba(0, 102, 139, 0.3);
-        }
-        body.light-theme .contact-list li {
-            color: #1c1b1f;
-        }
-        body.light-theme .info-box {
-            background: rgba(0, 0, 0, 0.04);
-            border-color: #e2e2e6;
-            color: #3c3a41;
-        }
-        body.light-theme .font-option {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid #cfcfd9;
-            color: #1c1b1f;
-        }
-        body.light-theme .font-option.selected {
-            background: #00668B;
-            border-color: #00668B;
-            color: white;
-        }
-        body.light-theme .theme-btn {
-            background: rgba(245, 245, 247, 0.8);
-            border-color: #cacad1;
-            color: #1c1b1f;
-        }
-        body.light-theme .theme-btn.active {
-            background: #00668B;
-            color: white;
-            border-color: #00668B;
-        }
-        body.light-theme .close-btn {
-            color: #6f6e77;
-        }
-        body.light-theme .close-btn:hover {
-            color: #1c1b1f;
-        }
-        body.light-theme .settings-nav-btn {
-            color: #4a4852;
-            background: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        body.light-theme .settings-nav-btn:hover {
-            background: rgba(240, 240, 245, 0.9);
-            color: #1c1b1f;
-        }
-        body.light-theme .settings-nav-btn.active {
-            background: var(--tab-active-bg);
-            color: var(--text);
-        }
-        body.light-theme .font-slider {
-            background: #00668B;
-        }
-
-        body.dark-theme {
-            background-color: #000000;
-            color: #e6e1e5;
+          background-color: rgba(245, 245, 247, 0.92);
+          backdrop-filter: none;
         }
         body.dark-theme .card,
         body.dark-theme .settings-panel {
-            background-color: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: none;
+          background-color: rgba(28, 27, 32, 0.92);
+          backdrop-filter: none;
         }
         body.dark-theme .sticky-header {
-            background-color: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(6px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: none;
-        }
-        body.dark-theme h1,
-        body.dark-theme h2 {
-            color: #00668B;
-        }
-        body.dark-theme .title {
-            color: #c7c2cd;
-        }
-        body.dark-theme .contact-list strong {
-            color: #b7b2bd;
-        }
-        body.dark-theme a {
-            color: #00668B;
-        }
-        body.dark-theme a:hover {
-            color: #D9E9F1;
+          background-color: rgba(18, 18, 24, 0.94);
+          backdrop-filter: none;
         }
         body.dark-theme .social-btn,
         body.dark-theme .expand-btn {
-            background: #00668B;
-            border: none;
-            color: white;
-            box-shadow: none;
-            backdrop-filter: none;
+          background-color: #00668b;
+          backdrop-filter: none;
+        }
+        body.dark-theme .settings-toggle-btn {
+          background-color: rgba(42, 42, 49, 0.94);
+          backdrop-filter: none;
+        }
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        height: 100%;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        padding-top: 0px;
+        transition: padding-top 0.3s ease;
+      }
+      @media (max-width: 600px) {
+        .container {
+          padding-top: 0px;
+        }
+      }
+
+      .card {
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin-bottom: 20px;
+        transition:
+          background 0.2s,
+          backdrop-filter 0.2s;
+        will-change: transform;
+        transform: translateZ(0);
+      }
+      @media (max-width: 600px) {
+        .card {
+          padding: 16px 20px;
+          border-radius: 12px;
+        }
+      }
+
+      .avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 12px;
+        object-fit: cover;
+        border: 3px solid rgba(0, 102, 139, 0.3);
+        margin-bottom: 15px;
+        transition: all 0.3s var(--spring-easing);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+      }
+      .avatar:hover {
+        transform: scale(1.02);
+        border-color: #00668b;
+        box-shadow: 0 6px 12px rgba(0, 102, 139, 0.15);
+      }
+      h1 {
+        margin-bottom: 8px;
+        font-weight: 650;
+        letter-spacing: -0.3px;
+      }
+      .title {
+        font-size: 1.05em;
+        opacity: 0.75;
+        font-weight: 450;
+        text-align: center;
+        margin-bottom: 16px;
+      }
+      h2 {
+        border-left: 5px solid #00668b;
+        padding-left: 16px;
+        margin-bottom: 18px;
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: -0.2px;
+      }
+      p {
+        margin-bottom: 14px;
+        line-height: 1.55;
+        text-align: justify;
+      }
+      .contact-list {
+        list-style: none;
+        padding-left: 0;
+      }
+      .contact-list li {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .contact-list strong {
+        width: 70px;
+        font-weight: 600;
+      }
+      .icon {
+        margin-right: 8px;
+        color: #00668b;
+        font-weight: bold;
+        width: auto;
+        display: inline-block;
+      }
+      a {
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border-radius: 12px;
+        padding: 4px 8px;
+      }
+      a:active {
+        transform: scale(0.98);
+        background-color: rgba(0, 102, 139, 0.1);
+      }
+      .contact-list a {
+        color: #00668b;
+      }
+      .contact-list a:hover {
+        color: #004c6b;
+      }
+      body.dark-theme .contact-list a:hover {
+        color: #d9e9f1;
+      }
+      .social-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-top: 12px;
+      }
+      .social-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        height: 48px;
+        font-weight: 550;
+        transition: all 0.2s var(--spring-easing);
+        cursor: pointer;
+        font-size: 0.9rem;
+        border-radius: 12px;
+      }
+      .social-btn i,
+      .social-btn img {
+        font-size: 22px;
+        width: 22px;
+        height: 22px;
+        transition: inherit;
+      }
+      .social-btn.pressed,
+      .settings-toggle-btn.pressed {
+        transform: scale(0.98);
+        transition: transform 0.1s var(--spring-easing);
+      }
+      .sticky-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 997;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 20px;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition:
+          transform 0.35s ease-out,
+          opacity 0.25s ease;
+        pointer-events: none;
+        border-radius: 0 0 12px 12px;
+        will-change: transform;
+      }
+      .sticky-header.show {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .sticky-header .sticky-content {
+        max-width: 800px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .sticky-header .sticky-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        object-fit: cover;
+        border: 3px solid rgba(0, 102, 139, 0.3);
+      }
+      .sticky-header .sticky-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0;
+      }
+      @media (max-width: 600px) {
+        .sticky-header {
+          padding: 6px 16px;
+          border-radius: 0 0 12px 12px;
+        }
+        .sticky-header .sticky-avatar {
+          width: 32px;
+          height: 32px;
+          border-radius: 12px;
+        }
+        .sticky-header .sticky-name {
+          font-size: 1rem;
+        }
+      }
+      .sticky-header .settings-icon {
+        margin-left: auto;
+        background: transparent;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        padding: 0;
+        border-radius: 12px;
+        color: inherit;
+      }
+      body.light-theme .sticky-header .settings-icon {
+        color: #00668b;
+      }
+      body.dark-theme .sticky-header .settings-icon {
+        color: #00668b;
+      }
+
+      .settings-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(8px);
+        background: rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.2s ease-out,
+          visibility 0.2s ease-out;
+        z-index: 998;
+      }
+      .settings-overlay.show {
+        opacity: 1;
+        visibility: visible;
+      }
+      .settings-panel {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.3);
+        width: 90%;
+        max-width: 620px;
+        height: 80vh;
+        max-height: 90vh;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          transform 0.4s var(--spring-easing),
+          opacity 0.3s ease-out,
+          visibility 0.3s ease-out;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transform-origin: center center;
+      }
+      .settings-panel.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      .settings-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px 14px 24px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        flex-shrink: 0;
+        position: relative;
+      }
+      body.dark-theme .settings-header {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+      .settings-header h3 {
+        margin: 0;
+        font-size: 1.3rem;
+        font-weight: 620;
+        letter-spacing: -0.2px;
+        cursor: default;
+        user-select: none;
+      }
+      .settings-header .dev-badge {
+        font-size: 0.7rem;
+        opacity: 0.6;
+        margin-left: 6px;
+        display: none;
+      }
+      .settings-header .dev-badge.show {
+        display: inline;
+      }
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 26px;
+        cursor: pointer;
+        line-height: 1;
+        transition: transform 0.1s ease-out;
+        border-radius: 12px;
+        padding: 0 8px;
+      }
+      .close-btn:active {
+        transform: scale(0.92);
+      }
+
+      .settings-body {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .settings-nav {
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+        padding: 14px 20px 6px 20px;
+        flex-shrink: 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        position: relative;
+        scrollbar-width: none;
+      }
+      .settings-nav::-webkit-scrollbar {
+        display: none;
+      }
+      .settings-nav-btn {
+        flex: 0 0 auto;
+        min-width: fit-content;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 12px;
+        font-size: 0.88rem;
+        font-weight: 550;
+        cursor: pointer;
+        transition: all 0.2s ease-out;
+        white-space: nowrap;
+        text-align: center;
+        letter-spacing: -0.2px;
+        position: relative;
+        z-index: 2;
+        height: 44px;
+      }
+      .settings-nav-btn.active {
+        font-weight: 650;
+        background: #00668b;
+        color: white;
+      }
+      .settings-nav .slider {
+        display: none;
+      }
+
+      .settings-content-area {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 10px 20px 20px 20px;
+        min-height: 0;
+        position: relative;
+        overscroll-behavior: contain;
+        scroll-behavior: smooth;
+      }
+      .settings-content-area::-webkit-scrollbar {
+        width: 4px;
+      }
+      .settings-content-area::-webkit-scrollbar-thumb {
+        background: #c1c1c9;
+        border-radius: 4px;
+      }
+      body.dark-theme .settings-content-area::-webkit-scrollbar-thumb {
+        background: #3a3a44;
+      }
+
+      .settings-tab-content {
+        display: none;
+        will-change: transform, opacity;
+      }
+      .settings-tab-content.active {
+        display: block;
+      }
+
+      .settings-group {
+        margin-bottom: 24px;
+        padding: 12px 16px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.02);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+      }
+      body.dark-theme .settings-group {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.05);
+      }
+      .settings-group:last-child {
+        margin-bottom: 0;
+      }
+      .settings-group h4 {
+        margin: 0 0 12px 0;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+      .theme-options {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .theme-btn {
+        padding: 8px 0;
+        font-size: 0.85rem;
+        font-weight: 500;
+        border: 1px solid #cbd5e1;
+        cursor: pointer;
+        transition: all 0.2s ease-out;
+        border-radius: 12px;
+      }
+      .font-options {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        position: relative;
+      }
+      .font-option {
+        padding: 9px 0;
+        text-align: center;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease-out;
+        border-radius: 12px;
+        position: relative;
+        z-index: 2;
+      }
+      .font-option.selected {
+        background: #00668b;
+        border-color: #00668b;
+        color: white;
+      }
+      .font-slider {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        background: #00668b;
+        border-radius: 12px;
+        z-index: 1;
+        transition:
+          transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+          width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .info-box {
+        padding: 14px 16px;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        margin-bottom: 18px;
+      }
+      .info-box p {
+        margin: 8px 0;
+        text-align: left;
+      }
+      .refresh-btn,
+      .changelog-btn {
+        width: 100%;
+        padding: 11px;
+        background: #00668b;
+        color: white;
+        border: none;
+        font-weight: 550;
+        font-size: 0.9rem;
+        margin-top: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border-radius: 12px;
+      }
+      .refresh-btn:active,
+      .changelog-btn:active {
+        transform: scale(0.98);
+      }
+      .refresh-btn:hover,
+      .changelog-btn:hover {
+        background: #004c6b;
+      }
+      .font-refresh-btn {
+        width: 100%;
+        padding: 11px;
+        background: #00668b;
+        color: white;
+        border: none;
+        font-weight: 550;
+        font-size: 0.9rem;
+        margin-top: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border-radius: 12px;
+      }
+      .font-refresh-btn:active {
+        transform: scale(0.98);
+      }
+      .font-refresh-btn:hover {
+        background: #004c6b;
+      }
+      .blink {
+        animation: blink 0.8s ease 2;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          background: #00668b;
+          color: white;
+        }
+        50% {
+          background: #ffcc00;
+          color: #000;
+        }
+      }
+
+      .perf-options {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 4px;
+      }
+      .perf-option {
+        flex: 1;
+        min-width: 60px;
+        padding: 6px 12px;
+        text-align: center;
+        border: 1px solid var(--border-color, #ccc);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 0.85rem;
+        background: transparent;
+        color: inherit;
+      }
+      .perf-option.active {
+        background: #00668b;
+        color: white;
+        border-color: #00668b;
+      }
+      body.dark-theme .perf-option {
+        border-color: #555;
+      }
+      body.dark-theme .perf-option.active {
+        border-color: #00668b;
+      }
+
+      .dev-info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 16px;
+        font-size: 0.85rem;
+      }
+      .dev-info-grid .label {
+        opacity: 0.7;
+      }
+      .dev-info-grid .value {
+        font-weight: 500;
+        word-break: break-all;
+      }
+      .dev-error-list {
+        max-height: 200px;
+        overflow-y: auto;
+        font-size: 0.8rem;
+        background: rgba(0, 0, 0, 0.04);
+        border-radius: 8px;
+        padding: 8px 12px;
+      }
+      body.dark-theme .dev-error-list {
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .dev-error-item {
+        padding: 4px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        gap: 8px;
+      }
+      body.dark-theme .dev-error-item {
+        border-bottom-color: rgba(255, 255, 255, 0.05);
+      }
+      .dev-error-item .time {
+        opacity: 0.6;
+        white-space: nowrap;
+        font-family: monospace;
+      }
+      .dev-error-item .msg {
+        word-break: break-word;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 0.75rem;
+        padding: 12px 10px 20px;
+        opacity: 0.7;
+      }
+
+      @media (min-width: 601px) {
+        .settings-panel {
+          max-width: 620px;
+          height: 70vh;
+        }
+        .settings-body {
+          flex-direction: row;
+        }
+        .settings-nav {
+          flex-direction: column;
+          gap: 4px;
+          padding: 16px 8px 16px 16px;
+          flex-shrink: 0;
+          width: 140px;
+          overflow-x: visible;
+          overflow-y: auto;
+        }
+        .settings-nav-btn {
+          text-align: left;
+          padding: 12px 14px;
+          border-radius: 12px;
+          height: auto;
+        }
+        .settings-nav .slider {
+          display: none;
+        }
+        .settings-nav-btn.active {
+          background: #00668b;
+          color: white;
+          border-left: none;
+        }
+        .settings-content-area {
+          padding: 16px 20px 20px 12px;
+          flex: 1;
+        }
+        .settings-header {
+          padding: 20px 24px 14px 24px;
+        }
+        .font-slider {
+          display: block !important;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .avatar {
+          width: 92px;
+          height: 92px;
+          border-radius: 12px;
+        }
+        .social-grid {
+          gap: 12px;
+        }
+        .social-btn {
+          height: 44px;
+          font-size: 0.8rem;
+          border-radius: 12px;
+        }
+        .contact-list li {
+          flex-wrap: wrap;
+        }
+        .settings-panel {
+          padding: 0;
+          border-radius: 12px;
+          max-width: 92vw;
+          height: 75vh;
+        }
+        .theme-btn,
+        .font-option,
+        .refresh-btn,
+        .changelog-btn,
+        .settings-toggle-btn {
+          border-radius: 12px;
+        }
+        .settings-header {
+          padding: 16px 18px 12px 18px;
+        }
+        .settings-nav {
+          padding: 10px 14px 4px 14px;
+          gap: 8px;
+        }
+        .settings-nav-btn {
+          padding: 8px 12px;
+          font-size: 0.82rem;
+          border-radius: 12px;
+          height: 40px;
+        }
+        .settings-content-area {
+          padding: 8px 16px 16px 16px;
+        }
+        .dev-info-grid {
+          grid-template-columns: 1fr;
+        }
+        .font-slider {
+          display: none !important;
+        }
+      }
+
+      .js-fade-in {
+        opacity: 0;
+        transform: translateY(6px);
+        animation: fadeUp 0.6s ease-out forwards;
+      }
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (hover: hover) {
+        .social-btn:hover,
+        .expand-btn:hover {
+          background: #004c6b;
         }
         body.dark-theme .social-btn:hover,
         body.dark-theme .expand-btn:hover {
-            background: #004c6b;
+          background: #004c6b;
         }
-        body.dark-theme .social-btn i,
-        body.dark-theme .expand-btn i {
-            color: white !important;
+        .settings-toggle-btn:hover {
+          background: rgba(0, 102, 139, 0.1);
         }
-        body.dark-theme .settings-toggle-btn {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #e6e1e5;
+        body.dark-theme .settings-toggle-btn:hover {
+          background: rgba(217, 233, 241, 0.2);
         }
-        body.dark-theme .settings-header {
-            border-bottom-color: rgba(255, 255, 255, 0.1);
-        }
-        body.dark-theme .settings-header h3 {
-            color: #00668B;
-        }
-        body.dark-theme .settings-group h4 {
-            color: #cdc6d2;
-        }
-        body.dark-theme .theme-btn {
-            background: rgba(42, 42, 49, 0.8);
-            border-color: #484856;
-            color: #e6e1e5;
-        }
-        body.dark-theme .theme-btn.active {
-            background: #00668B;
-            color: white;
-            border-color: #00668B;
-        }
-        body.dark-theme .font-option {
-            background: rgba(42, 42, 49, 0.9);
-            border: 1px solid #484856;
-            color: #e6e1e5;
-        }
-        body.dark-theme .font-option.selected {
-            background: #00668B;
-            color: white;
-            border-color: #00668B;
-        }
-        body.dark-theme .info-box {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: #2f2e38;
-            color: #cfc9d4;
-        }
-        body.dark-theme .close-btn {
-            color: #9e9aa8;
-        }
-        body.dark-theme .close-btn:hover {
-            color: #f1f1f5;
-        }
-        body.dark-theme .contact-list li {
-            color: #e6e1e5;
-        }
-        body.dark-theme footer,
-        body.dark-theme footer div,
-        body.dark-theme footer p {
-            color: #9e9aa8 !important;
-        }
-        body.dark-theme .settings-nav-btn {
-            color: #b7b2bd;
-            background: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        body.dark-theme .settings-nav-btn:hover {
-            background: rgba(42, 42, 51, 0.9);
-            color: #e6e1e5;
-        }
-        body.dark-theme .settings-nav-btn.active {
-            background: var(--tab-active-bg);
-            color: var(--text);
-        }
-        body.dark-theme .font-slider {
-            background: #00668B;
-        }
+      }
 
-        @supports not (backdrop-filter: blur(1px)) {
-            body.light-theme .card,
-            body.light-theme .settings-panel {
-                background-color: rgba(255, 255, 255, 0.88);
-                backdrop-filter: none;
-            }
-            body.light-theme .sticky-header {
-                background-color: rgba(255, 255, 255, 0.92);
-                backdrop-filter: none;
-            }
-            body.light-theme .social-btn,
-            body.light-theme .expand-btn {
-                background-color: #00668B;
-                backdrop-filter: none;
-            }
-            body.light-theme .settings-toggle-btn {
-                background-color: rgba(245, 245, 247, 0.92);
-                backdrop-filter: none;
-            }
-            body.dark-theme .card,
-            body.dark-theme .settings-panel {
-                background-color: rgba(28, 27, 32, 0.92);
-                backdrop-filter: none;
-            }
-            body.dark-theme .sticky-header {
-                background-color: rgba(18, 18, 24, 0.94);
-                backdrop-filter: none;
-            }
-            body.dark-theme .social-btn,
-            body.dark-theme .expand-btn {
-                background-color: #00668B;
-                backdrop-filter: none;
-            }
-            body.dark-theme .settings-toggle-btn {
-                background-color: rgba(42, 42, 49, 0.94);
-                backdrop-filter: none;
-            }
-        }
+      .project-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0px;
+        margin-top: 16px;
+      }
+      .project-card {
+        padding: 16px;
+        border-radius: 12px;
+        background: rgba(0, 102, 139, 0.06);
+        transition:
+          max-height 0.45s var(--spring-easing),
+          opacity 0.4s ease,
+          transform 0.4s var(--spring-easing),
+          margin 0.4s ease;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-10px);
+        display: block !important;
+        margin-bottom: 0px;
+      }
+      .project-grid.expanded .project-card {
+        max-height: 400px;
+        opacity: 1;
+        transform: translateY(0);
+        margin-bottom: 12px;
+      }
+      .project-grid .project-card:first-child {
+        max-height: 400px;
+        opacity: 1;
+        transform: translateY(0);
+        margin-bottom: 12px;
+      }
+      body.dark-theme .project-card {
+        background: rgba(0, 102, 139, 0.15);
+      }
+      .project-card h3 {
+        margin: 0 0 8px 0;
+        font-size: 1.2rem;
+      }
+      .project-tech {
+        font-size: 0.8rem;
+        opacity: 0.7;
+        font-family: monospace;
+        margin: 8px 0 12px;
+      }
+      .project-link {
+        color: #00668b;
+        font-weight: 500;
+      }
+      .expand-btn {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+        border: none;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        font-weight: 550;
+        cursor: pointer;
+        transition: all 0.2s var(--spring-easing);
+        margin-top: 4px;
+        text-align: center;
+        color: white;
+      }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0;
-            background: transparent;
-            box-shadow: none;
-            border-radius: 0;
-            height: 100%;
-            overflow-y: auto;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
+      .separator {
+        margin: 20px 0;
+        border: 0;
+        height: 1px;
+        background: rgba(0, 102, 139, 0.2);
+      }
+      body.dark-theme .separator {
+        background: rgba(0, 102, 139, 0.3);
+      }
 
-        .card {
-            border-radius: 12px;
-            padding: 20px 24px;
-            margin-bottom: 20px;
-            transition: background 0.2s, backdrop-filter 0.2s;
-            will-change: transform;
-            transform: translateZ(0);
-        }
-        @media (max-width: 600px) {
-            .card {
-                padding: 16px 20px;
-                border-radius: 12px;
-            }
-        }
+      .video-container {
+        width: 100%;
+        height: auto;
+        margin-bottom: 8px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.05);
+        aspect-ratio: 16 / 9;
+        max-height: 200px;
+      }
+      .video-container iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+      }
+      .video-info h3 {
+        margin: 0 0 4px 0;
+        font-size: 1.1rem;
+      }
+      .video-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 4px;
+        font-size: 0.75rem;
+        color: #6c6e7a;
+      }
+      body.dark-theme .video-meta {
+        color: #b0b0bc;
+      }
+      .stats {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .stats i {
+        margin-right: 3px;
+      }
+      .bvid-display {
+        font-size: 0.65rem;
+        color: #888;
+        margin: 2px 0 8px;
+        font-family: monospace;
+      }
+      body.dark-theme .bvid-display {
+        color: #aaa;
+      }
+      .bili-link {
+        display: inline-block;
+        margin-top: 2px;
+        padding: 4px 14px;
+        background: #00668b;
+        color: white;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        transition: background 0.2s;
+      }
+      .bili-link:hover {
+        background: #004c6b;
+      }
+      body.dark-theme .bili-link {
+        background: #00668b;
+      }
 
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 12px;
-            object-fit: cover;
-            border: 3px solid rgba(0, 102, 139, 0.3);
-            margin-bottom: 15px;
-            transition: all 0.3s var(--spring-easing);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+      .hourglass-loader {
+        display: inline-block;
+        animation: spin 2s linear infinite;
+        font-size: 2rem;
+        color: var(--text);
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
-        .avatar:hover {
-            transform: scale(1.02);
-            border-color: #00668B;
-            box-shadow: 0 6px 12px rgba(0, 102, 139, 0.15);
-        }
-        h1 {
-            margin-bottom: 8px;
-            font-weight: 650;
-            letter-spacing: -0.3px;
-        }
-        .title {
-            font-size: 1.05em;
-            opacity: 0.75;
-            font-weight: 450;
-            text-align: center;
-            margin-bottom: 16px;
-        }
-        h2 {
-            border-left: 5px solid #00668B;
-            padding-left: 16px;
-            margin-bottom: 18px;
-            font-size: 1.35rem;
-            font-weight: 600;
-            letter-spacing: -0.2px;
-        }
-        p {
-            margin-bottom: 14px;
-            line-height: 1.55;
-            text-align: justify;
-        }
-        .contact-list {
-            list-style: none;
-            padding-left: 0;
-        }
-        .contact-list li {
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        .contact-list strong {
-            width: 70px;
-            font-weight: 600;
-        }
-        .icon {
-            margin-right: 8px;
-            color: #00668B;
-            font-weight: bold;
-            width: auto;
-            display: inline-block;
-        }
-        a {
-            text-decoration: none;
-            transition: all 0.2s ease;
-            border-radius: 12px;
-            padding: 4px 8px;
-        }
-        a:active {
-            transform: scale(0.98);
-            background-color: rgba(0, 102, 139, 0.1);
-        }
-        .contact-list a {
-            color: #00668B;
-        }
-        .contact-list a:hover {
-            color: #004c6b;
-        }
-        body.dark-theme .contact-list a:hover {
-            color: #D9E9F1;
-        }
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            margin-top: 12px;
-        }
-        .social-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            height: 48px;
-            font-weight: 550;
-            transition: all 0.2s var(--spring-easing);
-            cursor: pointer;
-            font-size: 0.9rem;
-            border-radius: 12px;
-        }
-        .social-btn i,
-        .social-btn img {
-            font-size: 22px;
-            width: 22px;
-            height: 22px;
-            transition: inherit;
-        }
-        .social-btn.pressed,
-        .settings-toggle-btn.pressed {
-            transform: scale(0.98);
-            transition: transform 0.1s var(--spring-easing);
-        }
-        .sticky-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 997;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px 20px;
-            transform: translateY(-100%);
-            opacity: 0;
-            transition: transform 0.35s ease-out, opacity 0.25s ease;
-            pointer-events: none;
-            border-radius: 0 0 12px 12px;
-            will-change: transform;
-        }
-        .sticky-header.show {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .sticky-header .sticky-content {
-            max-width: 800px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .sticky-header .sticky-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            object-fit: cover;
-            border: 3px solid rgba(0, 102, 139, 0.3);
-        }
-        .sticky-header .sticky-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin: 0;
-        }
-        @media (max-width: 600px) {
-            .sticky-header {
-                padding: 6px 16px;
-                border-radius: 0 0 12px 12px;
-            }
-            .sticky-header .sticky-avatar {
-                width: 32px;
-                height: 32px;
-                border-radius: 12px;
-            }
-            .sticky-header .sticky-name {
-                font-size: 1rem;
-            }
-        }
-        .sticky-header .settings-icon {
-            margin-left: auto;
-            background: transparent;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            padding: 0;
-            border-radius: 12px;
-            color: inherit;
-        }
-        body.light-theme .sticky-header .settings-icon {
-            color: #00668B;
-        }
-        body.dark-theme .sticky-header .settings-icon {
-            color: #00668B;
-        }
+      }
+      .loader-center {
+        text-align: center;
+        padding: 20px 0;
+      }
+      .video-error-container {
+        text-align: center;
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+      .video-error-container .video-retry-btn {
+        margin-top: 0;
+        padding: 8px 20px;
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background 0.2s;
+        display: inline-block;
+      }
 
-        .settings-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(8px);
-            background: rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
-            z-index: 998;
-        }
-        .settings-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .settings-panel {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.3);
-            width: 90%;
-            max-width: 620px;
-            height: 80vh;
-            max-height: 90vh;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: transform 0.4s var(--spring-easing), opacity 0.3s ease-out, visibility 0.3s ease-out;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transform-origin: center center;
-        }
-        .settings-panel.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translate(-50%, -50%) scale(1);
-        }
-        .settings-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 24px 14px 24px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            flex-shrink: 0;
-        }
-        body.dark-theme .settings-header {
-            border-bottom-color: rgba(255, 255, 255, 0.1);
-        }
-        .settings-header h3 {
-            margin: 0;
-            font-size: 1.3rem;
-            font-weight: 620;
-            letter-spacing: -0.2px;
-        }
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 26px;
-            cursor: pointer;
-            line-height: 1;
-            transition: transform 0.1s ease-out;
-            border-radius: 12px;
-            padding: 0 8px;
-        }
-        .close-btn:active {
-            transform: scale(0.92);
-        }
+      .perf-clear .card,
+      .perf-clear .settings-panel,
+      .perf-clear .sticky-header {
+        transition-duration: 0.15s !important;
+      }
+      .perf-clear .social-btn,
+      .perf-clear .expand-btn,
+      .perf-clear .video-retry-btn {
+        transition-duration: 0.15s !important;
+      }
+      .perf-clear .project-card {
+        transition-duration: 0.3s !important;
+      }
 
-        .settings-body {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            min-height: 0;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .settings-nav {
-            display: flex;
-            flex-direction: row;
-            gap: 6px;
-            padding: 14px 20px 6px 20px;
-            flex-shrink: 0;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            position: relative;
-        }
-        .settings-nav::-webkit-scrollbar {
-            display: none;
-        }
-        .settings-nav-btn {
-            flex: 1 0 auto;
-            min-width: fit-content;
-            padding: 10px 16px;
-            border: none;
-            border-radius: 12px;
-            font-size: 0.88rem;
-            font-weight: 550;
-            cursor: pointer;
-            transition: all 0.2s ease-out;
-            white-space: nowrap;
-            text-align: center;
-            letter-spacing: -0.2px;
-            position: relative;
-            z-index: 2;
-            height: 44px;
-        }
-        .settings-nav-btn.active {
-            font-weight: 650;
-            color: var(--text);
-        }
-        .settings-nav .slider {
-            position: absolute;
-            bottom: 6px;
-            height: 32px;
-            background: var(--tab-active-bg);
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            z-index: 1;
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        body.dark-theme .settings-nav .slider {
-            background: #2a2932;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .settings-content-area {
-            flex: 1;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding: 10px 20px 20px 20px;
-            min-height: 0;
-            position: relative;
-            overscroll-behavior: contain;
-            scroll-behavior: smooth;
-        }
-        .settings-content-area::-webkit-scrollbar {
-            width: 4px;
-        }
-        .settings-content-area::-webkit-scrollbar-thumb {
-            background: #c1c1c9;
-            border-radius: 4px;
-        }
-        body.dark-theme .settings-content-area::-webkit-scrollbar-thumb {
-            background: #3a3a44;
-        }
-
-        .settings-tab-content {
-            display: none;
-            will-change: transform, opacity;
-        }
-        .settings-tab-content.active {
-            display: block;
-        }
-
-        .settings-group {
-            margin-bottom: 24px;
-        }
-        .settings-group:last-child {
-            margin-bottom: 0;
-        }
-        .settings-group h4 {
-            margin: 0 0 12px 0;
-            font-size: 1rem;
-            font-weight: 600;
-        }
-        .theme-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-        .theme-btn {
-            padding: 8px 0;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border: 1px solid #cbd5e1;
-            cursor: pointer;
-            transition: all 0.2s ease-out;
-            border-radius: 12px;
-        }
-        .font-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            position: relative;
-        }
-        .font-option {
-            padding: 9px 0;
-            text-align: center;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease-out;
-            border-radius: 12px;
-            position: relative;
-            z-index: 2;
-        }
-        .font-option.selected {
-            background: #00668B;
-            border-color: #00668B;
-            color: white;
-        }
-        .font-slider {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            background: #00668B;
-            border-radius: 12px;
-            z-index: 1;
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .info-box {
-            padding: 14px 16px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            margin-bottom: 18px;
-        }
-        .info-box p {
-            margin: 8px 0;
-            text-align: left;
-        }
-        .refresh-btn,
-        .changelog-btn {
-            width: 100%;
-            padding: 11px;
-            background: #00668B;
-            color: white;
-            border: none;
-            font-weight: 550;
-            font-size: 0.9rem;
-            margin-top: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            border-radius: 12px;
-        }
-        .refresh-btn:active,
-        .changelog-btn:active {
-            transform: scale(0.98);
-        }
-        .refresh-btn:hover,
-        .changelog-btn:hover {
-            background: #004c6b;
-        }
-        .font-refresh-btn {
-            width: 100%;
-            padding: 11px;
-            background: #00668B;
-            color: white;
-            border: none;
-            font-weight: 550;
-            font-size: 0.9rem;
-            margin-top: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            border-radius: 12px;
-        }
-        .font-refresh-btn:active {
-            transform: scale(0.98);
-        }
-        .font-refresh-btn:hover {
-            background: #004c6b;
-        }
-        .blink {
-            animation: blink 0.8s ease 2;
-        }
-        @keyframes blink {
-            0%, 100% { background: #00668B; color: white; }
-            50% { background: #ffcc00; color: #000; }
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.75rem;
-            padding: 12px 10px 20px;
-            opacity: 0.7;
-        }
-
-        @media (min-width: 601px) {
-            .settings-panel {
-                max-width: 620px;
-                height: 70vh;
-            }
-            .settings-body {
-                flex-direction: row;
-            }
-            .settings-nav {
-                flex-direction: column;
-                gap: 4px;
-                padding: 16px 8px 16px 16px;
-                flex-shrink: 0;
-                width: 140px;
-                overflow-x: visible;
-                overflow-y: auto;
-            }
-            .settings-nav-btn {
-                text-align: left;
-                padding: 12px 14px;
-                border-radius: 12px;
-                height: auto;
-            }
-            .settings-nav .slider {
-                display: none;
-            }
-            .settings-nav-btn.active {
-                background: var(--tab-active-bg);
-                color: var(--text);
-                border-left: 3px solid #00668B;
-            }
-            body.dark-theme .settings-nav-btn.active {
-                background: #2a2932;
-                color: #e6e1e5;
-                border-left-color: #00668B;
-            }
-            .settings-content-area {
-                padding: 16px 20px 20px 12px;
-                flex: 1;
-            }
-            .settings-header {
-                padding: 20px 24px 14px 24px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .avatar {
-                width: 92px;
-                height: 92px;
-                border-radius: 12px;
-            }
-            .social-grid {
-                gap: 12px;
-            }
-            .social-btn {
-                height: 44px;
-                font-size: 0.8rem;
-                border-radius: 12px;
-            }
-            .contact-list li {
-                flex-wrap: wrap;
-            }
-            .settings-panel {
-                padding: 0;
-                border-radius: 12px;
-                max-width: 92vw;
-                height: 75vh;
-            }
-            .theme-btn,
-            .font-option,
-            .refresh-btn,
-            .changelog-btn,
-            .settings-toggle-btn {
-                border-radius: 12px;
-            }
-            .settings-header {
-                padding: 16px 18px 12px 18px;
-            }
-            .settings-nav {
-                padding: 10px 14px 4px 14px;
-                gap: 8px;
-            }
-            .settings-nav-btn {
-                padding: 8px 12px;
-                font-size: 0.82rem;
-                border-radius: 12px;
-                height: 40px;
-            }
-            .settings-content-area {
-                padding: 8px 16px 16px 16px;
-            }
-        }
-
-        .js-fade-in {
-            opacity: 0;
-            transform: translateY(6px);
-            animation: fadeUp 0.6s ease-out forwards;
-        }
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @media (hover: hover) {
-            .social-btn:hover,
-            .expand-btn:hover {
-                background: #004c6b;
-            }
-            body.dark-theme .social-btn:hover,
-            body.dark-theme .expand-btn:hover {
-                background: #004c6b;
-            }
-            .settings-toggle-btn:hover {
-                background: rgba(0, 102, 139, 0.1);
-            }
-            body.dark-theme .settings-toggle-btn:hover {
-                background: rgba(217, 233, 241, 0.2);
-            }
-        }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            margin-top: 16px;
-        }
-        .project-card {
-            padding: 16px;
-            border-radius: 12px;
-            background: rgba(0, 102, 139, 0.06);
-            transition: max-height 0.5s var(--spring-easing), opacity 0.4s ease, transform 0.4s var(--spring-easing);
-            overflow: hidden;
-            max-height: 0;
-            opacity: 0;
-            transform: translateY(10px);
-            display: block !important;
-        }
-        .project-grid.expanded .project-card {
-            max-height: 400px;
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .project-grid .project-card:first-child {
-            max-height: 400px;
-            opacity: 1;
-            transform: translateY(0);
-        }
-        body.dark-theme .project-card {
-            background: rgba(0, 102, 139, 0.15);
-        }
-        .project-card h3 {
-            margin: 0 0 8px 0;
-            font-size: 1.2rem;
-        }
-        .project-tech {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            font-family: monospace;
-            margin: 8px 0 12px;
-        }
-        .project-link {
-            color: #00668B;
-            font-weight: 500;
-        }
-        .expand-btn {
-            display: block;
-            width: 100%;
-            padding: 10px 0;
-            border: none;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 550;
-            cursor: pointer;
-            transition: all 0.2s var(--spring-easing);
-            margin-top: 12px;
-            text-align: center;
-            color: white;
-        }
-
-        .separator {
-            margin: 20px 0;
-            border: 0;
-            height: 1px;
-            background: rgba(0, 102, 139, 0.2);
-        }
-        body.dark-theme .separator {
-            background: rgba(0, 102, 139, 0.3);
-        }
-
-        .video-container {
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            background: rgba(0,0,0,0.05);
-            aspect-ratio: 16 / 9;
-        }
-        .video-container iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            display: block;
-        }
-        .video-info h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.25rem;
-        }
-        .video-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-            color: #6c6e7a;
-        }
-        body.dark-theme .video-meta {
-            color: #b0b0bc;
-        }
-        .stats {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-        .stats i {
-            margin-right: 4px;
-        }
-        .bvid-display {
-            font-size: 0.75rem;
-            color: #888;
-            margin: 8px 0 12px;
-            font-family: monospace;
-        }
-        body.dark-theme .bvid-display {
-            color: #aaa;
-        }
-        .bili-link {
-            display: inline-block;
-            margin-top: 8px;
-            padding: 8px 18px;
-            background: #00668B;
-            color: white;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            transition: background 0.2s;
-        }
-        .bili-link:hover {
-            background: #004c6b;
-        }
-        body.dark-theme .bili-link {
-            background: #00668B;
-        }
-
-        .hourglass-loader {
-            display: inline-block;
-            animation: spin 2s linear infinite;
-            font-size: 2rem;
-            color: var(--text);
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .loader-center {
-            text-align: center;
-            padding: 20px 0;
-        }
+      .perf-jagged .card,
+      .perf-jagged .settings-panel,
+      .perf-jagged .sticky-header {
+        transition-duration: 0s !important;
+        box-shadow: none !important;
+      }
+      .perf-jagged .social-btn,
+      .perf-jagged .expand-btn,
+      .perf-jagged .video-retry-btn {
+        transition-duration: 0s !important;
+        box-shadow: none !important;
+      }
+      .perf-jagged .project-card {
+        transition-duration: 0s !important;
+        box-shadow: none !important;
+      }
+      .perf-jagged .avatar {
+        transition-duration: 0s !important;
+        box-shadow: none !important;
+      }
+      .perf-jagged .bili-link {
+        transition-duration: 0s !important;
+      }
+      .perf-jagged .settings-nav-btn {
+        transition-duration: 0s !important;
+      }
+      .perf-jagged .font-option {
+        transition-duration: 0s !important;
+      }
+      .perf-jagged .font-slider {
+        transition-duration: 0s !important;
+      }
+      .perf-jagged .theme-btn {
+        transition-duration: 0s !important;
+      }
+      .perf-jagged .refresh-btn,
+      .perf-jagged .changelog-btn {
+        transition-duration: 0s !important;
+      }
+      .perf-jagged .font-refresh-btn {
+        transition-duration: 0s !important;
+      }
+      .perf-jagged a {
+        transition-duration: 0s !important;
+      }
     </style>
-</head>
-<body class="light-theme">
+  </head>
+  <body class="light-theme">
     <div class="sticky-header" id="stickyHeader">
-        <div class="sticky-content">
-            <img src="Picture/profile.jpg" alt="" class="sticky-avatar">
-            <span class="sticky-name">旅冬亦</span>
-            <button id="stickySettingsBtn" class="settings-icon"><i class="fas fa-cog"></i></button>
-        </div>
+      <div class="sticky-content">
+        <img src="Picture/profile.jpg" alt="" class="sticky-avatar" />
+        <span class="sticky-name">旅冬亦</span>
+        <button id="stickySettingsBtn" class="settings-icon">
+          <i class="fas fa-cog"></i>
+        </button>
+      </div>
     </div>
 
-    <div class="container js-fade-in">
-        <div class="card" id="profileCard">
-            <div style="text-align: center;">
-                <img src="Picture/profile.jpg" alt="" class="avatar">
-                <h1>旅冬亦</h1>
-                <p class="title">半匹红纱一丈绫华</p>
-            </div>
-            <p>你好！我是<strong>旅冬亦</strong>。网站正在<strong>测试</strong>中</p>
+    <div class="container js-fade-in" id="mainContainer">
+      <div class="card" id="profileCard">
+        <div style="text-align: center">
+          <img src="Picture/profile.jpg" alt="" class="avatar" />
+          <h1>旅冬亦</h1>
+          <p class="title">半匹红纱一丈绫华</p>
         </div>
+        <p>
+          你好！我是<strong>旅冬亦</strong>。网站正在<strong>测试</strong>中
+        </p>
+      </div>
 
-        <div class="card" id="projects-card">
-            <h2>📁 作品展示</h2>
-            <div class="project-grid" id="projects-container"></div>
-            <button class="expand-btn" id="expandBtn">展开全部</button>
+      <div class="card" id="projects-card">
+        <h2>📁 作品展示</h2>
+        <div class="project-grid" id="projects-container"></div>
+        <button class="expand-btn" id="expandBtn">展开全部</button>
+      </div>
+
+      <div class="card" id="featured-video-card"></div>
+
+      <div class="card">
+        <h2>📞 联系方式</h2>
+        <ul class="contact-list">
+          <li>
+            <span class="icon">📧</span> 邮箱: 请通过社交媒体或 GitHub 联系
+          </li>
+          <li>
+            <span class="icon">📱</span> 电话: 请通过社交媒体或 GitHub 联系
+          </li>
+          <li>
+            <span class="icon">💻</span> 仓库:
+            <a href="https://github.com/ldy2330785100" target="_blank"
+              >https://github.com/ldy2330785100</a
+            >
+          </li>
+          <li>
+            <span class="icon">🌐</span> 网站:
+            <a href="https://ldy2330785100.github.io/ldy/" target="_blank"
+              >https://ldy2330785100.github.io/ldy</a
+            >
+          </li>
+          <li><span class="icon">🏢</span> 国家: 中国</li>
+        </ul>
+
+        <hr class="separator" />
+
+        <h2>📱 社交媒体</h2>
+        <div class="social-grid">
+          <a
+            href="https://github.com/ldy2330785100"
+            class="social-btn"
+            target="_blank"
+            ><img src="icon/GitHub.png" alt="" /> GitHub</a
+          >
+          <a href="#" class="social-btn wechat-qq" data-type="wechat"
+            ><img src="icon/WeChat.png" alt="" /> 微信</a
+          >
+          <a href="#" class="social-btn wechat-qq" data-type="qq"
+            ><img src="icon/QQ.png" alt="" /> QQ</a
+          >
+          <a href="https://b23.tv/085t3Ls" class="social-btn" target="_blank"
+            ><img src="icon/bilibili.png" alt="" /> BiliBili</a
+          >
+          <a
+            href="https://m.douyin.com/share/user/MS4wLjABAAAAlRVshehQoPfD1iLNuyq_lnTXK-BZwTqL6ufkQPEWBtYUepkNvIKtBPNWHQ5pMFer"
+            class="social-btn"
+            target="_blank"
+            ><img src="icon/douyin.png" alt="" /> 抖音</a
+          >
+          <a
+            href="https://v.kuaishou.com/JVGv8Fkx"
+            class="social-btn"
+            target="_blank"
+            ><img src="icon/kuaishou.png" alt="" /> 快手</a
+          >
         </div>
+      </div>
 
-        <div class="card" id="featured-video-card"></div>
-
-        <div class="card">
-            <h2>📞 联系方式</h2>
-            <ul class="contact-list">
-                <li><span class="icon">📧</span> 邮箱: 请通过社交媒体或 GitHub 联系</li>
-                <li><span class="icon">📱</span> 电话: 请通过社交媒体或 GitHub 联系</li>
-                <li><span class="icon">💻</span> 仓库: <a href="https://github.com/ldy2330785100" target="_blank">https://github.com/ldy2330785100</a></li>
-                <li><span class="icon">🌐</span> 网站: <a href="https://ldy2330785100.github.io/ldy/" target="_blank">https://ldy2330785100.github.io/ldy</a></li>
-                <li><span class="icon">🏢</span> 国家: 中国</li>
-            </ul>
-
-            <hr class="separator">
-
-            <h2>📱 社交媒体</h2>
-            <div class="social-grid">
-                <a href="https://github.com/ldy2330785100" class="social-btn" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                <a href="#" class="social-btn wechat-qq" data-type="wechat"><i class="fab fa-weixin"></i> 微信</a>
-                <a href="#" class="social-btn wechat-qq" data-type="qq"><i class="fab fa-qq"></i> QQ</a>
-                <a href="https://b23.tv/085t3Ls" class="social-btn" target="_blank"><i class="fab fa-bilibili"></i> Bilibili</a>
-                <a href="https://m.douyin.com/share/user/MS4wLjABAAAAlRVshehQoPfD1iLNuyq_lnTXK-BZwTqL6ufkQPEWBtYUepkNvIKtBPNWHQ5pMFer" class="social-btn" target="_blank"><i class="fab fa-tiktok"></i> 抖音</a>
-                <a href="https://v.kuaishou.com/JVGv8Fkx" class="social-btn" target="_blank"><img src="icon/kuaishou.png" alt="" style="width:22px;height:22px;"> 快手</a>
-            </div>
+      <footer>
+        <div>
+          © <span id="current-year"></span>
+          <a
+            href="https://github.com/ldy2330785100/"
+            target="_blank"
+            style="text-decoration: none; color: inherit"
+            >旅冬亦</a
+          >
+          版权所有
         </div>
-
-        <footer>
-            <div>© <span id="current-year"></span> <a href="https://github.com/ldy2330785100/" target="_blank" style="text-decoration: none; color: inherit;">旅冬亦</a> 版权所有</div>
-        </footer>
+      </footer>
     </div>
 
     <div id="settingsOverlay" class="settings-overlay"></div>
     <div id="settingsPanel" class="settings-panel">
-        <div class="settings-header">
-            <h3>⚙️ 设置</h3>
-            <button id="closeSettings" class="close-btn">×</button>
+      <div class="settings-header">
+        <h3 id="settingsTitle">⚙️ 设置 <span class="dev-badge" id="devBadge">🔓</span></h3>
+        <button id="closeSettings" class="close-btn">×</button>
+      </div>
+      <div class="settings-body">
+        <div class="settings-nav" id="settingsNav">
+          <button class="settings-nav-btn active" data-tab="appearance">
+            🎨 显示
+          </button>
+          <button class="settings-nav-btn" data-tab="info">ℹ️ 信息</button>
+          <button class="settings-nav-btn" data-tab="performance">
+            ⚡ 性能
+          </button>
+          <span class="slider" id="slider"></span>
         </div>
-        <div class="settings-body">
-            <div class="settings-nav" id="settingsNav">
-                <button class="settings-nav-btn active" data-tab="appearance">🎨 显示</button>
-                <button class="settings-nav-btn" data-tab="info">ℹ️ 信息</button>
-                <button class="settings-nav-btn" data-tab="performance">⚡ 性能</button>
-                <span class="slider" id="slider"></span>
+        <div class="settings-content-area" id="settingsContentArea">
+          <div class="settings-tab-content active" id="tab-appearance">
+            <div class="settings-group">
+              <h4>🌓 深浅色模式</h4>
+              <div class="theme-options">
+                <button class="theme-btn" data-theme="auto">自动</button>
+                <button class="theme-btn" data-theme="light">浅色</button>
+                <button class="theme-btn" data-theme="dark">深色</button>
+              </div>
             </div>
-            <div class="settings-content-area" id="settingsContentArea">
-                <div class="settings-tab-content active" id="tab-appearance">
-                    <div class="settings-group">
-                        <h4>🌓 深浅色模式</h4>
-                        <div class="theme-options">
-                            <button class="theme-btn" data-theme="auto">自动</button>
-                            <button class="theme-btn" data-theme="light">浅色</button>
-                            <button class="theme-btn" data-theme="dark">深色</button>
-                        </div>
-                    </div>
-                    <div class="settings-group">
-                        <h4>✒️ 字体选择</h4>
-                        <div class="font-options" id="fontOptionsInPanel">
-                            <div class="font-option selected" data-font="system">系统默认</div>
-                            <div class="font-option" data-font="font3">HarmonyOS Sans</div>
-                            <div class="font-option" data-font="font1">MiSans</div>
-                            <div class="font-option" data-font="font2">小米兰亭</div>
-                            <div class="font-option" data-font="font5">汉仪文黑</div>
-                            <div class="font-option" data-font="font6">汉仪旗黑</div>
-                            <div class="font-option" data-font="font4">OPPO Sans</div>
-                            <span class="font-slider" id="fontSlider"></span>
-                        </div>
-                        <button id="fontRefreshBtn" class="font-refresh-btn">🔄 刷新</button>
-                    </div>
+            <div class="settings-group">
+              <h4>✒️ 字体选择</h4>
+              <div class="font-options" id="fontOptionsInPanel">
+                <div class="font-option selected" data-font="system">
+                  系统默认
                 </div>
-                <div class="settings-tab-content" id="tab-info">
-                    <div class="settings-group">
-                        <h4>ℹ️ 状态信息</h4>
-                        <div class="info-box">
-                            <p>🕒 当前时间: <span id="panel-current-time"></span></p>
-                            <p>📅 最后更新: <span id="panel-last-modified"></span></p>
-                            <p>⏳ 站点运行: <span id="uptime"></span></p>
-                        </div>
-                        <button id="refreshPageBtn" class="refresh-btn">🔄 刷新页面</button>
-                        <button id="gotoChangelog" class="changelog-btn">📋 更新日志</button>
-                    </div>
-                </div>
-                <div class="settings-tab-content" id="tab-performance">
-                    <p>性能选项即将上线…</p>
-                </div>
+                <div class="font-option" data-font="font3">HarmonyOS Sans</div>
+                <div class="font-option" data-font="font1">MiSans</div>
+                <div class="font-option" data-font="font2">小米兰亭</div>
+                <div class="font-option" data-font="font5">汉仪文黑</div>
+                <div class="font-option" data-font="font6">汉仪旗黑</div>
+                <div class="font-option" data-font="font4">OPPO Sans</div>
+                <span class="font-slider" id="fontSlider"></span>
+              </div>
+              <button id="fontRefreshBtn" class="font-refresh-btn">
+                🔄 刷新
+              </button>
             </div>
+          </div>
+          <div class="settings-tab-content" id="tab-info">
+            <div class="settings-group">
+              <h4>ℹ️ 状态信息</h4>
+              <div class="info-box">
+                <p>🕒 当前时间: <span id="panel-current-time"></span></p>
+                <p>📅 最后更新: <span id="panel-last-modified"></span></p>
+                <p>⏳ 站点运行: <span id="uptime"></span></p>
+              </div>
+              <button id="refreshPageBtn" class="refresh-btn">
+                🔄 刷新页面
+              </button>
+              <button id="gotoChangelog" class="changelog-btn">
+                📋 更新日志
+              </button>
+            </div>
+          </div>
+          <div class="settings-tab-content" id="tab-performance">
+            <div class="settings-group">
+              <h4>🎬 动画效果</h4>
+              <div class="perf-options" id="renderQuality">
+                <span class="perf-option" data-value="jagged">简洁</span>
+                <span class="perf-option" data-value="clear">平衡</span>
+                <span class="perf-option" data-value="fine">优雅</span>
+              </div>
+            </div>
+            <div class="settings-group">
+              <h4>👁️ 视觉效果</h4>
+              <div class="perf-options" id="visualEffect">
+                <span class="perf-option" data-value="blur">模糊</span>
+                <span class="perf-option" data-value="standard">标准</span>
+                <span class="perf-option" data-value="transparent">通透</span>
+              </div>
+            </div>
+            <div class="settings-group">
+              <h4>📌 顶栏状态</h4>
+              <div class="perf-options" id="headerBehavior">
+                <span class="perf-option" data-value="always">保持常驻</span>
+                <span class="perf-option" data-value="auto">自动隐藏</span>
+              </div>
+            </div>
+            <div class="settings-group">
+              <h4>📳 振动反馈</h4>
+              <div class="perf-options" id="vibrationFeedback">
+                <span class="perf-option" data-value="on">开启</span>
+                <span class="perf-option" data-value="off">关闭</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
     <footer>
-        <div>© <span id="current-year"></span> <a href="https://github.com/ldy2330785100/" target="_blank" style="text-decoration: none; color: inherit;">旅冬亦</a> 版权所有</div>
+      <div>
+        © <span id="current-year"></span>
+        <a
+          href="https://github.com/ldy2330785100/"
+          target="_blank"
+          style="text-decoration: none; color: inherit"
+          >旅冬亦</a
+        >
+        版权所有
+      </div>
     </footer>
 
-<script>
-(function() {
-    const settingsOverlay = document.getElementById('settingsOverlay');
-    const settingsPanel = document.getElementById('settingsPanel');
-    const closeSettingsBtn = document.getElementById('closeSettings');
-    const stickySettingsBtn = document.getElementById('stickySettingsBtn');
+    <script>
+      (function () {
+        const settingsOverlay = document.getElementById("settingsOverlay");
+        const settingsPanel = document.getElementById("settingsPanel");
+        const closeSettingsBtn = document.getElementById("closeSettings");
+        const stickySettingsBtn = document.getElementById("stickySettingsBtn");
 
-    let animating = false;
+        let animating = false;
 
-    function openSettings() {
-        if (animating) return;
-        animating = true;
-        const btnRect = stickySettingsBtn.getBoundingClientRect();
-        const panelRect = settingsPanel.getBoundingClientRect();
-        const originX = btnRect.left + btnRect.width/2;
-        const originY = btnRect.top + btnRect.height/2;
-        settingsPanel.style.transformOrigin = originX + 'px ' + originY + 'px';
-        settingsPanel.style.transform = 'translate(-50%, -50%) scale(0.3)';
-        settingsPanel.style.opacity = '0';
-        settingsPanel.style.visibility = 'visible';
-        settingsOverlay.classList.add('show');
-        requestAnimationFrame(function() {
-            settingsPanel.classList.add('show');
-            settingsPanel.style.transform = 'translate(-50%, -50%) scale(1)';
-            settingsPanel.style.opacity = '1';
-            document.body.style.overflow = 'hidden';
-            setTimeout(function() { animating = false; }, 400);
-        });
-        updateSlider();
-    }
-
-    function closeSettings() {
-        if (animating) return;
-        animating = true;
-        settingsPanel.classList.remove('show');
-        settingsPanel.style.transform = 'translate(-50%, -50%) scale(0.3)';
-        settingsPanel.style.opacity = '0';
-        settingsOverlay.classList.remove('show');
-        document.body.style.overflow = '';
-        setTimeout(function() {
-            settingsPanel.style.visibility = 'hidden';
-            animating = false;
-        }, 400);
-    }
-
-    if (stickySettingsBtn) stickySettingsBtn.addEventListener('click', openSettings);
-    if (closeSettingsBtn) closeSettingsBtn.addEventListener('click', closeSettings);
-    if (settingsOverlay) settingsOverlay.addEventListener('click', closeSettings);
-
-    const navBtns = document.querySelectorAll('.settings-nav-btn');
-    const tabContents = document.querySelectorAll('.settings-tab-content');
-    const contentArea = document.getElementById('settingsContentArea');
-    let activeTabName = 'appearance';
-    let springAnimId = null;
-    const slider = document.getElementById('slider');
-
-    function updateSlider() {
-        if (window.innerWidth < 601) {
-            const activeBtn = document.querySelector('.settings-nav-btn.active');
-            if (activeBtn && slider) {
-                const parent = activeBtn.parentElement;
-                const rect = activeBtn.getBoundingClientRect();
-                const parentRect = parent.getBoundingClientRect();
-                slider.style.width = rect.width + 'px';
-                slider.style.transform = 'translateX(' + (rect.left - parentRect.left) + 'px)';
-                slider.style.display = 'block';
-            }
-        } else {
-            if (slider) slider.style.display = 'none';
+        function openSettings() {
+          if (animating) return;
+          animating = true;
+          const btnRect = stickySettingsBtn.getBoundingClientRect();
+          settingsPanel.style.visibility = "visible";
+          settingsPanel.style.opacity = "0";
+          settingsPanel.style.transform = "translate(-50%, -50%) scale(0.3)";
+          const panelRect = settingsPanel.getBoundingClientRect();
+          const panelW = settingsPanel.offsetWidth;
+          const panelH = settingsPanel.offsetHeight;
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
+          const panelLeft = vw / 2 - panelW / 2;
+          const panelTop = vh / 2 - panelH / 2;
+          const originX = btnRect.left + btnRect.width / 2 - panelLeft;
+          const originY = btnRect.top + btnRect.height / 2 - panelTop;
+          settingsPanel.style.transformOrigin = originX + "px " + originY + "px";
+          settingsPanel.style.transform = "translate(-50%, -50%) scale(0.3)";
+          settingsPanel.style.opacity = "0";
+          settingsOverlay.classList.add("show");
+          requestAnimationFrame(function () {
+            settingsPanel.classList.add("show");
+            settingsPanel.style.transform = "translate(-50%, -50%) scale(1)";
+            settingsPanel.style.opacity = "1";
+            document.body.style.overflow = "hidden";
+            setTimeout(function () {
+              animating = false;
+            }, 400);
+          });
+          updateSlider();
+          if (devModeEnabled) {
+            ensureDevTab();
+          }
         }
-    }
 
-    function springAnimation(target, initial, velocity, stiffness, damping, mass, onUpdate, onComplete) {
-        let current = initial;
-        let vel = velocity;
-        const step = function() {
+        function closeSettings() {
+          if (animating) return;
+          animating = true;
+          settingsPanel.classList.remove("show");
+          settingsPanel.style.transform = "translate(-50%, -50%) scale(0.3)";
+          settingsPanel.style.opacity = "0";
+          settingsOverlay.classList.remove("show");
+          document.body.style.overflow = "";
+          setTimeout(function () {
+            settingsPanel.style.visibility = "hidden";
+            animating = false;
+          }, 400);
+        }
+
+        if (stickySettingsBtn)
+          stickySettingsBtn.addEventListener("click", openSettings);
+        if (closeSettingsBtn)
+          closeSettingsBtn.addEventListener("click", closeSettings);
+        if (settingsOverlay)
+          settingsOverlay.addEventListener("click", closeSettings);
+
+        let navBtns = document.querySelectorAll(".settings-nav-btn");
+        let tabContents = document.querySelectorAll(".settings-tab-content");
+        const contentArea = document.getElementById("settingsContentArea");
+        let activeTabName = "appearance";
+        let springAnimId = null;
+        const slider = document.getElementById("slider");
+
+        function updateSlider() {
+          if (window.innerWidth < 601) {
+            const activeBtn = document.querySelector(
+              ".settings-nav-btn.active",
+            );
+            if (activeBtn && slider) {
+              const parent = activeBtn.parentElement;
+              const rect = activeBtn.getBoundingClientRect();
+              const parentRect = parent.getBoundingClientRect();
+              slider.style.width = rect.width + "px";
+              slider.style.transform =
+                "translateX(" + (rect.left - parentRect.left) + "px)";
+              slider.style.display = "block";
+            }
+          } else {
+            if (slider) slider.style.display = "none";
+          }
+        }
+
+        function springAnimation(
+          target,
+          initial,
+          velocity,
+          stiffness,
+          damping,
+          mass,
+          onUpdate,
+          onComplete,
+        ) {
+          let current = initial;
+          let vel = velocity;
+          const step = function () {
             const force = -stiffness * (current - target);
             const dampingForce = -damping * vel;
             const acceleration = (force + dampingForce) / mass;
             vel += acceleration * 0.016;
             current += vel * 0.016;
             if (Math.abs(current - target) < 0.01 && Math.abs(vel) < 0.1) {
-                onUpdate(target);
-                if (onComplete) onComplete();
-                return;
+              onUpdate(target);
+              if (onComplete) onComplete();
+              return;
             }
             onUpdate(current);
             springAnimId = requestAnimationFrame(step);
-        };
-        springAnimId = requestAnimationFrame(step);
-    }
-
-    function animateTabContentIn(tabElement) {
-        if (springAnimId) { cancelAnimationFrame(springAnimId); springAnimId = null; }
-        tabElement.style.opacity = '0';
-        tabElement.style.transform = 'translateY(6px)';
-        tabElement.style.display = 'block';
-        springAnimation(1, 0, 0, 180, 12, 1,
-            function(val) {
-                tabElement.style.opacity = val;
-                tabElement.style.transform = 'translateY(' + ((1 - val) * 6) + 'px)';
-            },
-            function() {
-                tabElement.style.transform = 'translateY(0)';
-                tabElement.style.opacity = '1';
-            }
-        );
-    }
-
-    function switchTab(tabName) {
-        if (activeTabName === tabName) return;
-        tabContents.forEach(function(tc) { tc.classList.remove('active'); tc.style.display = 'none'; });
-        navBtns.forEach(function(nb) { nb.classList.remove('active'); });
-        const targetTab = document.getElementById('tab-' + tabName);
-        const targetNav = document.querySelector('.settings-nav-btn[data-tab="' + tabName + '"]');
-        if (targetTab) { targetTab.classList.add('active'); animateTabContentIn(targetTab); }
-        if (targetNav) { targetNav.classList.add('active'); }
-        if (contentArea) { contentArea.scrollTop = 0; }
-        activeTabName = tabName;
-        if (window.innerWidth < 601) updateSlider();
-    }
-
-    navBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            const tabName = this.getAttribute('data-tab');
-            if (tabName) switchTab(tabName);
-        });
-    });
-
-    window.addEventListener('resize', updateSlider);
-    updateSlider();
-
-    const contentScrollEl = document.getElementById('settingsContentArea');
-    if (contentScrollEl) {
-        let overscrollY = 0;
-        let overscrollAnimId = null;
-        function applyOverscroll(y) { contentScrollEl.style.transform = 'translateY(' + y + 'px)'; }
-        function resetOverscroll() {
-            if (overscrollAnimId) cancelAnimationFrame(overscrollAnimId);
-            springAnimation(0, overscrollY, 0, 200, 14, 1,
-                function(val) { overscrollY = val; applyOverscroll(val); },
-                function() { overscrollY = 0; applyOverscroll(0); }
-            );
+          };
+          springAnimId = requestAnimationFrame(step);
         }
-        contentScrollEl.addEventListener('wheel', function(e) {
-            const scrollTop = contentScrollEl.scrollTop;
-            const scrollHeight = contentScrollEl.scrollHeight;
-            const clientHeight = contentScrollEl.clientHeight;
-            const atTop = scrollTop <= 0;
-            const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
-            if ((atTop && e.deltaY < 0) || (atBottom && e.deltaY > 0)) {
+
+        function animateTabContentIn(tabElement) {
+          if (springAnimId) {
+            cancelAnimationFrame(springAnimId);
+            springAnimId = null;
+          }
+          tabElement.style.opacity = "0";
+          tabElement.style.transform = "translateY(6px)";
+          tabElement.style.display = "block";
+          springAnimation(
+            1,
+            0,
+            0,
+            180,
+            12,
+            1,
+            function (val) {
+              tabElement.style.opacity = val;
+              tabElement.style.transform =
+                "translateY(" + (1 - val) * 6 + "px)";
+            },
+            function () {
+              tabElement.style.transform = "translateY(0)";
+              tabElement.style.opacity = "1";
+            },
+          );
+        }
+
+        function switchTab(tabName) {
+          if (activeTabName === tabName) return;
+          tabContents.forEach(function (tc) {
+            tc.classList.remove("active");
+            tc.style.display = "none";
+          });
+          navBtns.forEach(function (nb) {
+            nb.classList.remove("active");
+          });
+          const targetTab = document.getElementById("tab-" + tabName);
+          const targetNav = document.querySelector(
+            '.settings-nav-btn[data-tab="' + tabName + '"]',
+          );
+          if (targetTab) {
+            targetTab.classList.add("active");
+            animateTabContentIn(targetTab);
+          }
+          if (targetNav) {
+            targetNav.classList.add("active");
+          }
+          if (contentArea) {
+            contentArea.scrollTop = 0;
+          }
+          activeTabName = tabName;
+          if (window.innerWidth < 601) updateSlider();
+        }
+
+        navBtns.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            const tabName = this.getAttribute("data-tab");
+            if (tabName) switchTab(tabName);
+          });
+        });
+
+        window.addEventListener("resize", updateSlider);
+        updateSlider();
+
+        const contentScrollEl = document.getElementById("settingsContentArea");
+        if (contentScrollEl) {
+          let overscrollY = 0;
+          let overscrollAnimId = null;
+          function applyOverscroll(y) {
+            contentScrollEl.style.transform = "translateY(" + y + "px)";
+          }
+          function resetOverscroll() {
+            if (overscrollAnimId) cancelAnimationFrame(overscrollAnimId);
+            springAnimation(
+              0,
+              overscrollY,
+              0,
+              200,
+              14,
+              1,
+              function (val) {
+                overscrollY = val;
+                applyOverscroll(val);
+              },
+              function () {
+                overscrollY = 0;
+                applyOverscroll(0);
+              },
+            );
+          }
+          contentScrollEl.addEventListener(
+            "wheel",
+            function (e) {
+              const scrollTop = contentScrollEl.scrollTop;
+              const scrollHeight = contentScrollEl.scrollHeight;
+              const clientHeight = contentScrollEl.clientHeight;
+              const atTop = scrollTop <= 0;
+              const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
+              if ((atTop && e.deltaY < 0) || (atBottom && e.deltaY > 0)) {
                 e.preventDefault();
                 overscrollY += e.deltaY * 0.3;
                 overscrollY = Math.max(-40, Math.min(40, overscrollY));
                 applyOverscroll(overscrollY);
                 if (overscrollAnimId) cancelAnimationFrame(overscrollAnimId);
-                overscrollAnimId = requestAnimationFrame(function() { resetOverscroll(); });
-            }
-        }, { passive: false });
-        contentScrollEl.addEventListener('touchstart', function() {
-            if (overscrollAnimId) cancelAnimationFrame(overscrollAnimId);
-            overscrollY = 0;
-            applyOverscroll(0);
-        }, { passive: true });
-    }
-
-    const themeBtns = document.querySelectorAll('.theme-btn');
-    let currentTheme = localStorage.getItem('preferred-theme') || 'auto';
-
-    function setTheme(theme) {
-        document.body.classList.remove('light-theme', 'dark-theme');
-        if (theme === 'light') document.body.classList.add('light-theme');
-        else if (theme === 'dark') document.body.classList.add('dark-theme');
-        else if (theme === 'auto') {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.body.classList.add(prefersDark ? 'dark-theme' : 'light-theme');
+                overscrollAnimId = requestAnimationFrame(function () {
+                  resetOverscroll();
+                });
+              }
+            },
+            { passive: false },
+          );
+          contentScrollEl.addEventListener(
+            "touchstart",
+            function () {
+              if (overscrollAnimId) cancelAnimationFrame(overscrollAnimId);
+              overscrollY = 0;
+              applyOverscroll(0);
+            },
+            { passive: true },
+          );
         }
-        themeBtns.forEach(function(btn) { btn.classList.toggle('active', btn.dataset.theme === theme); });
-        localStorage.setItem('preferred-theme', theme);
-        currentTheme = theme;
-    }
-    setTheme(currentTheme);
-    themeBtns.forEach(function(btn) { btn.addEventListener('click', function() { setTheme(btn.dataset.theme); }); });
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
-        if (currentTheme === 'auto') setTheme('auto');
-    });
 
-    const fontOptions = document.querySelectorAll('#fontOptionsInPanel .font-option');
-    const savedFont = localStorage.getItem('preferred-font') || 'system';
-    const fontRefreshBtn = document.getElementById('fontRefreshBtn');
-    const fontSlider = document.getElementById('fontSlider');
+        const themeBtns = document.querySelectorAll(".theme-btn");
+        let currentTheme = localStorage.getItem("preferred-theme") || "auto";
 
-    function updateFontSlider() {
-        if (window.innerWidth >= 601) {
-            const selected = document.querySelector('.font-option.selected');
+        function setTheme(theme) {
+          document.body.classList.remove("light-theme", "dark-theme");
+          if (theme === "light") document.body.classList.add("light-theme");
+          else if (theme === "dark") document.body.classList.add("dark-theme");
+          else if (theme === "auto") {
+            const prefersDark = window.matchMedia(
+              "(prefers-color-scheme: dark)",
+            ).matches;
+            document.body.classList.add(
+              prefersDark ? "dark-theme" : "light-theme",
+            );
+          }
+          themeBtns.forEach(function (btn) {
+            btn.classList.toggle("active", btn.dataset.theme === theme);
+          });
+          localStorage.setItem("preferred-theme", theme);
+          currentTheme = theme;
+          const perf = getStoredPerformance() || detectPerformance();
+          applyPerformanceSettings(perf);
+        }
+
+        setTheme(currentTheme);
+        themeBtns.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            setTheme(btn.dataset.theme);
+          });
+        });
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", function () {
+            if (currentTheme === "auto") setTheme("auto");
+          });
+
+        const fontOptions = document.querySelectorAll(
+          "#fontOptionsInPanel .font-option",
+        );
+        const savedFont = localStorage.getItem("preferred-font") || "system";
+        const fontRefreshBtn = document.getElementById("fontRefreshBtn");
+        const fontSlider = document.getElementById("fontSlider");
+
+        function updateFontSlider() {
+          if (window.innerWidth >= 601) {
+            const selected = document.querySelector(".font-option.selected");
             if (selected && fontSlider) {
-                const parent = selected.parentElement;
-                const rect = selected.getBoundingClientRect();
-                const parentRect = parent.getBoundingClientRect();
-                fontSlider.style.width = rect.width + 'px';
-                fontSlider.style.transform = 'translateX(' + (rect.left - parentRect.left) + 'px)';
-                fontSlider.style.display = 'block';
+              const parent = selected.parentElement;
+              const rect = selected.getBoundingClientRect();
+              const parentRect = parent.getBoundingClientRect();
+              fontSlider.style.width = rect.width + "px";
+              fontSlider.style.transform =
+                "translateX(" + (rect.left - parentRect.left) + "px)";
+              fontSlider.style.display = "block";
             }
-        } else {
-            if (fontSlider) fontSlider.style.display = 'none';
+          } else {
+            if (fontSlider) fontSlider.style.display = "none";
+          }
         }
-    }
 
-    function applyFont(fontKey) {
-        document.body.classList.remove('use-system', 'use-font1', 'use-font2', 'use-font3', 'use-font4', 'use-font5', 'use-font6');
-        if (fontKey === 'system') document.body.classList.add('use-system');
-        else document.body.classList.add('use-' + fontKey);
-        fontOptions.forEach(function(opt) { opt.classList.toggle('selected', opt.dataset.font === fontKey); });
-        localStorage.setItem('preferred-font', fontKey);
-        if (fontRefreshBtn) {
-            fontRefreshBtn.classList.remove('blink');
+        function applyFont(fontKey) {
+          document.body.classList.remove(
+            "use-system",
+            "use-font1",
+            "use-font2",
+            "use-font3",
+            "use-font4",
+            "use-font5",
+            "use-font6",
+          );
+          if (fontKey === "system") document.body.classList.add("use-system");
+          else document.body.classList.add("use-" + fontKey);
+          fontOptions.forEach(function (opt) {
+            opt.classList.toggle("selected", opt.dataset.font === fontKey);
+          });
+          localStorage.setItem("preferred-font", fontKey);
+          if (fontRefreshBtn) {
+            fontRefreshBtn.classList.remove("blink");
             void fontRefreshBtn.offsetWidth;
-            fontRefreshBtn.classList.add('blink');
-            setTimeout(function() { fontRefreshBtn.classList.remove('blink'); }, 1600);
+            fontRefreshBtn.classList.add("blink");
+            setTimeout(function () {
+              fontRefreshBtn.classList.remove("blink");
+            }, 1600);
+          }
+          setTimeout(updateFontSlider, 50);
         }
-        setTimeout(updateFontSlider, 50);
-    }
-    applyFont(savedFont);
-    fontOptions.forEach(function(opt) {
-        opt.addEventListener('click', function() {
+        applyFont(savedFont);
+        fontOptions.forEach(function (opt) {
+          opt.addEventListener("click", function () {
             applyFont(opt.dataset.font);
+          });
         });
-    });
 
-    window.addEventListener('resize', function() {
-        updateSlider();
-        updateFontSlider();
-    });
-    setTimeout(updateFontSlider, 100);
-
-    function formatTime(date) {
-        const Y = date.getFullYear();
-        const M = (date.getMonth() + 1).toString().padStart(2, '0');
-        const D = date.getDate().toString().padStart(2, '0');
-        const h = date.getHours().toString().padStart(2, '0');
-        const m = date.getMinutes().toString().padStart(2, '0');
-        const s = date.getSeconds().toString().padStart(2, '0');
-        return Y + '/' + M + '/' + D + ' ' + h + ':' + m + ':' + s;
-    }
-    const lastModifiedSpan = document.getElementById('panel-last-modified');
-    if (lastModifiedSpan) { lastModifiedSpan.textContent = formatTime(new Date(document.lastModified)); }
-
-    function updateCurrentTime() {
-        const timeSpan = document.getElementById('panel-current-time');
-        if (timeSpan) timeSpan.textContent = formatTime(new Date());
-    }
-    updateCurrentTime();
-    setInterval(updateCurrentTime, 1000);
-
-    const startDate = new Date(2025, 11, 13, 12, 0, 0);
-    function updateUptime() {
-        const now = new Date();
-        let diff = Math.floor((now - startDate) / 1000);
-        const days = Math.floor(diff / 86400);
-        diff %= 86400;
-        const hours = Math.floor(diff / 3600);
-        diff %= 3600;
-        const minutes = Math.floor(diff / 60);
-        const seconds = diff % 60;
-        const uptimeSpan = document.getElementById('uptime');
-        if (uptimeSpan) {
-            uptimeSpan.textContent = days + '天 ' + hours.toString().padStart(2, '0') + '时 ' + minutes.toString().padStart(2, '0') + '分 ' + seconds.toString().padStart(2, '0') + '秒';
-        }
-    }
-    updateUptime();
-    setInterval(updateUptime, 1000);
-
-    const refreshBtn = document.getElementById('refreshPageBtn');
-    if (refreshBtn) refreshBtn.addEventListener('click', function() { location.reload(); });
-    const changelogBtn = document.getElementById('gotoChangelog');
-    if (changelogBtn) changelogBtn.addEventListener('click', function() { window.open('https://ldy2330785100.github.io/ldy/changelog.html', '_blank'); });
-
-    function addPressEffect(btn) {
-        btn.classList.add('pressed');
-        setTimeout(function() { btn.classList.remove('pressed'); }, 100);
-    }
-    document.querySelectorAll('.social-btn').forEach(function(btn) {
-        btn.addEventListener('touchstart', function() { addPressEffect(btn); });
-        btn.addEventListener('mousedown', function() { addPressEffect(btn); });
-    });
-
-    const privacyBtns = document.querySelectorAll('.wechat-qq');
-    privacyBtns.forEach(function(btn) {
-        btn.addEventListener('click', function(e) { e.preventDefault(); alert('🔒 请通过GitHub或社交媒体联系'); });
-    });
-
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-})();
-
-function loaderHTML() {
-    return '<div class="loader-center"><span class="hourglass-loader">⏳</span></div>';
-}
-
-async function safeFetchJSON(url) {
-    const res = await fetch(url);
-    let text = await res.text();
-    if (text.charCodeAt(0) === 0xFEFF) { text = text.slice(1); }
-    return JSON.parse(text);
-}
-
-async function fetchBilibiliAPI(bvid) {
-    const apiUrl = 'https://api.bilibili.com/x/web-interface/view?bvid=' + bvid;
-    const proxies = [
-        function(url) { return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url); },
-        function(url) { return 'https://corsproxy.io/?' + encodeURIComponent(url); },
-        function(url) { return 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url); }
-    ];
-    for (var i = 0; i < proxies.length; i++) {
-        try {
-            var res = await fetch(proxies[i](apiUrl));
-            if (!res.ok) continue;
-            var data = await res.json();
-            if (data.code === 0) return data;
-        } catch (e) { continue; }
-    }
-    throw new Error('all proxies failed');
-}
-
-async function loadFeaturedVideo() {
-    var container = document.getElementById('featured-video-card');
-    if (!container) return;
-    container.innerHTML = loaderHTML();
-    try {
-        var data = await safeFetchJSON('data.json');
-        var video = data.featuredVideos[0];
-        if (!video) return;
-        var bvid = video.bvid;
-        var iframeSrc = 'https://player.bilibili.com/player.html?bvid=' + bvid + '&page=1&as_wide=1&high_quality=1&danmaku=0';
-        var statsData = await fetchBilibiliAPI(bvid);
-        var stats = statsData.data.stat;
-        var videoTitle = statsData.data.title;
-        var dimension = statsData.data.dimension || { width: 16, height: 9 };
-        var aspectRatio = (dimension.width && dimension.height) ? (dimension.width / dimension.height).toFixed(3) : '1.778';
-
-        function formatNumber(num) {
-            if (typeof num !== 'number') return num;
-            if (num >= 100000000) return (num / 100000000).toFixed(1) + '亿';
-            if (num >= 10000) return (num / 10000).toFixed(1) + '万';
-            return num.toString();
-        }
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
-        }
-
-        var html = '';
-        html += '<h2>🎬 精选视频</h2>';
-        html += '<div class="video-container" style="aspect-ratio:' + aspectRatio + ';">';
-        html += '<iframe src="' + iframeSrc + '" frameborder="0" allowfullscreen allow="fullscreen" referrerpolicy="no-referrer"></iframe>';
-        html += '</div>';
-        html += '<div class="video-info">';
-        html += '<h3>' + escapeHtml(videoTitle) + '</h3>';
-        html += '<div class="video-meta">';
-        html += '<div class="stats">';
-        html += '<span><i class="fas fa-play"></i> ' + formatNumber(stats.view) + '</span>';
-        html += '<span><i class="fas fa-thumbs-up"></i> ' + formatNumber(stats.like) + '</span>';
-        html += '<span><i class="fas fa-coins"></i> ' + formatNumber(stats.coin) + '</span>';
-        html += '<span><i class="fas fa-star"></i> ' + formatNumber(stats.favorite) + '</span>';
-        html += '<span><i class="fas fa-comment"></i> ' + formatNumber(stats.reply) + '</span>';
-        html += '</div>';
-        html += '</div>';
-        html += '<div class="bvid-display">' + bvid + '</div>';
-        html += '<a href="https://www.bilibili.com/video/' + bvid + '" target="_blank" class="bili-link">前往Bilibili观看 →</a>';
-        html += '</div>';
-
-        container.innerHTML = html;
-    } catch (err) {
-        console.error(err);
-        if (container) container.innerHTML = '<p>视频加载失败，请稍后再试。</p>';
-    }
-}
-
-async function renderProjects() {
-    var container = document.getElementById('projects-container');
-    if (!container) return;
-    container.innerHTML = loaderHTML();
-    try {
-        var data = await safeFetchJSON('data.json');
-        var projects = data.projects || [];
-        if (projects.length === 0) { container.innerHTML = '<p>暂无项目展示，敬请期待。</p>'; return; }
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
-        }
-        var html = '';
-        for (var i = 0; i < projects.length; i++) {
-            var proj = projects[i];
-            html += '<div class="project-card">';
-            html += '<h3>' + escapeHtml(proj.title) + '</h3>';
-            html += '<p>' + escapeHtml(proj.description) + '</p>';
-            html += '<p class="project-tech">' + proj.techStack.join(' · ') + '</p>';
-            html += '<div class="project-links">';
-            if (proj.githubUrl) html += '<a href="' + proj.githubUrl + '" target="_blank" class="project-link">查看仓库 →</a>';
-            if (proj.liveUrl) html += '<a href="' + proj.liveUrl + '" target="_blank" class="project-link">前往体验 →</a>';
-            html += '</div></div>';
-        }
-        container.innerHTML = html;
-        resetExpanded();
-    } catch (err) {
-        console.error(err);
-        container.innerHTML = '<p>作品数据加载失败，请稍后再试。</p>';
-    }
-}
-
-var expanded = false;
-function resetExpanded() {
-    var grid = document.getElementById('projects-container');
-    var btn = document.getElementById('expandBtn');
-    if (!grid || !btn) return;
-    grid.classList.remove('expanded');
-    btn.textContent = '展开全部';
-    expanded = false;
-}
-function toggleExpand() {
-    var grid = document.getElementById('projects-container');
-    var btn = document.getElementById('expandBtn');
-    if (!grid) return;
-    expanded = !expanded;
-    if (expanded) {
-        grid.classList.add('expanded');
-        btn.textContent = '收起';
-    } else {
-        grid.classList.remove('expanded');
-        btn.textContent = '展开全部';
-    }
-}
-document.addEventListener('DOMContentLoaded', function() {
-    var btn = document.getElementById('expandBtn');
-    if (btn) btn.addEventListener('click', toggleExpand);
-});
-
-loadFeaturedVideo();
-renderProjects();
-
-let ticking = false;
-const stickyHeader = document.getElementById('stickyHeader');
-const profileCard = document.getElementById('profileCard');
-const containerScroll = document.querySelector('.container');
-
-function handleStickyHeader() {
-    if (!ticking) {
-        requestAnimationFrame(function() {
-            if (!profileCard || !stickyHeader) return;
-            const scrollTop = containerScroll ? containerScroll.scrollTop : window.pageYOffset;
-            const cardTop = profileCard.offsetTop;
-            if (scrollTop > cardTop) { stickyHeader.classList.add('show'); }
-            else { stickyHeader.classList.remove('show'); }
-            ticking = false;
+        window.addEventListener("resize", function () {
+          updateSlider();
+          updateFontSlider();
         });
-        ticking = true;
-    }
-}
+        setTimeout(updateFontSlider, 100);
 
-if (containerScroll) {
-    containerScroll.addEventListener('scroll', handleStickyHeader);
-    containerScroll.addEventListener('resize', handleStickyHeader);
-    handleStickyHeader();
-}
+        function formatTime(date) {
+          const Y = date.getFullYear();
+          const M = (date.getMonth() + 1).toString().padStart(2, "0");
+          const D = date.getDate().toString().padStart(2, "0");
+          const h = date.getHours().toString().padStart(2, "0");
+          const m = date.getMinutes().toString().padStart(2, "0");
+          const s = date.getSeconds().toString().padStart(2, "0");
+          return Y + "/" + M + "/" + D + " " + h + ":" + m + ":" + s;
+        }
+        const lastModifiedSpan = document.getElementById("panel-last-modified");
+        if (lastModifiedSpan) {
+          lastModifiedSpan.textContent = formatTime(
+            new Date(document.lastModified),
+          );
+        }
 
-if (stickyHeader) {
-    stickyHeader.addEventListener('dblclick', function(e) {
-        if (e.target.closest('.settings-icon')) return;
-        resetExpanded();
-        if (containerScroll) { containerScroll.scrollTo({ top: 0, behavior: 'smooth' }); }
-        else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-    });
-}
-</script>
-</body>
+        function updateCurrentTime() {
+          const timeSpan = document.getElementById("panel-current-time");
+          if (timeSpan) timeSpan.textContent = formatTime(new Date());
+        }
+        updateCurrentTime();
+        setInterval(updateCurrentTime, 1000);
+
+        const startDate = new Date(2025, 11, 13, 12, 0, 0);
+        function updateUptime() {
+          const now = new Date();
+          let diff = Math.floor((now - startDate) / 1000);
+          const days = Math.floor(diff / 86400);
+          diff %= 86400;
+          const hours = Math.floor(diff / 3600);
+          diff %= 3600;
+          const minutes = Math.floor(diff / 60);
+          const seconds = diff % 60;
+          const uptimeSpan = document.getElementById("uptime");
+          if (uptimeSpan) {
+            uptimeSpan.textContent =
+              days +
+              "天 " +
+              hours.toString().padStart(2, "0") +
+              "时 " +
+              minutes.toString().padStart(2, "0") +
+              "分 " +
+              seconds.toString().padStart(2, "0") +
+              "秒";
+          }
+        }
+        updateUptime();
+        setInterval(updateUptime, 1000);
+
+        const refreshBtn = document.getElementById("refreshPageBtn");
+        if (refreshBtn)
+          refreshBtn.addEventListener("click", function () {
+            location.reload();
+          });
+        const changelogBtn = document.getElementById("gotoChangelog");
+        if (changelogBtn)
+          changelogBtn.addEventListener("click", function () {
+            window.open(
+              "https://ldy2330785100.github.io/ldy/changelog.html",
+              "_blank",
+            );
+          });
+
+        function addPressEffect(btn) {
+          btn.classList.add("pressed");
+          setTimeout(function () {
+            btn.classList.remove("pressed");
+          }, 100);
+        }
+        document.querySelectorAll(".social-btn").forEach(function (btn) {
+          btn.addEventListener("touchstart", function () {
+            addPressEffect(btn);
+          });
+          btn.addEventListener("mousedown", function () {
+            addPressEffect(btn);
+          });
+        });
+
+        const privacyBtns = document.querySelectorAll(".wechat-qq");
+        privacyBtns.forEach(function (btn) {
+          btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            alert("🔒 请通过GitHub或社交媒体联系");
+          });
+        });
+
+        document.getElementById("current-year").textContent =
+          new Date().getFullYear();
+
+        function escapeHtml(str) {
+          if (!str) return "";
+          return str.replace(/[&<>]/g, function (m) {
+            if (m === "&") return "&amp;";
+            if (m === "<") return "&lt;";
+            if (m === ">") return "&gt;";
+            return m;
+          });
+        }
+
+        function detectPerformance() {
+          const cores = navigator.hardwareConcurrency || 4;
+          const memory = navigator.deviceMemory || 4;
+          const hasBackdrop = CSS.supports("backdrop-filter", "blur(1px)");
+          const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+          let renderQuality = "clear";
+          let visualEffect = "standard";
+          let headerBehavior = "always";
+
+          if (cores <= 4 || memory < 4 || !hasBackdrop || isMobile) {
+            renderQuality = "jagged";
+            visualEffect = "blur";
+            headerBehavior = "always";
+          } else if (cores >= 8 && memory >= 8 && hasBackdrop && !isMobile) {
+            renderQuality = "fine";
+            visualEffect = "transparent";
+            headerBehavior = "auto";
+          } else {
+            renderQuality = "clear";
+            visualEffect = "standard";
+            headerBehavior = "always";
+          }
+
+          return { renderQuality, visualEffect, headerBehavior };
+        }
+
+        function applyPerformanceSettings(settings) {
+          document.documentElement.style.setProperty(
+            "--header-blur",
+            settings.renderQuality === "fine"
+              ? "12px"
+              : settings.renderQuality === "clear"
+                ? "6px"
+                : "0px",
+          );
+
+          const isLight = document.body.classList.contains("light-theme");
+
+          let bgLight, bgDark, blurStrength, headerBlurStrength;
+          if (settings.visualEffect === "blur") {
+            bgLight = "rgba(255,255,255,0.85)";
+            bgDark = "rgba(0,0,0,0.75)";
+            blurStrength = "none";
+            headerBlurStrength = "none";
+          } else if (settings.visualEffect === "standard") {
+            bgLight = "rgba(255,255,255,0.7)";
+            bgDark = "rgba(0,0,0,0.6)";
+            blurStrength = "6px";
+            headerBlurStrength = "6px";
+          } else {
+            bgLight = "rgba(255,255,255,0.35)";
+            bgDark = "rgba(0,0,0,0.25)";
+            blurStrength = "12px";
+            headerBlurStrength = "24px";
+          }
+
+          const bgColor = isLight ? bgLight : bgDark;
+          const borderColor = isLight
+            ? "rgba(255,255,255,0.4)"
+            : "rgba(255,255,255,0.15)";
+          const headerBorderColor = isLight
+            ? "rgba(255,255,255,0.4)"
+            : "rgba(255,255,255,0.15)";
+
+          document.querySelectorAll(".card, .settings-panel").forEach((el) => {
+            el.style.backgroundColor = bgColor;
+            el.style.backdropFilter =
+              settings.renderQuality === "jagged" ? "none" : blurStrength;
+            el.style.border = "1px solid " + borderColor;
+          });
+
+          const header = document.querySelector(".sticky-header");
+          const container = document.getElementById("mainContainer");
+          if (header) {
+            header.style.backgroundColor = bgColor;
+            header.style.backdropFilter =
+              settings.renderQuality === "jagged" ? "none" : headerBlurStrength;
+            header.style.borderBottom = "1px solid " + headerBorderColor;
+          }
+
+          if (settings.headerBehavior === "always") {
+            if (container) {
+              container.style.paddingTop = window.innerWidth <= 600 ? "52px" : "60px";
+            }
+            if (header) {
+              header.classList.remove("auto-hide");
+              header.classList.add("show");
+              header.style.transform = "translateY(0)";
+              header.style.opacity = "1";
+              header.style.pointerEvents = "auto";
+            }
+          } else {
+            if (container) {
+              container.style.paddingTop = "0px";
+            }
+            if (header) {
+              header.classList.add("auto-hide");
+              header.classList.remove("show");
+            }
+          }
+
+          document.body.classList.remove("perf-clear", "perf-jagged");
+          if (settings.renderQuality === "clear") {
+            document.body.classList.add("perf-clear");
+          } else if (settings.renderQuality === "jagged") {
+            document.body.classList.add("perf-jagged");
+          }
+
+          document.querySelectorAll(".perf-option").forEach((opt) =>
+            opt.classList.remove("active"),
+          );
+          document
+            .querySelectorAll(
+              '#renderQuality .perf-option[data-value="' +
+                settings.renderQuality +
+                '"]',
+            )
+            .forEach((el) => el.classList.add("active"));
+          document
+            .querySelectorAll(
+              '#visualEffect .perf-option[data-value="' +
+                settings.visualEffect +
+                '"]',
+            )
+            .forEach((el) => el.classList.add("active"));
+          document
+            .querySelectorAll(
+              '#headerBehavior .perf-option[data-value="' +
+                settings.headerBehavior +
+                '"]',
+            )
+            .forEach((el) => el.classList.add("active"));
+
+          let vib = localStorage.getItem("vibrationEnabled");
+          if (vib === null) {
+            vib = "on";
+            if (!navigator.vibrate) vib = "off";
+            localStorage.setItem("vibrationEnabled", vib);
+          }
+          document
+            .querySelectorAll(
+              '#vibrationFeedback .perf-option[data-value="' + vib + '"]',
+            )
+            .forEach((el) => el.classList.add("active"));
+        }
+
+        function getStoredPerformance() {
+          try {
+            const stored = localStorage.getItem("perfSettings");
+            if (stored) return JSON.parse(stored);
+          } catch (e) {}
+          return null;
+        }
+
+        function savePerformanceSettings(settings) {
+          localStorage.setItem("perfSettings", JSON.stringify(settings));
+        }
+
+        function initPerformance() {
+          let settings = getStoredPerformance();
+          if (!settings) {
+            settings = detectPerformance();
+            savePerformanceSettings(settings);
+          }
+          applyPerformanceSettings(settings);
+
+          document.querySelectorAll(".perf-option").forEach((el) => {
+            el.addEventListener("click", function () {
+              const group = this.parentElement;
+              const value = this.dataset.value;
+              group.querySelectorAll(".perf-option").forEach((opt) =>
+                opt.classList.remove("active"),
+              );
+              this.classList.add("active");
+
+              const newSettings = {
+                renderQuality: document
+                  .querySelector('#renderQuality .perf-option.active')
+                  ?.dataset.value,
+                visualEffect: document
+                  .querySelector('#visualEffect .perf-option.active')
+                  ?.dataset.value,
+                headerBehavior: document
+                  .querySelector('#headerBehavior .perf-option.active')
+                  ?.dataset.value,
+              };
+              if (newSettings.renderQuality && newSettings.visualEffect) {
+                savePerformanceSettings(newSettings);
+                applyPerformanceSettings(newSettings);
+              }
+            });
+          });
+
+          const vibGroup = document.getElementById("vibrationFeedback");
+          if (vibGroup) {
+            vibGroup.querySelectorAll(".perf-option").forEach((opt) => {
+              opt.addEventListener("click", function (e) {
+                e.stopPropagation();
+                const currentValue = localStorage.getItem("vibrationEnabled");
+                const newValue = currentValue === "on" ? "off" : "on";
+                localStorage.setItem("vibrationEnabled", newValue);
+                vibGroup.querySelectorAll(".perf-option").forEach((o) =>
+                  o.classList.remove("active"),
+                );
+                vibGroup
+                  .querySelector('.perf-option[data-value="' + newValue + '"]')
+                  .classList.add("active");
+                if (navigator.vibrate) {
+                  navigator.vibrate(20);
+                }
+              });
+            });
+          }
+        }
+
+        initPerformance();
+
+        let headerTicking = false;
+        const stickyHeader = document.getElementById("stickyHeader");
+        const profileCard = document.getElementById("profileCard");
+        const containerScroll = document.querySelector(".container");
+
+        function handleStickyHeader() {
+          const settings = getStoredPerformance();
+          if (settings && settings.headerBehavior === "always") {
+            stickyHeader.classList.remove("auto-hide");
+            stickyHeader.classList.add("show");
+            stickyHeader.style.transform = "translateY(0)";
+            stickyHeader.style.opacity = "1";
+            stickyHeader.style.pointerEvents = "auto";
+            return;
+          }
+          if (!headerTicking) {
+            requestAnimationFrame(function () {
+              if (!profileCard || !stickyHeader) return;
+              const scrollTop = containerScroll
+                ? containerScroll.scrollTop
+                : window.pageYOffset;
+              const cardTop = profileCard.offsetTop;
+              if (scrollTop > cardTop + 80) {
+                stickyHeader.classList.add("show");
+              } else {
+                stickyHeader.classList.remove("show");
+              }
+              headerTicking = false;
+            });
+            headerTicking = true;
+          }
+        }
+
+        if (containerScroll) {
+          containerScroll.addEventListener("scroll", handleStickyHeader);
+          containerScroll.addEventListener("resize", handleStickyHeader);
+          handleStickyHeader();
+        }
+
+        if (stickyHeader) {
+          stickyHeader.addEventListener("dblclick", function (e) {
+            if (e.target.closest(".settings-icon")) return;
+            resetExpanded();
+            if (containerScroll) {
+              containerScroll.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          });
+        }
+
+        async function loadFeaturedVideo() {
+          var container = document.getElementById("featured-video-card");
+          if (!container) return;
+          container.innerHTML = loaderHTML();
+          try {
+            var data = await safeFetchJSON("data.json");
+            var video = data.featuredVideos[0];
+            if (!video) throw new Error("No video data");
+            var bvid = video.bvid;
+            var iframeSrc =
+              "https://player.bilibili.com/player.html?bvid=" +
+              bvid +
+              "&page=1&as_wide=1&high_quality=1&danmaku=0";
+            var statsData = await fetchBilibiliAPI(bvid);
+            var stats = statsData.data.stat;
+            var videoTitle = statsData.data.title;
+            var dimension = statsData.data.dimension || { width: 16, height: 9 };
+            var aspectRatio =
+              dimension.width && dimension.height
+                ? (dimension.width / dimension.height).toFixed(3)
+                : "1.778";
+
+            function formatNumber(num) {
+              if (typeof num !== "number") return num;
+              if (num >= 100000000) return (num / 100000000).toFixed(1) + "亿";
+              if (num >= 10000) return (num / 10000).toFixed(1) + "万";
+              return num.toString();
+            }
+
+            var html = "";
+            html += "<h2>🎬 精选视频</h2>";
+            html +=
+              '<div class="video-container" style="aspect-ratio:' +
+              aspectRatio +
+              ';">';
+            html +=
+              '<iframe src="' +
+              iframeSrc +
+              '" frameborder="0" allowfullscreen allow="fullscreen" referrerpolicy="no-referrer"></iframe>';
+            html += "</div>";
+            html += '<div class="video-info">';
+            html += "<h3>" + escapeHtml(videoTitle) + "</h3>";
+            html += '<div class="video-meta">';
+            html += '<div class="stats">';
+            html +=
+              '<span><i class="fas fa-play"></i> ' +
+              formatNumber(stats.view) +
+              "</span>";
+            html +=
+              '<span><i class="fas fa-thumbs-up"></i> ' +
+              formatNumber(stats.like) +
+              "</span>";
+            html +=
+              '<span><i class="fas fa-coins"></i> ' +
+              formatNumber(stats.coin) +
+              "</span>";
+            html +=
+              '<span><i class="fas fa-star"></i> ' +
+              formatNumber(stats.favorite) +
+              "</span>";
+            html +=
+              '<span><i class="fas fa-comment"></i> ' +
+              formatNumber(stats.reply) +
+              "</span>";
+            html += "</div>";
+            html += "</div>";
+            html += '<div class="bvid-display">' + bvid + "</div>";
+            html +=
+              '<a href="https://www.bilibili.com/video/' +
+              bvid +
+              '" target="_blank" class="bili-link">前往Bilibili观看 →</a>';
+            html += "</div>";
+
+            container.innerHTML = html;
+          } catch (err) {
+            console.error(err);
+            if (container) {
+              container.innerHTML =
+                '<div class="video-error-container"><div><i class="fas fa-times-circle" style="color:#e53e3e; font-size:1.2rem;"></i> 视频加载失败</div><button class="video-retry-btn" id="videoRetryBtn">🔄 重新加载</button></div>';
+              document
+                .getElementById("videoRetryBtn")
+                .addEventListener("click", loadFeaturedVideo);
+            }
+          }
+        }
+
+        var expanded = false;
+        function resetExpanded() {
+          var grid = document.getElementById("projects-container");
+          var btn = document.getElementById("expandBtn");
+          if (!grid || !btn) return;
+          grid.classList.remove("expanded");
+          btn.textContent = "展开全部";
+          expanded = false;
+        }
+        function toggleExpand() {
+          var grid = document.getElementById("projects-container");
+          var btn = document.getElementById("expandBtn");
+          if (!grid) return;
+          expanded = !expanded;
+          if (expanded) {
+            grid.classList.add("expanded");
+            btn.textContent = "收起";
+          } else {
+            grid.classList.remove("expanded");
+            btn.textContent = "展开全部";
+          }
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+          var btn = document.getElementById("expandBtn");
+          if (btn) btn.addEventListener("click", toggleExpand);
+        });
+
+        function loaderHTML() {
+          return '<div class="loader-center"><span class="hourglass-loader">⏳</span></div>';
+        }
+
+        async function safeFetchJSON(url) {
+          const res = await fetch(url);
+          let text = await res.text();
+          if (text.charCodeAt(0) === 0xfeff) {
+            text = text.slice(1);
+          }
+          return JSON.parse(text);
+        }
+
+        async function fetchBilibiliAPI(bvid) {
+          const apiUrl =
+            "https://api.bilibili.com/x/web-interface/view?bvid=" + bvid;
+          const proxies = [
+            function (url) {
+              return (
+                "https://api.allorigins.win/raw?url=" + encodeURIComponent(url)
+              );
+            },
+            function (url) {
+              return "https://corsproxy.io/?" + encodeURIComponent(url);
+            },
+            function (url) {
+              return (
+                "https://api.codetabs.com/v1/proxy?quest=" +
+                encodeURIComponent(url)
+              );
+            },
+          ];
+          for (var i = 0; i < proxies.length; i++) {
+            try {
+              var res = await fetch(proxies[i](apiUrl));
+              if (!res.ok) continue;
+              var data = await res.json();
+              if (data.code === 0) return data;
+            } catch (e) {
+              continue;
+            }
+          }
+          throw new Error("all proxies failed");
+        }
+
+        async function renderProjects() {
+          var container = document.getElementById("projects-container");
+          if (!container) return;
+          container.innerHTML = loaderHTML();
+          try {
+            var data = await safeFetchJSON("data.json");
+            var projects = data.projects || [];
+            if (projects.length === 0) {
+              container.innerHTML = "<p>暂无项目展示，敬请期待。</p>";
+              return;
+            }
+            var html = "";
+            for (var i = 0; i < projects.length; i++) {
+              var proj = projects[i];
+              html += '<div class="project-card">';
+              html += "<h3>" + escapeHtml(proj.title) + "</h3>";
+              html += "<p>" + escapeHtml(proj.description) + "</p>";
+              html +=
+                '<p class="project-tech">' + proj.techStack.join(" · ") + "</p>";
+              html += '<div class="project-links">';
+              if (proj.githubUrl)
+                html +=
+                  '<a href="' +
+                  proj.githubUrl +
+                  '" target="_blank" class="project-link">查看仓库 →</a>';
+              if (proj.liveUrl)
+                html +=
+                  '<a href="' +
+                  proj.liveUrl +
+                  '" target="_blank" class="project-link">前往体验 →</a>';
+              html += "</div></div>";
+            }
+            container.innerHTML = html;
+            resetExpanded();
+          } catch (err) {
+            console.error(err);
+            container.innerHTML = "<p>作品数据加载失败，请稍后再试。</p>";
+          }
+        }
+
+        let devModeEnabled = false;
+        let devTabAdded = false;
+        const settingsTitle = document.getElementById("settingsTitle");
+        const devBadge = document.getElementById("devBadge");
+
+        function toggleDevMode() {
+          devModeEnabled = !devModeEnabled;
+          if (devModeEnabled) {
+            devBadge.classList.add("show");
+            ensureDevTab();
+            if (navigator.vibrate) navigator.vibrate(20);
+          } else {
+            devBadge.classList.remove("show");
+            removeDevTab();
+          }
+        }
+
+        function ensureDevTab() {
+          if (devTabAdded) return;
+          const nav = document.getElementById("settingsNav");
+          const devBtn = document.createElement("button");
+          devBtn.className = "settings-nav-btn";
+          devBtn.dataset.tab = "dev";
+          devBtn.textContent = "🧪 测试";
+          nav.insertBefore(devBtn, nav.querySelector(".slider"));
+
+          const contentArea = document.getElementById("settingsContentArea");
+          const devContent = document.createElement("div");
+          devContent.className = "settings-tab-content";
+          devContent.id = "tab-dev";
+          devContent.innerHTML = '<div id="devContentPlaceholder"></div>';
+          contentArea.appendChild(devContent);
+
+          navBtns = document.querySelectorAll(".settings-nav-btn");
+          tabContents = document.querySelectorAll(".settings-tab-content");
+
+          navBtns.forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              const tabName = this.dataset.tab;
+              if (tabName) switchTab(tabName);
+            });
+          });
+
+          switchTab("dev");
+          devTabAdded = true;
+          renderDevInfo();
+        }
+
+        function removeDevTab() {
+          if (!devTabAdded) return;
+          const nav = document.getElementById("settingsNav");
+          const devBtn = nav.querySelector('[data-tab="dev"]');
+          if (devBtn) devBtn.remove();
+          const devContent = document.getElementById("tab-dev");
+          if (devContent) devContent.remove();
+          navBtns = document.querySelectorAll(".settings-nav-btn");
+          tabContents = document.querySelectorAll(".settings-tab-content");
+          devTabAdded = false;
+          switchTab("appearance");
+        }
+
+        function renderDevInfo() {
+          const placeholder = document.getElementById("devContentPlaceholder");
+          if (!placeholder) return;
+
+          const hasVibration = !!navigator.vibrate;
+          const perf = getStoredPerformance() || detectPerformance();
+
+          let html = '<div class="settings-group"><h4>📱 设备信息</h4>';
+          html += '<div class="dev-info-grid">';
+          html +=
+            '<span class="label">用户代理</span><span class="value">' +
+            escapeHtml(navigator.userAgent) +
+            "</span>";
+          html +=
+            '<span class="label">平台</span><span class="value">' +
+            escapeHtml(navigator.platform) +
+            "</span>";
+          html +=
+            '<span class="label">语言</span><span class="value">' +
+            escapeHtml(navigator.language) +
+            "</span>";
+          html +=
+            '<span class="label">移动端</span><span class="value">' +
+            (/Mobi|Android/i.test(navigator.userAgent) ? "是" : "否") +
+            "</span>";
+          html +=
+            '<span class="label">触摸支持</span><span class="value">' +
+            ("ontouchstart" in window ? "是" : "否") +
+            "</span>";
+          html +=
+            '<span class="label">CPU 核心</span><span class="value">' +
+            (navigator.hardwareConcurrency || "不支持") +
+            "</span>";
+          html +=
+            '<span class="label">设备内存</span><span class="value">' +
+            (navigator.deviceMemory ? navigator.deviceMemory + " GB" : "不支持") +
+            "</span>";
+          html +=
+            '<span class="label">屏幕尺寸</span><span class="value">' +
+            screen.width +
+            "×" +
+            screen.height +
+            "</span>";
+          html +=
+            '<span class="label">像素比</span><span class="value">' +
+            window.devicePixelRatio +
+            "</span>";
+          html +=
+            '<span class="label">色彩深度</span><span class="value">' +
+            screen.colorDepth +
+            "bit</span>";
+          html +=
+            '<span class="label">振动支持</span><span class="value">' +
+            (hasVibration ? "✅ 支持" : "❌ 不支持") +
+            "</span>";
+          html += "</div></div>";
+
+          html += '<div class="settings-group"><h4>⚙️ 应用状态</h4>';
+          html += '<div class="dev-info-grid">';
+          const theme = document.body.classList.contains("dark-theme")
+            ? "深色"
+            : "浅色";
+          html +=
+            '<span class="label">当前主题</span><span class="value">' +
+            theme +
+            "</span>";
+          const font = localStorage.getItem("preferred-font") || "system";
+          html +=
+            '<span class="label">当前字体</span><span class="value">' +
+            font +
+            "</span>";
+          const render = perf.renderQuality || "clear";
+          const visual = perf.visualEffect || "standard";
+          const header = perf.headerBehavior || "auto";
+          html +=
+            '<span class="label">动画效果</span><span class="value">' +
+            (render === "jagged" ? "简洁" : render === "clear" ? "平衡" : "优雅") +
+            "</span>";
+          html +=
+            '<span class="label">视觉效果</span><span class="value">' +
+            visual +
+            "</span>";
+          html +=
+            '<span class="label">顶栏状态</span><span class="value">' +
+            header +
+            "</span>";
+          const vib = localStorage.getItem("vibrationEnabled") || "on";
+          html +=
+            '<span class="label">振动反馈</span><span class="value">' +
+            vib +
+            "</span>";
+          html += "</div></div>";
+
+          html += '<div class="settings-group"><h4>⚡ 性能数据</h4>';
+          html += '<div class="dev-info-grid">';
+          const navTiming = performance.timing;
+          const loadTime =
+            navTiming.loadEventEnd - navTiming.navigationStart;
+          const domTime =
+            navTiming.domContentLoadedEventEnd - navTiming.navigationStart;
+          const resources = performance.getEntriesByType("resource").length;
+          html +=
+            '<span class="label">页面加载耗时</span><span class="value">' +
+            (loadTime > 0 ? loadTime + "ms" : "计算中") +
+            "</span>";
+          html +=
+            '<span class="label">DOM 加载耗时</span><span class="value">' +
+            (domTime > 0 ? domTime + "ms" : "计算中") +
+            "</span>";
+          html +=
+            '<span class="label">资源请求数</span><span class="value">' +
+            resources +
+            "</span>";
+          const conn =
+            navigator.connection ||
+            navigator.mozConnection ||
+            navigator.webkitConnection;
+          if (conn) {
+            html +=
+              '<span class="label">网络类型</span><span class="value">' +
+              (conn.effectiveType || "未知") +
+              "</span>";
+            html +=
+              '<span class="label">下行带宽</span><span class="value">' +
+              (conn.downlink ? conn.downlink + "Mbps" : "未知") +
+              "</span>";
+            html +=
+              '<span class="label">RTT</span><span class="value">' +
+              (conn.rtt ? conn.rtt + "ms" : "未知") +
+              "</span>";
+          } else {
+            html +=
+              '<span class="label">网络信息</span><span class="value">不支持</span>';
+          }
+          html += "</div></div>";
+
+          html += '<div class="settings-group"><h4>📋 错误日志</h4>';
+          html += '<div class="dev-error-list" id="devErrorList">';
+          const errors = window._errorLog || [];
+          if (errors.length === 0) {
+            html += "<div>暂无错误记录</div>";
+          } else {
+            errors.slice(0, 20).forEach(function (e) {
+              html +=
+                '<div class="dev-error-item"><span class="time">' +
+                e.time +
+                '</span><span class="msg">' +
+                escapeHtml(e.message) +
+                "</span></div>";
+            });
+          }
+          html += "</div></div>";
+
+          placeholder.innerHTML = html;
+        }
+
+        window._errorLog = [];
+        window.onerror = function (message, source, lineno, colno, error) {
+          const time = formatTime(new Date());
+          window._errorLog.unshift({
+            time: time,
+            message: message + " (" + source + ":" + lineno + ":" + colno + ")",
+          });
+          if (window._errorLog.length > 20) window._errorLog.length = 20;
+          if (devTabAdded) renderDevInfo();
+        };
+        window.addEventListener("unhandledrejection", function (e) {
+          const time = formatTime(new Date());
+          window._errorLog.unshift({
+            time: time,
+            message: "Promise 拒绝: " + (e.reason.message || e.reason),
+          });
+          if (window._errorLog.length > 20) window._errorLog.length = 20;
+          if (devTabAdded) renderDevInfo();
+        });
+
+        let pressTimer = null;
+        settingsTitle.addEventListener("mousedown", function (e) {
+          pressTimer = setTimeout(function () {
+            toggleDevMode();
+          }, 800);
+        });
+        settingsTitle.addEventListener("touchstart", function (e) {
+          pressTimer = setTimeout(function () {
+            toggleDevMode();
+          }, 800);
+        });
+        settingsTitle.addEventListener("mouseup", function () {
+          clearTimeout(pressTimer);
+        });
+        settingsTitle.addEventListener("touchend", function () {
+          clearTimeout(pressTimer);
+        });
+        settingsTitle.addEventListener("mouseleave", function () {
+          clearTimeout(pressTimer);
+        });
+
+        function triggerVibration() {
+          const vib = localStorage.getItem("vibrationEnabled");
+          if (vib === "on" && navigator.vibrate) {
+            navigator.vibrate(20);
+          }
+        }
+
+        document.addEventListener("click", function (e) {
+          const target = e.target.closest("a");
+          if (!target) return;
+          const href = target.getAttribute("href");
+          if (!href) return;
+          if (href.startsWith("#") || href.startsWith("javascript:")) return;
+          const isExternal =
+            href.startsWith("http") &&
+            !href.includes(window.location.hostname);
+          if (isExternal) {
+            triggerVibration();
+          }
+        });
+
+        loadFeaturedVideo();
+        renderProjects();
+      })();
+    </script>
+  </body>
 </html>
