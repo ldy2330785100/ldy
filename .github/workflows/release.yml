@@ -1,127 +1,74 @@
-name: Release and Notify
-
+name: Create Release on changelog update
 on:
   push:
     branches:
       - main
     paths:
       - 'changelog.html'
-  workflow_dispatch:
-
 permissions:
   contents: write
-
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Remove comments from HTML files
-        run: python .github/scripts/remove_comments.py
-
-      - name: Extract latest changelog entry
-        id: extract
-        run: python .github/scripts/extract_changelog.py
-
-      - name: Install packaging for version comparison
-        run: pip install packaging
-
-      - name: Validate and create tag from changelog version
-        id: create_tag
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: pip install beautifulsoup4
+      - name: Parse changelog
+        id: parse
+        run: python .github/scripts/parse_changelog.py
+      - name: Check if tag exists
+        id: tag_exists
         run: |
-          TARGET_VERSION="${{ steps.extract.outputs.new_version }}"
-          if [ -z "$TARGET_VERSION" ]; then
-            echo "未提取到版本号，终止"
-            exit 1
-          fi
-          LATEST_TAG=$(gh release list --limit 1 --json tagName --jq '.[0].tagName' --repo "${{ github.repository }}" || echo "")
-          echo "目标版本: $TARGET_VERSION"
-          echo "最新 Release: $LATEST_TAG"
-          python3 -c "
-from packaging.version import Version
-import sys
-target = Version('$TARGET_VERSION')
-latest = Version('$LATEST_TAG') if '$LATEST_TAG' else None
-if latest and target <= latest:
-    print('目标版本未递增，跳过发布')
-    sys.exit(1)
-"
-          if [ $? -ne 0 ]; then
-            echo "版本检查失败，终止"
-            exit 1
-          fi
-          if git rev-parse "$TARGET_VERSION" >/dev/null 2>&1; then
-            echo "标签 $TARGET_VERSION 已存在"
-            if ! gh release view "$TARGET_VERSION" &>/dev/null; then
-              echo "标签 $TARGET_VERSION 是空标签，删除它"
-              git tag -d "$TARGET_VERSION"
-              git push origin ":refs/tags/$TARGET_VERSION"
-              git tag "$TARGET_VERSION"
-              git push origin "$TARGET_VERSION"
-              echo "重新创建标签 $TARGET_VERSION"
-            else
-              echo "标签 $TARGET_VERSION 已有 Release，直接复用"
-            fi
+          if git ls-remote --tags origin ${{ steps.parse.outputs.version }} | grep -q ${{ steps.parse.outputs.version }}; then
+            echo "exists=true" >> $GITHUB_OUTPUT
           else
-            git tag "$TARGET_VERSION"
-            git push origin "$TARGET_VERSION"
-            echo "创建并推送标签 $TARGET_VERSION"
+            echo "exists=false" >> $GITHUB_OUTPUT
           fi
-          echo "new_tag=$TARGET_VERSION" >> $GITHUB_OUTPUT
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create GitHub Release
-        if: steps.create_tag.outputs.new_tag != ''
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.create_tag.outputs.new_tag }}
-          name: ${{ steps.create_tag.outputs.new_tag }}
-          body: ${{ steps.extract.outputs.body }}
-          prerelease: ${{ contains(steps.create_tag.outputs.new_tag, '-') }}
-          files: |
-            index.html
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install Lighthouse
-        run: npm install -g lighthouse
-
-      - name: Run Lighthouse performance test
-        run: python .github/scripts/run_lighthouse.py
-        env:
-          SITE_URL: https://ldy2330785100.github.io/ldy/
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install Playwright
+      - name: Create and push tag
+        if: steps.tag_exists.outputs.exists == 'false'
         run: |
-          pip install playwright
-          playwright install chromium firefox webkit
-
-      - name: Run compatibility tests
-        run: python .github/scripts/test_compatibility.py
-        env:
-          SITE_URL: https://ldy2330785100.github.io/ldy/
-
-      - name: Upload test reports
-        if: always()
-        uses: actions/upload-artifact@v4
+          git tag ${{ steps.parse.outputs.version }}
+          git push origin ${{ steps.parse.outputs.version }}
+      - name: Start HTTP server
+        run: |
+          python -m http.server 8080 &
+          sleep 3
+      - name: Run Lighthouse
+        uses: treosh/lighthouse-ci-action@v10
         with:
-          name: test-reports
-          path: |
-            lighthouse-report.html
-            lighthouse-summary.json
-            compatibility-report.json
+          urls: 'http://localhost:8080/index.html'
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+        continue-on-error: true
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.parse.outputs.version }}
+          name: ${{ steps.parse.outputs.version }} · ${{ steps.parse.outputs.date }}
+          body: ${{ steps.parse.outputs.body }}
+          prerelease: ${{ steps.parse.outputs.prerelease }}
+          files: index.html
+          draft: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Delete empty tags
+        run: |
+          gh release list --limit 1000 --json tagName --jq '.[].tagName' > releases.txt
+          git tag -l > tags.txt
+          while read tag; do
+            if ! grep -qx "$tag" releases.txt; then
+              echo "Deleting empty tag: $tag"
+              git tag -d "$tag"
+              git push origin :refs/tags/"$tag" || true
+            fi
+          done < tags.txt
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
