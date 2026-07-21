@@ -52,7 +52,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.parse.outputs.version }}
-          name: ${{ steps.parse.outputs.version }} · ${{ steps.parse.outputs.date }}
+          name: ${{ steps.parse.outputs.version }}
           body: ${{ steps.parse.outputs.body }}
           prerelease: ${{ steps.parse.outputs.prerelease }}
           files: index.html
