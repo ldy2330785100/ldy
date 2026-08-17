@@ -10,7 +10,7 @@
     <link rel="icon" type="image/jpeg" href="Picture/profile.jpg" />
     <style>
       :root {
-        --spring-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+        --spring-easing: cubic-bezier(0.4, 0, 0.2, 1);
       }
       html,
       body {
@@ -19,6 +19,25 @@
       }
       * {
         box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+      button,
+      a,
+      .perf-option,
+      .font-option,
+      .theme-btn,
+      .social-btn,
+      .expand-btn,
+      .settings-nav-btn,
+      .close-btn,
+      .refresh-btn,
+      .changelog-btn,
+      .video-retry-btn,
+      .bili-link,
+      .project-link {
+        touch-action: manipulation;
+        -webkit-user-select: none;
+        user-select: none;
       }
 
       @font-face {
@@ -52,30 +71,45 @@
         font-family: "CustomFont6";
         src: url("Font/汉仪旗黑.ttf") format("truetype");
       }
+      @font-face {
+        font-family: "CustomFont7";
+        src: url("Font/iOS Sans.ttf") format("truetype");
+      }
 
-      body.use-font1 {
+      body.use-font1,
+      body.use-font1 * {
         font-family:
           "CustomFont1", "PingFang SC", "Microsoft YaHei", sans-serif;
       }
-      body.use-font2 {
+      body.use-font2,
+      body.use-font2 * {
         font-family:
           "CustomFont2", "PingFang SC", "Microsoft YaHei", sans-serif;
       }
-      body.use-font3 {
+      body.use-font3,
+      body.use-font3 * {
         font-family:
           "CustomFont3", "PingFang SC", "Microsoft YaHei", sans-serif;
       }
-      body.use-font4 {
+      body.use-font4,
+      body.use-font4 * {
         font-family:
           "CustomFont4", "PingFang SC", "Microsoft YaHei", sans-serif;
       }
-      body.use-font5 {
+      body.use-font5,
+      body.use-font5 * {
         font-family:
           "CustomFont5", "PingFang SC", "Microsoft YaHei", sans-serif;
       }
-      body.use-font6 {
+      body.use-font6,
+      body.use-font6 * {
         font-family:
           "CustomFont6", "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+      body.use-font7,
+      body.use-font7 * {
+        font-family:
+          "CustomFont7", "PingFang SC", "Microsoft YaHei", sans-serif;
       }
       body.use-system {
         font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -99,32 +133,36 @@
       }
       body.light-theme .card,
       body.light-theme .settings-panel {
-        background-color: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(6px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.62);
+        backdrop-filter: blur(24px) saturate(1.3);
+        border: 1px solid rgba(255, 255, 255, 0.5);
         box-shadow: none;
       }
       body.light-theme .sticky-header {
-        background-color: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(6px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        background-image: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.92),
+          rgba(255, 255, 255, 0.55)
+        );
+        backdrop-filter: blur(16px) saturate(1.4);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
         box-shadow: none;
       }
       body.light-theme h1,
       body.light-theme h2 {
-        color: #00668b;
+        color: #0066bb;
       }
       body.light-theme .social-btn,
       body.light-theme .expand-btn {
-        background: #00668b;
+        background: #0066bb;
         border: none;
         color: white;
         box-shadow: none;
         backdrop-filter: none;
       }
-      body.light-theme .social-btn:hover,
-      body.light-theme .expand-btn:hover {
-        background: #004c6b;
+      body.light-theme a:hover:not(.social-btn):not(.expand-btn):not(.bili-link):not(.video-retry-btn) {
+        color: #0066bb;
+        background-color: rgba(0, 102, 187, 0.05);
       }
       body.light-theme .social-btn i,
       body.light-theme .expand-btn i {
@@ -134,7 +172,7 @@
         background: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(8px);
         color: #1c1b1f;
-        border: 1px solid rgba(0, 102, 139, 0.3);
+        border: 1px solid rgba(0, 102, 187, 0.3);
       }
       body.light-theme .contact-list li {
         color: #1c1b1f;
@@ -145,13 +183,13 @@
         color: #3c3a41;
       }
       body.light-theme .font-option {
-        background: rgba(255, 255, 255, 0.9);
-        border: 1px solid #cfcfd9;
+        background: rgba(245, 245, 247, 0.8);
+        border: 1px solid #cacad1;
         color: #1c1b1f;
       }
       body.light-theme .font-option.selected {
-        background: #00668b;
-        border-color: #00668b;
+        background: #0066bb;
+        border-color: #0066bb;
         color: white;
       }
       body.light-theme .theme-btn {
@@ -160,9 +198,9 @@
         color: #1c1b1f;
       }
       body.light-theme .theme-btn.active {
-        background: #00668b;
+        background: #0066bb;
         color: white;
-        border-color: #00668b;
+        border-color: #0066bb;
       }
       body.light-theme .close-btn {
         color: #6f6e77;
@@ -182,11 +220,11 @@
         color: #1c1b1f;
       }
       body.light-theme .settings-nav-btn.active {
-        background: #00668b;
+        background: #0066bb;
         color: white;
       }
       body.light-theme .font-slider {
-        background: #00668b;
+        background: #0066bb;
       }
 
       body.dark-theme {
@@ -195,20 +233,24 @@
       }
       body.dark-theme .card,
       body.dark-theme .settings-panel {
-        background-color: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(6px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background-color: rgba(10, 10, 14, 0.55);
+        backdrop-filter: blur(24px) saturate(1.3);
+        border: 1px solid rgba(255, 255, 255, 0.16);
         box-shadow: none;
       }
       body.dark-theme .sticky-header {
-        background-color: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(6px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        background-image: linear-gradient(
+          to bottom,
+          rgba(12, 12, 16, 0.9),
+          rgba(12, 12, 16, 0.5)
+        );
+        backdrop-filter: blur(16px) saturate(1.4);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
         box-shadow: none;
       }
       body.dark-theme h1,
       body.dark-theme h2 {
-        color: #00668b;
+        color: #0066bb;
       }
       body.dark-theme .title {
         color: #c7c2cd;
@@ -217,22 +259,19 @@
         color: #b7b2bd;
       }
       body.dark-theme a {
-        color: #00668b;
+        color: #0066bb;
       }
-      body.dark-theme a:hover {
+      body.dark-theme a:hover:not(.social-btn):not(.expand-btn):not(.bili-link):not(.video-retry-btn) {
         color: #d9e9f1;
+        background-color: rgba(255, 255, 255, 0.08);
       }
       body.dark-theme .social-btn,
       body.dark-theme .expand-btn {
-        background: #00668b;
+        background: #0066bb;
         border: none;
         color: white;
         box-shadow: none;
         backdrop-filter: none;
-      }
-      body.dark-theme .social-btn:hover,
-      body.dark-theme .expand-btn:hover {
-        background: #004c6b;
       }
       body.dark-theme .social-btn i,
       body.dark-theme .expand-btn i {
@@ -248,7 +287,7 @@
         border-bottom-color: rgba(255, 255, 255, 0.1);
       }
       body.dark-theme .settings-header h3 {
-        color: #00668b;
+        color: #0066bb;
       }
       body.dark-theme .settings-group h4 {
         color: #cdc6d2;
@@ -259,9 +298,9 @@
         color: #e6e1e5;
       }
       body.dark-theme .theme-btn.active {
-        background: #00668b;
+        background: #0066bb;
         color: white;
-        border-color: #00668b;
+        border-color: #0066bb;
       }
       body.dark-theme .font-option {
         background: rgba(42, 42, 49, 0.9);
@@ -269,9 +308,9 @@
         color: #e6e1e5;
       }
       body.dark-theme .font-option.selected {
-        background: #00668b;
+        background: #0066bb;
         color: white;
-        border-color: #00668b;
+        border-color: #0066bb;
       }
       body.dark-theme .info-box {
         background: rgba(255, 255, 255, 0.08);
@@ -304,11 +343,11 @@
         color: #e6e1e5;
       }
       body.dark-theme .settings-nav-btn.active {
-        background: #00668b;
+        background: #0066bb;
         color: white;
       }
       body.dark-theme .font-slider {
-        background: #00668b;
+        background: #0066bb;
       }
 
       @supports not (backdrop-filter: blur(1px)) {
@@ -323,7 +362,7 @@
         }
         body.light-theme .social-btn,
         body.light-theme .expand-btn {
-          background-color: #00668b;
+          background-color: #0066bb;
           backdrop-filter: none;
         }
         body.light-theme .settings-toggle-btn {
@@ -341,7 +380,7 @@
         }
         body.dark-theme .social-btn,
         body.dark-theme .expand-btn {
-          background-color: #00668b;
+          background-color: #0066bb;
           backdrop-filter: none;
         }
         body.dark-theme .settings-toggle-btn {
@@ -392,15 +431,15 @@
         height: 120px;
         border-radius: 12px;
         object-fit: cover;
-        border: 3px solid rgba(0, 102, 139, 0.3);
+        border: 3px solid #0066bb;
         margin-bottom: 15px;
         transition: all 0.3s var(--spring-easing);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
       }
       .avatar:hover {
         transform: scale(1.02);
-        border-color: #00668b;
-        box-shadow: 0 6px 12px rgba(0, 102, 139, 0.15);
+        border-color: #0066bb;
+        box-shadow: 0 6px 12px rgba(0, 102, 187, 0.15);
       }
       h1 {
         margin-bottom: 8px;
@@ -415,8 +454,7 @@
         margin-bottom: 16px;
       }
       h2 {
-        border-left: 5px solid #00668b;
-        padding-left: 16px;
+        padding-left: 0;
         margin-bottom: 18px;
         font-size: 1.35rem;
         font-weight: 600;
@@ -436,15 +474,15 @@
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        gap: 6px;
+        gap: 2px;
       }
       .contact-list strong {
-        width: 70px;
+        width: 64px;
         font-weight: 600;
       }
       .icon {
         margin-right: 8px;
-        color: #00668b;
+        color: #0066bb;
         font-weight: bold;
         width: auto;
         display: inline-block;
@@ -452,21 +490,24 @@
       a {
         text-decoration: none;
         transition: all 0.2s ease;
-        border-radius: 12px;
+        border-radius: 8px;
         padding: 4px 8px;
       }
-      a:active {
+      a:active:not(.social-btn):not(.expand-btn):not(.bili-link):not(.video-retry-btn) {
         transform: scale(0.98);
-        background-color: rgba(0, 102, 139, 0.1);
+        background-color: rgba(0, 102, 187, 0.05);
       }
       .contact-list a {
-        color: #00668b;
+        color: #0066bb;
+        padding-left: 0;
       }
       .contact-list a:hover {
-        color: #004c6b;
+        color: #0066bb;
+        background-color: rgba(0, 102, 187, 0.05);
       }
       body.dark-theme .contact-list a:hover {
         color: #d9e9f1;
+        background-color: rgba(255, 255, 255, 0.08);
       }
       .social-grid {
         display: grid;
@@ -532,9 +573,9 @@
       .sticky-header .sticky-avatar {
         width: 40px;
         height: 40px;
-        border-radius: 12px;
+        border-radius: 8px;
         object-fit: cover;
-        border: 3px solid rgba(0, 102, 139, 0.3);
+        border: none;
       }
       .sticky-header .sticky-name {
         font-size: 1.1rem;
@@ -566,10 +607,10 @@
         color: inherit;
       }
       body.light-theme .sticky-header .settings-icon {
-        color: #00668b;
+        color: #0066bb;
       }
       body.dark-theme .sticky-header .settings-icon {
-        color: #00668b;
+        color: #0066bb;
       }
 
       .settings-overlay {
@@ -578,8 +619,8 @@
         left: 0;
         width: 100%;
         height: 100%;
-        backdrop-filter: blur(8px);
-        background: rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(4px);
+        background: rgba(0, 0, 0, 0.18);
         opacity: 0;
         visibility: hidden;
         transition:
@@ -598,8 +639,8 @@
         transform: translate(-50%, -50%) scale(0.3);
         width: 90%;
         max-width: 620px;
-        height: 80vh;
-        max-height: 90vh;
+        height: 70vh;
+        max-height: 680px;
         border-radius: 12px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         z-index: 999;
@@ -690,12 +731,12 @@
       }
       .settings-nav-btn {
         flex: 0 0 auto;
-        min-width: fit-content;
+        min-width: 84px;
         padding: 10px 16px;
         border: none;
         border-radius: 12px;
         font-size: 0.88rem;
-        font-weight: 550;
+        font-weight: 600;
         cursor: pointer;
         transition: all 0.2s ease-out;
         white-space: nowrap;
@@ -706,9 +747,12 @@
         height: 44px;
       }
       .settings-nav-btn.active {
-        font-weight: 650;
-        background: #00668b;
+        background: #0066bb;
         color: white;
+      }
+      .settings-nav-btn.dev-tab {
+        flex: 0 0 auto !important;
+        min-width: fit-content !important;
       }
       .settings-nav .slider {
         display: none;
@@ -793,9 +837,13 @@
         position: relative;
         z-index: 2;
       }
+      .font-option[data-font="font7"] {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
       .font-option.selected {
-        background: #00668b;
-        border-color: #00668b;
+        background: #0066bb;
+        border-color: #0066bb;
         color: white;
       }
       .font-slider {
@@ -803,7 +851,7 @@
         top: 0;
         left: 0;
         height: 0;
-        background: #00668b;
+        background: #0066bb;
         border-radius: 12px;
         z-index: 1;
         transition:
@@ -825,7 +873,7 @@
       .changelog-btn {
         width: 100%;
         padding: 11px;
-        background: #00668b;
+        background: #0066bb;
         color: white;
         border: none;
         font-weight: 550;
@@ -845,44 +893,7 @@
       }
       .refresh-btn:hover,
       .changelog-btn:hover {
-        background: #004c6b;
-      }
-      .font-refresh-btn {
-        width: 100%;
-        padding: 11px;
-        background: #00668b;
-        color: white;
-        border: none;
-        font-weight: 550;
-        font-size: 0.9rem;
-        margin-top: 12px;
-        cursor: pointer;
-        transition: all 0.2s ease-out;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        border-radius: 12px;
-      }
-      .font-refresh-btn:active {
-        transform: scale(0.98);
-      }
-      .font-refresh-btn:hover {
-        background: #004c6b;
-      }
-      .blink {
-        animation: blink 0.8s ease 2;
-      }
-      @keyframes blink {
-        0%,
-        100% {
-          background: #00668b;
-          color: white;
-        }
-        50% {
-          background: #ffcc00;
-          color: #000;
-        }
+        background: #0057a3;
       }
 
       .perf-options {
@@ -891,12 +902,15 @@
         flex-wrap: wrap;
         margin-top: 4px;
       }
+      #vibrationFeedback {
+        flex-direction: row-reverse;
+      }
       .perf-option {
         flex: 1;
         min-width: 60px;
         padding: 6px 12px;
         text-align: center;
-        border: 1px solid var(--border-color, #ccc);
+        border: 1px solid rgba(0, 102, 187, 0.45);
         border-radius: 12px;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -905,15 +919,19 @@
         color: inherit;
       }
       .perf-option.active {
-        background: #00668b;
+        background: #0066bb;
         color: white;
-        border-color: #00668b;
+        border-color: #0066bb;
       }
       body.dark-theme .perf-option {
         border-color: #555;
       }
       body.dark-theme .perf-option.active {
-        border-color: #00668b;
+        border-color: #0066bb;
+      }
+      .perf-option.disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
       }
 
       .dev-info-grid {
@@ -993,7 +1011,7 @@
           display: none;
         }
         .settings-nav-btn.active {
-          background: #00668b;
+          background: #0066bb;
           color: white;
           border-left: none;
         }
@@ -1047,6 +1065,8 @@
           gap: 8px;
         }
         .settings-nav-btn {
+          flex: 0 0 auto;
+          min-width: 84px;
           padding: 8px 12px;
           font-size: 0.82rem;
           border-radius: 12px;
@@ -1077,17 +1097,74 @@
       @media (hover: hover) {
         .social-btn:hover,
         .expand-btn:hover {
-          background: #004c6b;
+          background: #0057a3;
         }
         body.dark-theme .social-btn:hover,
         body.dark-theme .expand-btn:hover {
-          background: #004c6b;
+          background: #0057a3;
         }
         .settings-toggle-btn:hover {
-          background: rgba(0, 102, 139, 0.1);
+          background: rgba(0, 102, 187, 0.1);
         }
         body.dark-theme .settings-toggle-btn:hover {
           background: rgba(217, 233, 241, 0.2);
+        }
+      }
+      @media (hover: none) {
+        a:hover,
+        .settings-nav-btn:hover,
+        .close-btn:hover,
+        .theme-btn:hover,
+        .refresh-btn:hover,
+        .changelog-btn:hover,
+        .font-option:hover,
+        .perf-option:hover,
+        .project-link:hover,
+        .contact-list a:hover,
+        .settings-toggle-btn:hover {
+          background-color: transparent !important;
+          color: inherit !important;
+        }
+        .social-btn:hover,
+        .expand-btn:hover,
+        .bili-link:hover,
+        .video-retry-btn:hover {
+          background-color: #0066bb !important;
+          color: #fff !important;
+        }
+      }
+      body.touch-active a:hover {
+        background-color: transparent !important;
+        color: inherit !important;
+      }
+      body.touch-active .social-btn:hover,
+      body.touch-active .expand-btn:hover,
+      body.touch-active .bili-link:hover,
+      body.touch-active .video-retry-btn:hover {
+        background-color: #0066bb !important;
+        color: #fff !important;
+      }
+      .press-hold {
+        background-color: rgba(0, 102, 187, 0.05);
+      }
+      .social-btn.press-hold,
+      .expand-btn.press-hold,
+      .bili-link.press-hold,
+      .video-retry-btn.press-hold {
+        background-color: #0066bb;
+      }
+      ::view-transition-old(root) {
+        animation: none;
+      }
+      ::view-transition-new(root) {
+        animation: vtCircle 0.5s ease-out;
+      }
+      @keyframes vtCircle {
+        from {
+          clip-path: circle(0% at var(--vt-cx, 50%) var(--vt-cy, 50%));
+        }
+        to {
+          clip-path: circle(150% at var(--vt-cx, 50%) var(--vt-cy, 50%));
         }
       }
 
@@ -1100,7 +1177,7 @@
       .project-card {
         padding: 16px;
         border-radius: 12px;
-        background: rgba(0, 102, 139, 0.06);
+        background: rgba(0, 102, 187, 0.06);
         transition:
           max-height 0.45s var(--spring-easing),
           opacity 0.4s ease,
@@ -1125,12 +1202,27 @@
         transform: translateY(0);
         margin-bottom: 12px;
       }
+      .project-grid:not(.expanded) .project-card {
+        margin-bottom: 0px;
+      }
       body.dark-theme .project-card {
-        background: rgba(0, 102, 139, 0.15);
+        background: rgba(0, 102, 187, 0.15);
       }
       .project-card h3 {
         margin: 0 0 8px 0;
         font-size: 1.2rem;
+      }
+      .project-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .project-logo {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        object-fit: cover;
+        flex-shrink: 0;
       }
       .project-tech {
         font-size: 0.8rem;
@@ -1139,7 +1231,7 @@
         margin: 8px 0 12px;
       }
       .project-link {
-        color: #00668b;
+        color: #0066bb;
         font-weight: 500;
       }
       .expand-btn {
@@ -1152,19 +1244,26 @@
         font-weight: 550;
         cursor: pointer;
         transition: all 0.2s var(--spring-easing);
-        margin-top: 4px;
+        margin-top: 0;
         text-align: center;
         color: white;
+      }
+      .social-btn:active {
+        background: #0066bb;
+      }
+      .expand-btn:active {
+        background: #0066bb;
+        transform: scale(0.98);
       }
 
       .separator {
         margin: 20px 0;
         border: 0;
         height: 1px;
-        background: rgba(0, 102, 139, 0.2);
+        background: rgba(0, 102, 187, 0.2);
       }
       body.dark-theme .separator {
-        background: rgba(0, 102, 139, 0.3);
+        background: rgba(0, 102, 187, 0.3);
       }
 
       .video-container {
@@ -1205,6 +1304,10 @@
         gap: 10px;
         flex-wrap: wrap;
       }
+      .stat-ico {
+        margin-right: 3px;
+        vertical-align: -2px;
+      }
       .stats i {
         margin-right: 3px;
       }
@@ -1220,18 +1323,26 @@
       .bili-link {
         display: inline-block;
         margin-top: 2px;
-        padding: 4px 14px;
-        background: #00668b;
-        color: white;
-        border-radius: 12px;
-        font-size: 0.75rem;
+        padding: 8px 16px;
+        background: #0066bb;
+        color: #fff;
+        border-radius: 8px;
+        font-size: 0.8rem;
         transition: background 0.2s;
       }
       .bili-link:hover {
-        background: #004c6b;
+        background: #0057a3;
       }
       body.dark-theme .bili-link {
-        background: #00668b;
+        background: #0066bb;
+        color: #fff;
+      }
+      .bili-link:hover {
+        background: #0057a3;
+      }
+      body.dark-theme .bili-link {
+        background: #0066bb;
+        color: #fff;
       }
 
       .hourglass-loader {
@@ -1263,10 +1374,14 @@
         border: none;
         border-radius: 12px;
         color: white;
+        background: #0066bb;
         font-size: 0.9rem;
         cursor: pointer;
         transition: background 0.2s;
         display: inline-block;
+      }
+      .video-error-container .video-retry-btn:hover {
+        background: #0057a3;
       }
 
       .perf-clear .card,
@@ -1322,9 +1437,6 @@
       .perf-jagged .changelog-btn {
         transition-duration: 0s !important;
       }
-      .perf-jagged .font-refresh-btn {
-        transition-duration: 0s !important;
-      }
       .perf-jagged a {
         transition-duration: 0s !important;
       }
@@ -1356,7 +1468,7 @@
       <div class="card" id="projects-card">
         <h2>📁 作品展示</h2>
         <div class="project-grid" id="projects-container"></div>
-        <button class="expand-btn" id="expandBtn">展开全部</button>
+        <button class="expand-btn" id="expandBtn">展开</button>
       </div>
 
       <div class="card" id="featured-video-card"></div>
@@ -1445,10 +1557,10 @@
           <button class="settings-nav-btn active" data-tab="appearance">
             🎨 显示
           </button>
-          <button class="settings-nav-btn" data-tab="info">ℹ️ 信息</button>
           <button class="settings-nav-btn" data-tab="performance">
             ⚡ 性能
           </button>
+          <button class="settings-nav-btn" data-tab="info">ℹ️ 信息</button>
           <span class="slider" id="slider"></span>
         </div>
         <div class="settings-content-area" id="settingsContentArea">
@@ -1473,11 +1585,9 @@
                 <div class="font-option" data-font="font5">汉仪文黑</div>
                 <div class="font-option" data-font="font6">汉仪旗黑</div>
                 <div class="font-option" data-font="font4">OPPO Sans</div>
+                <div class="font-option" data-font="font7">iOS Sans</div>
                 <span class="font-slider" id="fontSlider"></span>
               </div>
-              <button id="fontRefreshBtn" class="font-refresh-btn">
-                🔄 刷新
-              </button>
             </div>
           </div>
           <div class="settings-tab-content" id="tab-info">
@@ -1500,7 +1610,7 @@
             <div class="settings-group">
               <h4>🎬 动画效果</h4>
               <div class="perf-options" id="renderQuality">
-                <span class="perf-option" data-value="jagged">简洁</span>
+                <span class="perf-option" data-value="jagged">节流</span>
                 <span class="perf-option" data-value="clear">平衡</span>
                 <span class="perf-option" data-value="fine">优雅</span>
               </div>
@@ -1509,7 +1619,7 @@
               <h4>👁️ 视觉效果</h4>
               <div class="perf-options" id="visualEffect">
                 <span class="perf-option" data-value="blur">模糊</span>
-                <span class="perf-option" data-value="standard">标准</span>
+                <span class="perf-option" data-value="standard">标配</span>
                 <span class="perf-option" data-value="transparent">通透</span>
               </div>
             </div>
@@ -1558,13 +1668,15 @@
       "title": "个人网站",
       "description": "响应式个人网站，支持深色/浅色主题、自定义字体、毛玻璃特效。",
       "techStack": ["HTML5", "CSS3", "JavaScript"],
+      "logo": "Picture/profile.jpg",
       "githubUrl": "https://github.com/ldy2330785100/ldy",
       "liveUrl": "https://ldy2330785100.github.io/ldy/"
     },
     {
       "title": "WT权限站",
       "description": "一个测试可以获取到用户的权限的网站",
-      "techStack": ["Permission"],
+      "techStack": ["HTML5", "CSS3", "JavaScript"],
+      "logo": "https://ldy2330785100.github.io/WT-Permission/avatar.jpg",
       "githubUrl": "https://github.com/ldy2330785100/WT-Permission",
       "liveUrl": "https://ldy2330785100.github.io/WT-Permission/"
     }
@@ -1573,6 +1685,28 @@
     </script>
     <script>
       (function () {
+        function triggerVibration() {
+          try {
+            const vib = storageGet("vibrationEnabled");
+            if (vib !== "off" && navigator.vibrate) {
+              navigator.vibrate(20);
+            }
+          } catch (e) {}
+        }
+        document.addEventListener("click", function (e) {
+          const interactive = e.target.closest(
+            "button, a, .perf-option, .font-option, .theme-btn, .settings-nav-btn",
+          );
+          if (interactive) {
+            try {
+              const vib = storageGet("vibrationEnabled");
+              if (vib !== "off" && navigator.vibrate) {
+                navigator.vibrate(20);
+              }
+            } catch (err) {}
+          }
+        });
+
         const settingsOverlay = document.getElementById("settingsOverlay");
         const settingsPanel = document.getElementById("settingsPanel");
         const closeSettingsBtn = document.getElementById("closeSettings");
@@ -1663,35 +1797,6 @@
           }
         }
 
-        function springAnimation(
-          target,
-          initial,
-          velocity,
-          stiffness,
-          damping,
-          mass,
-          onUpdate,
-          onComplete,
-        ) {
-          let current = initial;
-          let vel = velocity;
-          const step = function () {
-            const force = -stiffness * (current - target);
-            const dampingForce = -damping * vel;
-            const acceleration = (force + dampingForce) / mass;
-            vel += acceleration * 0.016;
-            current += vel * 0.016;
-            if (Math.abs(current - target) < 0.01 && Math.abs(vel) < 0.1) {
-              onUpdate(target);
-              if (onComplete) onComplete();
-              return;
-            }
-            onUpdate(current);
-            springAnimId = requestAnimationFrame(step);
-          };
-          springAnimId = requestAnimationFrame(step);
-        }
-
         function animateTabContentIn(tabElement) {
           if (springAnimId) {
             cancelAnimationFrame(springAnimId);
@@ -1700,23 +1805,12 @@
           tabElement.style.opacity = "0";
           tabElement.style.transform = "translateY(6px)";
           tabElement.style.display = "block";
-          springAnimation(
-            1,
-            0,
-            0,
-            180,
-            12,
-            1,
-            function (val) {
-              tabElement.style.opacity = val;
-              tabElement.style.transform =
-                "translateY(" + (1 - val) * 6 + "px)";
-            },
-            function () {
-              tabElement.style.transform = "translateY(0)";
-              tabElement.style.opacity = "1";
-            },
-          );
+          tabElement.style.transition =
+            "opacity 0.25s ease-out, transform 0.25s ease-out";
+          requestAnimationFrame(function () {
+            tabElement.style.opacity = "1";
+            tabElement.style.transform = "translateY(0)";
+          });
         }
 
         function switchTab(tabName) {
@@ -1765,22 +1859,12 @@
           }
           function resetOverscroll() {
             if (overscrollAnimId) cancelAnimationFrame(overscrollAnimId);
-            springAnimation(
-              0,
-              overscrollY,
-              0,
-              200,
-              14,
-              1,
-              function (val) {
-                overscrollY = val;
-                applyOverscroll(val);
-              },
-              function () {
-                overscrollY = 0;
-                applyOverscroll(0);
-              },
-            );
+            contentScrollEl.style.transition = "transform 0.25s ease-out";
+            overscrollY = 0;
+            applyOverscroll(0);
+            setTimeout(function () {
+              contentScrollEl.style.transition = "";
+            }, 260);
           }
           contentScrollEl.addEventListener(
             "wheel",
@@ -1817,31 +1901,62 @@
         const themeBtns = document.querySelectorAll(".theme-btn");
         let currentTheme = storageGet("preferred-theme") || "auto";
 
-        function setTheme(theme) {
-          document.body.classList.remove("light-theme", "dark-theme");
-          if (theme === "light") document.body.classList.add("light-theme");
-          else if (theme === "dark") document.body.classList.add("dark-theme");
-          else if (theme === "auto") {
-            const prefersDark = window.matchMedia(
-              "(prefers-color-scheme: dark)",
-            ).matches;
-            document.body.classList.add(
-              prefersDark ? "dark-theme" : "light-theme",
-            );
+        function setTheme(theme, originEl) {
+          function applyTheme() {
+            document.body.classList.remove("light-theme", "dark-theme");
+            if (theme === "light") document.body.classList.add("light-theme");
+            else if (theme === "dark") document.body.classList.add("dark-theme");
+            else if (theme === "auto") {
+              const prefersDark = window.matchMedia(
+                "(prefers-color-scheme: dark)",
+              ).matches;
+              document.body.classList.add(
+                prefersDark ? "dark-theme" : "light-theme",
+              );
+            }
+            themeBtns.forEach(function (btn) {
+              btn.classList.toggle("active", btn.dataset.theme === theme);
+            });
+            storageSet("preferred-theme", theme);
+            currentTheme = theme;
+            const perf = getStoredPerformance() || detectPerformance();
+            const header = document.querySelector(".sticky-header");
+            if (header) {
+              header.style.transition = "none";
+            }
+            applyPerformanceSettings(perf);
+            if (header) {
+              requestAnimationFrame(function () {
+                header.style.transition = "";
+              });
+            }
           }
-          themeBtns.forEach(function (btn) {
-            btn.classList.toggle("active", btn.dataset.theme === theme);
-          });
-          storageSet("preferred-theme", theme);
-          currentTheme = theme;
-          const perf = getStoredPerformance() || detectPerformance();
-          applyPerformanceSettings(perf);
+          const perfNow = getStoredPerformance() || detectPerformance();
+          const useVT =
+            typeof document.startViewTransition === "function" &&
+            perfNow.renderQuality === "fine";
+          if (useVT) {
+            if (originEl) {
+              const r = originEl.getBoundingClientRect();
+              document.documentElement.style.setProperty(
+                "--vt-cx",
+                r.left + r.width / 2 + "px",
+              );
+              document.documentElement.style.setProperty(
+                "--vt-cy",
+                r.top + r.height / 2 + "px",
+              );
+            }
+            document.startViewTransition(applyTheme);
+          } else {
+            applyTheme();
+          }
         }
 
         setTheme(currentTheme);
         themeBtns.forEach(function (btn) {
           btn.addEventListener("click", function () {
-            setTheme(btn.dataset.theme);
+            setTheme(btn.dataset.theme, btn);
           });
         });
         window
@@ -1854,7 +1969,6 @@
           "#fontOptionsInPanel .font-option",
         );
         const savedFont = storageGet("preferred-font") || "system";
-        const fontRefreshBtn = document.getElementById("fontRefreshBtn");
         const fontSlider = document.getElementById("fontSlider");
 
         function updateFontSlider() {
@@ -1885,36 +1999,73 @@
         }
 
         function applyFont(fontKey) {
-          document.body.classList.remove(
-            "use-system",
-            "use-font1",
-            "use-font2",
-            "use-font3",
-            "use-font4",
-            "use-font5",
-            "use-font6",
-          );
-          if (fontKey === "system") document.body.classList.add("use-system");
-          else document.body.classList.add("use-" + fontKey);
-          fontOptions.forEach(function (opt) {
-            opt.classList.toggle("selected", opt.dataset.font === fontKey);
-          });
-          storageSet("preferred-font", fontKey);
-          if (fontRefreshBtn) {
-            fontRefreshBtn.classList.remove("blink");
-            void fontRefreshBtn.offsetWidth;
-            fontRefreshBtn.classList.add("blink");
-            setTimeout(function () {
-              fontRefreshBtn.classList.remove("blink");
-            }, 1600);
+          var familyMap = {
+            font1: "CustomFont1",
+            font2: "CustomFont2",
+            font3: "CustomFont3",
+            font4: "CustomFont4",
+            font5: "CustomFont5",
+            font6: "CustomFont6",
+          };
+          var family = familyMap[fontKey];
+          function setFont() {
+            document.body.classList.remove(
+              "use-system",
+              "use-font1",
+              "use-font2",
+              "use-font3",
+              "use-font4",
+              "use-font5",
+              "use-font6",
+              "use-font7",
+            );
+            if (fontKey === "system")
+              document.body.classList.add("use-system");
+            else document.body.classList.add("use-" + fontKey);
+            fontOptions.forEach(function (opt) {
+              opt.classList.toggle("selected", opt.dataset.font === fontKey);
+            });
+            storageSet("preferred-font", fontKey);
+            setTimeout(updateFontSlider, 50);
           }
-          setTimeout(updateFontSlider, 50);
+          setFont();
+          if (family && document.fonts && document.fonts.load) {
+            document.fonts
+              .load('12px "' + family + '"')
+              .catch(function () {});
+          }
         }
         applyFont(savedFont);
         fontOptions.forEach(function (opt) {
           opt.addEventListener("click", function () {
-            applyFont(opt.dataset.font);
+            if (this.dataset.font === "font7") return;
+            applyFont(this.dataset.font);
           });
+        });
+        fontOptions.forEach(function (opt) {
+          if (opt.dataset.font !== "font7") return;
+          var f7Timer = null;
+          opt.addEventListener("mousedown", function () {
+            f7Timer = setTimeout(function () {
+              applyFont("font7");
+            }, 500);
+          });
+          opt.addEventListener(
+            "touchstart",
+            function () {
+              f7Timer = setTimeout(function () {
+                applyFont("font7");
+              }, 500);
+            },
+            { passive: true },
+          );
+          ["mouseup", "touchend", "mouseleave", "touchcancel"].forEach(
+            function (ev) {
+              opt.addEventListener(ev, function () {
+                clearTimeout(f7Timer);
+              });
+            },
+          );
         });
 
         window.addEventListener("resize", function () {
@@ -1922,6 +2073,60 @@
           updateFontSlider();
         });
         setTimeout(updateFontSlider, 100);
+
+        var forcedAuto = false;
+        function updatePageFit() {
+          var container = document.getElementById("mainContainer");
+          if (!container) return;
+          var fits = container.scrollHeight <= container.clientHeight + 1;
+          var autoOpt = document.querySelector(
+            '#headerBehavior .perf-option[data-value="auto"]',
+          );
+          if (autoOpt)
+            autoOpt.classList.toggle("disabled", fits && !forcedAuto);
+          if (fits && !forcedAuto) {
+            var st = getStoredPerformance() || {};
+            if (st.headerBehavior === "auto") {
+              var tmp = {};
+              for (var k in st) tmp[k] = st[k];
+              tmp.headerBehavior = "always";
+              applyPerformanceSettings(tmp);
+            }
+          }
+        }
+        var hbAutoBtn = document.querySelector(
+          '#headerBehavior .perf-option[data-value="auto"]',
+        );
+        if (hbAutoBtn) {
+          var hbTimer = null;
+          function hbForce() {
+            forcedAuto = true;
+            var st = getStoredPerformance() || {};
+            st.headerBehavior = "auto";
+            savePerformanceSettings(st);
+            applyPerformanceSettings(st);
+            updatePageFit();
+          }
+          hbAutoBtn.addEventListener("mousedown", function () {
+            hbTimer = setTimeout(hbForce, 500);
+          });
+          hbAutoBtn.addEventListener(
+            "touchstart",
+            function () {
+              hbTimer = setTimeout(hbForce, 500);
+            },
+            { passive: true },
+          );
+          ["mouseup", "touchend", "mouseleave", "touchcancel"].forEach(
+            function (ev) {
+              hbAutoBtn.addEventListener(ev, function () {
+                clearTimeout(hbTimer);
+              });
+            },
+          );
+        }
+        updatePageFit();
+        window.addEventListener("resize", updatePageFit);
 
         function formatTime(date) {
           const Y = date.getFullYear();
@@ -2087,19 +2292,37 @@
             ? "rgba(255,255,255,0.4)"
             : "rgba(255,255,255,0.15)";
 
-          document.querySelectorAll(".card, .settings-panel").forEach((el) => {
+          document.querySelectorAll(".card").forEach((el) => {
             el.style.backgroundColor = bgColor;
             el.style.backdropFilter =
               settings.renderQuality === "jagged" ? "none" : blurStrength;
             el.style.border = "1px solid " + borderColor;
           });
+          const panelEl = document.querySelector(".settings-panel");
+          if (panelEl) {
+            panelEl.style.backgroundColor = bgColor;
+            var panelBlur =
+              settings.visualEffect === "transparent"
+                ? "blur(36px) saturate(1.4)"
+                : settings.visualEffect === "standard"
+                  ? "blur(20px) saturate(1.2)"
+                  : "blur(8px)";
+            panelEl.style.backdropFilter =
+              settings.renderQuality === "jagged" ? "none" : panelBlur;
+            panelEl.style.border = "1px solid " + borderColor;
+          }
 
           const header = document.querySelector(".sticky-header");
           const container = document.getElementById("mainContainer");
           if (header) {
-            header.style.backgroundColor = bgColor;
+            header.style.backgroundImage = isLight
+              ? "linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(255,255,255,0.55))"
+              : "linear-gradient(to bottom, rgba(12,12,16,0.9), rgba(12,12,16,0.5))";
+            header.style.backgroundColor = "";
             header.style.backdropFilter =
-              settings.renderQuality === "jagged" ? "none" : headerBlurStrength;
+              settings.renderQuality === "jagged"
+                ? "none"
+                : "blur(16px) saturate(1.4)";
             header.style.borderBottom = "1px solid " + headerBorderColor;
           }
 
@@ -2119,11 +2342,13 @@
               container.style.paddingTop = "0px";
             }
             if (header) {
+              var headerShown = header.classList.contains("show");
               header.classList.add("auto-hide");
               header.classList.remove("show");
               header.style.transform = "";
               header.style.opacity = "";
               header.style.pointerEvents = "";
+              if (headerShown) header.classList.add("show");
             }
             setTimeout(function () {
               if (typeof handleStickyHeader === "function") handleStickyHeader();
@@ -2165,7 +2390,6 @@
           let vib = storageGet("vibrationEnabled");
           if (vib === null) {
             vib = "on";
-            if (!navigator.vibrate) vib = "off";
             storageSet("vibrationEnabled", vib);
           }
           document
@@ -2212,6 +2436,14 @@
             el.addEventListener("click", function () {
               const group = this.parentElement;
               const value = this.dataset.value;
+              if (
+                group.id === "headerBehavior" &&
+                value === "auto" &&
+                this.classList.contains("disabled")
+              )
+                return;
+              if (group.id === "headerBehavior" && value === "always")
+                forcedAuto = false;
               group.querySelectorAll(".perf-option").forEach((opt) =>
                 opt.classList.remove("active"),
               );
@@ -2240,18 +2472,13 @@
             vibGroup.querySelectorAll(".perf-option").forEach((opt) => {
               opt.addEventListener("click", function (e) {
                 e.stopPropagation();
-                const currentValue = storageGet("vibrationEnabled");
-                const newValue = currentValue === "on" ? "off" : "on";
-                storageSet("vibrationEnabled", newValue);
+                const value = opt.dataset.value;
+                storageSet("vibrationEnabled", value);
                 vibGroup.querySelectorAll(".perf-option").forEach((o) =>
                   o.classList.remove("active"),
                 );
-                vibGroup
-                  .querySelector('.perf-option[data-value="' + newValue + '"]')
-                  .classList.add("active");
-                if (navigator.vibrate) {
-                  navigator.vibrate(20);
-                }
+                opt.classList.add("active");
+                triggerVibration();
               });
             });
           }
@@ -2314,93 +2541,147 @@
           var container = document.getElementById("featured-video-card");
           if (!container) return;
           container.innerHTML = loaderHTML();
-          try {
-            var data = getSiteData();
-            var video =
-              data && data.featuredVideos ? data.featuredVideos[0] : null;
-            if (!video) throw new Error("No video data");
-            var bvid = video.bvid;
-            var iframeSrc =
-              "https://player.bilibili.com/player.html?bvid=" +
-              bvid +
-              "&page=1&as_wide=1&high_quality=1&danmaku=0";
+          var data = getSiteData();
+          var video =
+            data && data.featuredVideos ? data.featuredVideos[0] : null;
+          if (!video) {
+            container.innerHTML =
+              '<div class="video-error-container"><div><span style="font-size:1.2rem;">❌</span> 视频加载失败</div><button class="video-retry-btn" id="videoRetryBtn">🔄 重新加载</button></div>';
+            var rb = document.getElementById("videoRetryBtn");
+            if (rb) rb.addEventListener("click", loadFeaturedVideo);
+            return;
+          }
+          var bvid = video.bvid;
+          var icoPlay =
+            '<svg class="stat-ico" viewBox="0 0 384 512" width="15" height="15" fill="currentColor"><path d="M73 39c-14.8-9.3-33.4-9.1-48 .3C9.5 47.4 0 64.2 0 82.6V429c0 18.4 9.5 35.2 25 43.3 14.6 9.4 33.2 9.6 48 .3l288-183.2c13.9-8.8 22.4-24 22.4-40.4s-8.5-31.6-22.4-40.4L73 39z"/></svg>';
+          var icoLike =
+            '<svg class="stat-ico" viewBox="0 0 512 512" width="15" height="15" fill="currentColor"><path d="M104 224H24c-13.255 0-24 10.745-24 24v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V248c0-13.255-10.745-24-24-24zM64 472c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zM384 81.452c0 42.416-25.97 66.208-33.277 94.548h101.723c33.397 0 59.397 27.746 59.553 58.098.084 17.938-7.546 37.249-19.439 49.197l-.11.11c9.836 23.337 8.237 56.037-9.308 79.469 8.681 25.895-.069 57.704-16.382 74.757 4.298 17.598 2.244 32.575-6.148 44.632C440.202 511.587 389.616 512 346.839 512l-2.845-.001c-48.287-.017-87.806-17.598-119.56-31.725-15.957-7.099-36.821-15.887-52.651-16.178-6.54-.12-11.783-5.457-11.783-11.998v-213.77c0-3.2 1.282-6.271 3.558-8.521 39.614-39.144 56.648-80.587 89.117-113.111 14.804-14.832 20.188-37.236 25.393-58.902C282.515 39.293 291.817 0 312 0c24 0 72 24.72 72 81.452z"/></svg>';
+          var icoCoin =
+            '<svg class="stat-ico" viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><circle cx="12" cy="12" r="9.5"/><path d="M8.2 9.5h7.6M9 9.5L6.6 15M15 9.5l2.4 5.5M12 9.5v8" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>';
+          var icoStar =
+            '<svg class="stat-ico" viewBox="0 0 576 512" width="15" height="15" fill="currentColor"><path d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6z"/></svg>';
+          var icoComment =
+            '<svg class="stat-ico" viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 3.5c-4.7 0-8.5 3.4-8.5 7.5 0 2.5 1.5 4.7 3.8 6-.2.9-.6 1.8-1.3 2.6-.3.4 0 1 .5 1 1.6 0 3-.7 4.1-1.6.5.1 1 .1 1.4.1 4.7 0 8.5-3.4 8.5-7.5S16.7 3.5 12 3.5z"/></svg>';
+          var iframeSrc =
+            "https://player.bilibili.com/player.html?bvid=" +
+            bvid +
+            "&page=1&as_wide=1&high_quality=1&danmaku=0";
+          var html = "";
+          html += "<h2>🎬 精选视频</h2>";
+          html +=
+            '<div class="video-container" id="videoContainer" style="aspect-ratio:1.778;width:100%;">';
+          html +=
+            '<iframe src="' +
+            iframeSrc +
+            '" frameborder="0" allowfullscreen allow="fullscreen" referrerpolicy="no-referrer"></iframe>';
+          html += "</div>";
+          html += '<div class="video-info">';
+          html +=
+            '<h3 id="videoTitle">' + escapeHtml(video.title || "") + "</h3>";
+          html +=
+            '<div class="video-meta" id="videoStatsArea"><div class="stats">';
+          html +=
+            "<span>" +
+            icoPlay +
+            " --</span><span>" +
+            icoLike +
+            " --</span><span>" +
+            icoCoin +
+            " --</span><span>" +
+            icoStar +
+            " --</span><span>" +
+            icoComment +
+            " --</span>";
+          html += "</div></div>";
+          html += '<div class="bvid-display">' + bvid + "</div>";
+          html +=
+            '<a href="https://www.bilibili.com/video/' +
+            bvid +
+            '" target="_blank" class="bili-link">前往Bilibili观看 →</a>';
+          html += "</div>";
+          container.innerHTML = html;
+
+          var isFileProtocol = location.protocol === "file:";
+          if (isFileProtocol) {
+            var vsLocal = document.getElementById("videoStatsArea");
+            if (vsLocal)
+              vsLocal.innerHTML =
+                '<div class="stats">本地预览:在线统计不可用</div>';
+          } else {
+            try {
             var statsData = await fetchBilibiliAPI(bvid);
             var stats = statsData.data.stat;
-            var videoTitle = statsData.data.title;
-            var dimension = statsData.data.dimension || { width: 16, height: 9 };
+            var videoTitle = statsData.data.title || video.title;
+            var dimension =
+              statsData.data.dimension || { width: 16, height: 9 };
             var aspectRatio =
               dimension.width && dimension.height
                 ? (dimension.width / dimension.height).toFixed(3)
                 : "1.778";
             var isPortrait =
-              dimension.width && dimension.height && dimension.height > dimension.width;
+              dimension.width &&
+              dimension.height &&
+              dimension.height > dimension.width;
             var containerStyle =
               "aspect-ratio:" +
               aspectRatio +
               ";" +
-              (isPortrait ? "max-width:360px;margin:0 auto;" : "width:100%;");
-
-            function formatNumber(num) {
-              if (typeof num !== "number") return num;
-              if (num >= 100000000) return (num / 100000000).toFixed(1) + "亿";
-              if (num >= 10000) return (num / 10000).toFixed(1) + "万";
-              return num.toString();
+              (isPortrait
+                ? "max-width:360px;margin:0 auto;"
+                : "width:100%;");
+            var vc = document.getElementById("videoContainer");
+            if (vc) vc.style.cssText = containerStyle;
+            var vt = document.getElementById("videoTitle");
+            if (vt) vt.textContent = videoTitle;
+            var vs = document.getElementById("videoStatsArea");
+            if (vs) {
+              function formatNumber(num) {
+                if (typeof num !== "number") return num;
+                if (num >= 100000000)
+                  return (num / 100000000).toFixed(1) + "亿";
+                if (num >= 10000) return (num / 10000).toFixed(1) + "万";
+                return num.toString();
+              }
+              vs.innerHTML =
+                '<div class="stats">' +
+                "<span>" +
+                icoPlay +
+                " " +
+                (typeof stats.view === "number"
+                  ? formatNumber(stats.view)
+                  : "--") +
+                "</span>" +
+                "<span>" +
+                icoLike +
+                " " +
+                (typeof stats.like === "number"
+                  ? formatNumber(stats.like)
+                  : "--") +
+                "</span>" +
+                "<span>" +
+                icoCoin +
+                " " +
+                (typeof stats.coin === "number"
+                  ? formatNumber(stats.coin)
+                  : "--") +
+                "</span>" +
+                "<span>" +
+                icoStar +
+                " " +
+                (typeof stats.favorite === "number"
+                  ? formatNumber(stats.favorite)
+                  : "--") +
+                "</span>" +
+                "<span>" +
+                icoComment +
+                " " +
+                (typeof stats.reply === "number"
+                  ? formatNumber(stats.reply)
+                  : "--") +
+                "</span>" +
+                "</div>";
             }
-
-            var html = "";
-            html += "<h2>🎬 精选视频</h2>";
-            html +=
-              '<div class="video-container" style="' +
-              containerStyle +
-              '">';
-            html +=
-              '<iframe src="' +
-              iframeSrc +
-              '" frameborder="0" allowfullscreen allow="fullscreen" referrerpolicy="no-referrer"></iframe>';
-            html += "</div>";
-            html += '<div class="video-info">';
-            html += "<h3>" + escapeHtml(videoTitle) + "</h3>";
-            html += '<div class="video-meta">';
-            html += '<div class="stats">';
-            html +=
-              '<span>▶️ ' +
-              formatNumber(stats.view) +
-              "</span>";
-            html +=
-              '<span>👍 ' +
-              formatNumber(stats.like) +
-              "</span>";
-            html +=
-              '<span>🪙 ' +
-              formatNumber(stats.coin) +
-              "</span>";
-            html +=
-              '<span>⭐ ' +
-              formatNumber(stats.favorite) +
-              "</span>";
-            html +=
-              '<span>💬 ' +
-              formatNumber(stats.reply) +
-              "</span>";
-            html += "</div>";
-            html += "</div>";
-            html += '<div class="bvid-display">' + bvid + "</div>";
-            html +=
-              '<a href="https://www.bilibili.com/video/' +
-              bvid +
-              '" target="_blank" class="bili-link">前往Bilibili观看 →</a>';
-            html += "</div>";
-
-            container.innerHTML = html;
-          } catch (err) {
-            console.error(err);
-            if (container) {
-              container.innerHTML =
-                '<div class="video-error-container"><div><span style="font-size:1.2rem;">❌</span> 视频加载失败</div><button class="video-retry-btn" id="videoRetryBtn">🔄 重新加载</button></div>';
-              document
-                .getElementById("videoRetryBtn")
-                .addEventListener("click", loadFeaturedVideo);
-            }
+          } catch (e) {}
           }
         }
 
@@ -2410,7 +2691,7 @@
           var btn = document.getElementById("expandBtn");
           if (!grid || !btn) return;
           grid.classList.remove("expanded");
-          btn.textContent = "展开全部";
+          btn.textContent = "展开";
           expanded = false;
         }
         function toggleExpand() {
@@ -2424,7 +2705,7 @@
             btn.textContent = "收起";
           } else {
             grid.classList.remove("expanded");
-            btn.textContent = "展开全部";
+            btn.textContent = "展开";
           }
         }
         document.addEventListener("DOMContentLoaded", function () {
@@ -2464,14 +2745,30 @@
                 encodeURIComponent(url)
               );
             },
+            function (url) {
+              return url;
+            },
           ];
           for (var i = 0; i < proxies.length; i++) {
+            var controller = null;
+            var timer = null;
             try {
-              var res = await fetch(proxies[i](apiUrl));
+              if (typeof AbortController !== "undefined") {
+                controller = new AbortController();
+                timer = setTimeout(function () {
+                  controller.abort();
+                }, 5000);
+              }
+              var res = await fetch(
+                proxies[i](apiUrl),
+                controller ? { signal: controller.signal } : {},
+              );
+              if (timer) clearTimeout(timer);
               if (!res.ok) continue;
               var data = await res.json();
               if (data.code === 0) return data;
             } catch (e) {
+              if (timer) clearTimeout(timer);
               continue;
             }
           }
@@ -2493,7 +2790,15 @@
             for (var i = 0; i < projects.length; i++) {
               var proj = projects[i];
               html += '<div class="project-card">';
-              html += "<h3>" + escapeHtml(proj.title) + "</h3>";
+              html +=
+                '<h3 class="project-title">' +
+                (proj.logo
+                  ? '<img class="project-logo" src="' +
+                    proj.logo +
+                    '" alt="" />'
+                  : "") +
+                escapeHtml(proj.title) +
+                "</h3>";
               html += "<p>" + escapeHtml(proj.description) + "</p>";
               html +=
                 '<p class="project-tech">' + proj.techStack.join(" · ") + "</p>";
@@ -2523,18 +2828,42 @@
         const settingsTitle = document.getElementById("settingsTitle");
         const devBadge = document.getElementById("devBadge");
 
+        var devRefreshTimer = null;
+        function refreshDevLive() {
+          var avgEl = document.getElementById("devAvgFps");
+          var lowEl = document.getElementById("devLowFps");
+          var memEl = document.getElementById("devMem");
+          var sum = fpsSummary();
+          if (avgEl)
+            avgEl.textContent = sum ? sum.avg.toFixed(1) + " FPS" : "采样中…";
+          if (lowEl)
+            lowEl.textContent = sum ? sum.low.toFixed(1) + " FPS" : "采样中…";
+          if (memEl) {
+            try {
+              if (performance.memory) {
+                memEl.textContent =
+                  formatBytes(performance.memory.usedJSHeapSize) +
+                  " / " +
+                  formatBytes(performance.memory.jsHeapSizeLimit);
+              }
+            } catch (e) {}
+          }
+        }
         function toggleDevMode() {
           devModeEnabled = !devModeEnabled;
           if (devModeEnabled) {
             devBadge.classList.add("show");
             ensureDevTab();
-            if (navigator.vibrate) navigator.vibrate(20);
+            triggerVibration();
             startFpsMonitor();
             startLongTaskMonitor();
+            clearInterval(devRefreshTimer);
+            devRefreshTimer = setInterval(refreshDevLive, 1000);
           } else {
             devBadge.classList.remove("show");
             removeDevTab();
             stopFpsMonitor();
+            clearInterval(devRefreshTimer);
           }
         }
 
@@ -2542,7 +2871,7 @@
           if (devTabAdded) return;
           const nav = document.getElementById("settingsNav");
           const devBtn = document.createElement("button");
-          devBtn.className = "settings-nav-btn";
+          devBtn.className = "settings-nav-btn dev-tab";
           devBtn.dataset.tab = "dev";
           devBtn.textContent = "🧪 测试";
           nav.insertBefore(devBtn, nav.querySelector(".slider"));
@@ -2564,8 +2893,14 @@
             });
           });
 
+          navBtns.forEach(function (nb) {
+            nb.classList.remove("active");
+          });
+          const devNav = nav.querySelector('[data-tab="dev"]');
+          if (devNav) devNav.classList.add("active");
           switchTab("dev");
           devTabAdded = true;
+          updateSlider();
           renderDevInfo();
         }
 
@@ -2649,9 +2984,28 @@
             navigator.connection ||
             navigator.mozConnection ||
             navigator.webkitConnection;
+          var netType = "不支持";
+          if (conn) {
+            if (conn.type === "wifi") netType = "WiFi";
+            else if (conn.type === "ethernet") netType = "以太网";
+            else if (conn.type === "bluetooth") netType = "蓝牙";
+            else if (conn.type === "none") netType = "无网络";
+            else if (conn.type === "cellular") {
+              var dl = typeof conn.downlink === "number" ? conn.downlink : 0;
+              if (dl >= 100) netType = "蜂窝数据(5G)";
+              else if (dl >= 25) netType = "蜂窝数据(4G+)";
+              else if (dl >= 5) netType = "蜂窝数据(4G)";
+              else if (dl >= 1) netType = "蜂窝数据(3G)";
+              else netType = "蜂窝数据";
+            } else if (conn.type === "unknown" || !conn.type)
+              netType = conn.effectiveType
+                ? mapNetType(conn.effectiveType)
+                : "未知";
+            else netType = conn.type;
+          }
           d.net = {
             online: navigator.onLine,
-            type: conn ? conn.effectiveType : "不支持",
+            type: netType,
             rtt: conn ? conn.rtt + " ms" : "不支持",
             downlink: conn ? conn.downlink + " Mbps" : "不支持",
             save: conn ? (conn.saveData ? "开启" : "关闭") : "不支持",
@@ -2706,13 +3060,14 @@
           frames: 0,
           start: 0,
           fps: 0,
-          drops: 0,
+          samples: [],
         };
         function startFpsMonitor() {
           if (window._fpsStats.running) return;
           window._fpsStats.running = true;
           var s = window._fpsStats;
           s.frames = 0;
+          s.samples = [];
           s.start = performance.now();
           function tick(ts) {
             if (!window._fpsStats.running) return;
@@ -2720,8 +3075,8 @@
             var elapsed = ts - s.start;
             if (elapsed >= 1000) {
               var f = Math.round((s.frames * 1000) / elapsed);
-              if (s.fps > 0 && f < 30) s.drops++;
               s.fps = f;
+              s.samples.push(f);
               s.frames = 0;
               s.start = ts;
             }
@@ -2731,6 +3086,20 @@
         }
         function stopFpsMonitor() {
           window._fpsStats.running = false;
+        }
+        function fpsSummary() {
+          var s = window._fpsStats;
+          if (!s.samples.length) return null;
+          var sum = 0;
+          for (var i = 0; i < s.samples.length; i++) sum += s.samples[i];
+          var avg = sum / s.samples.length;
+          var sorted = s.samples.slice().sort(function (a, b) {
+            return a - b;
+          });
+          var lowCount = Math.max(1, Math.floor(sorted.length * 0.01));
+          var lowSum = 0;
+          for (var j = 0; j < lowCount; j++) lowSum += sorted[j];
+          return { avg: avg, low: lowSum / lowCount, count: s.samples.length };
         }
 
         window._longTasks = 0;
@@ -2770,56 +3139,6 @@
           const s = window._fpsStats;
           let html = "";
 
-          html += '<div class="settings-group"><h4>📱 设备信息</h4>';
-          html += '<div class="dev-info-grid">';
-          html +=
-            '<span class="label">用户代理</span><span class="value">' +
-            escapeHtml(navigator.userAgent) +
-            "</span>";
-          html +=
-            '<span class="label">平台</span><span class="value">' +
-            escapeHtml(navigator.platform) +
-            "</span>";
-          html +=
-            '<span class="label">语言</span><span class="value">' +
-            escapeHtml(navigator.language) +
-            "</span>";
-          html +=
-            '<span class="label">移动端</span><span class="value">' +
-            (/Mobi|Android/i.test(navigator.userAgent) ? "是" : "否") +
-            "</span>";
-          html +=
-            '<span class="label">CPU 核心</span><span class="value">' +
-            (navigator.hardwareConcurrency || "不支持") +
-            "</span>";
-          html +=
-            '<span class="label">设备内存</span><span class="value">' +
-            (navigator.deviceMemory
-              ? navigator.deviceMemory + " GB"
-              : "不支持") +
-            "</span>";
-          html +=
-            '<span class="label">屏幕尺寸</span><span class="value">' +
-            screen.width +
-            "×" +
-            screen.height +
-            "</span>";
-          html +=
-            '<span class="label">视口尺寸</span><span class="value">' +
-            window.innerWidth +
-            "×" +
-            window.innerHeight +
-            "</span>";
-          html +=
-            '<span class="label">像素比</span><span class="value">' +
-            window.devicePixelRatio +
-            "</span>";
-          html +=
-            '<span class="label">振动支持</span><span class="value">' +
-            (navigator.vibrate ? "✅ 支持" : "❌ 不支持") +
-            "</span>";
-          html += "</div></div>";
-
           html += '<div class="settings-group"><h4>⏱ 页面加载性能</h4>';
           html += '<div class="dev-info-grid">';
           html +=
@@ -2858,20 +3177,21 @@
 
           html += '<div class="settings-group"><h4>🎞 渲染性能</h4>';
           html += '<div class="dev-info-grid">';
+          var fpsSum = fpsSummary();
           html +=
-            '<span class="label">实时帧率</span><span class="value">' +
-            (s.fps ? s.fps + " FPS" : "采样中…") +
+            '<span class="label">平均帧率</span><span class="value" id="devAvgFps">' +
+            (fpsSum ? fpsSum.avg.toFixed(1) + " FPS" : "采样中…") +
             "</span>";
           html +=
-            '<span class="label">低帧次数</span><span class="value">' +
-            s.drops +
+            '<span class="label">1% Low 帧</span><span class="value" id="devLowFps">' +
+            (fpsSum ? fpsSum.low.toFixed(1) + " FPS" : "采样中…") +
             "</span>";
           html +=
-            '<span class="label">JS 内存占用</span><span class="value">' +
+            '<span class="label">JS 内存占用</span><span class="value" id="devMem">' +
             (d.memory
               ? formatBytes(d.memory.used * 1048576) +
                 " / " +
-                formatBytes(d.memory.total * 1048576)
+                formatBytes(d.memory.limit * 1048576)
               : "不支持") +
             "</span>";
           html += "</div></div>";
@@ -2884,7 +3204,7 @@
             "</span>";
           html +=
             '<span class="label">连接类型</span><span class="value">' +
-            mapNetType(d.net.type) +
+            d.net.type +
             "</span>";
           html +=
             '<span class="label">RTT 估计</span><span class="value">' +
@@ -2960,6 +3280,56 @@
             ")</span>";
           html += "</div></div>";
 
+          html += '<div class="settings-group"><h4>📱 设备信息</h4>';
+          html += '<div class="dev-info-grid">';
+          html +=
+            '<span class="label">用户代理</span><span class="value">' +
+            escapeHtml(navigator.userAgent) +
+            "</span>";
+          html +=
+            '<span class="label">平台</span><span class="value">' +
+            escapeHtml(navigator.platform) +
+            "</span>";
+          html +=
+            '<span class="label">语言</span><span class="value">' +
+            escapeHtml(navigator.language) +
+            "</span>";
+          html +=
+            '<span class="label">移动端</span><span class="value">' +
+            (/Mobi|Android/i.test(navigator.userAgent) ? "是" : "否") +
+            "</span>";
+          html +=
+            '<span class="label">CPU 核心</span><span class="value">' +
+            (navigator.hardwareConcurrency || "不支持") +
+            "</span>";
+          html +=
+            '<span class="label">设备内存</span><span class="value">' +
+            (navigator.deviceMemory
+              ? navigator.deviceMemory + " GB"
+              : "不支持") +
+            "</span>";
+          html +=
+            '<span class="label">屏幕尺寸</span><span class="value">' +
+            screen.width +
+            "×" +
+            screen.height +
+            "</span>";
+          html +=
+            '<span class="label">视口尺寸</span><span class="value">' +
+            window.innerWidth +
+            "×" +
+            window.innerHeight +
+            "</span>";
+          html +=
+            '<span class="label">像素比</span><span class="value">' +
+            window.devicePixelRatio +
+            "</span>";
+          html +=
+            '<span class="label">振动支持</span><span class="value">' +
+            (navigator.vibrate ? "✅ 支持" : "❌ 不支持") +
+            "</span>";
+          html += "</div></div>";
+
           html += '<div class="settings-group"><h4>⚙️ 应用状态</h4>';
           html += '<div class="dev-info-grid">';
           const theme = document.body.classList.contains("dark-theme")
@@ -2969,34 +3339,47 @@
             '<span class="label">当前主题</span><span class="value">' +
             theme +
             "</span>";
-          const font = storageGet("preferred-font") || "system";
+          const fontMap = {
+            system: "系统默认",
+            font1: "MiSans",
+            font2: "小米兰亭",
+            font3: "HarmonyOS Sans",
+            font4: "OPPO Sans",
+            font5: "汉仪文黑",
+            font6: "汉仪旗黑",
+          };
+          const fontKey = storageGet("preferred-font") || "system";
+          const fontName = fontMap[fontKey] || fontKey;
           html +=
             '<span class="label">当前字体</span><span class="value">' +
-            font +
+            fontName +
             "</span>";
           const render = perf.renderQuality || "clear";
           const visual = perf.visualEffect || "standard";
           const header = perf.headerBehavior || "auto";
+          const renderMap = { jagged: "节流", clear: "平衡", fine: "优雅" };
+          const visualMap = {
+            blur: "模糊",
+            standard: "标配",
+            transparent: "通透",
+          };
+          const headerMap = { always: "保持常驻", auto: "自动隐藏" };
           html +=
             '<span class="label">动画效果</span><span class="value">' +
-            (render === "jagged"
-              ? "简洁"
-              : render === "clear"
-                ? "平衡"
-                : "优雅") +
+            (renderMap[render] || render) +
             "</span>";
           html +=
             '<span class="label">视觉效果</span><span class="value">' +
-            visual +
+            (visualMap[visual] || visual) +
             "</span>";
           html +=
             '<span class="label">顶栏状态</span><span class="value">' +
-            header +
+            (headerMap[header] || header) +
             "</span>";
           const vib = storageGet("vibrationEnabled") || "on";
           html +=
             '<span class="label">振动反馈</span><span class="value">' +
-            vib +
+            (vib === "on" ? "开启" : "关闭") +
             "</span>";
           html += "</div></div>";
 
@@ -3048,7 +3431,7 @@
           pressTimer = setTimeout(function () {
             tapCount = 0;
             toggleDevMode();
-          }, 800);
+          }, 500);
         }
         function cancelDevPress() {
           clearTimeout(pressTimer);
@@ -3091,24 +3474,43 @@
           cancelDevPress();
         });
 
-        function triggerVibration() {
-          const vib = storageGet("vibrationEnabled");
-          if (vib === "on" && navigator.vibrate) {
-            navigator.vibrate(20);
-          }
-        }
+        document.addEventListener(
+          "touchstart",
+          function (e) {
+            document.body.classList.add("touch-active");
+            var t = e.target.closest(
+              "button, a, .perf-option, .font-option, .theme-btn, .settings-nav-btn, .social-btn, .expand-btn, .close-btn, .refresh-btn, .changelog-btn, .video-retry-btn, .bili-link, .project-link",
+            );
+            if (t) t.classList.add("press-hold");
+          },
+          { passive: true },
+        );
+        ["touchend", "touchcancel"].forEach(function (ev) {
+          document.addEventListener(
+            ev,
+            function () {
+              var held = document.querySelectorAll(".press-hold");
+              for (var i = 0; i < held.length; i++) {
+                held[i].classList.remove("press-hold");
+              }
+              setTimeout(function () {
+                document.body.classList.remove("touch-active");
+              }, 600);
+            },
+            { passive: true },
+          );
+        });
 
-        document.addEventListener("click", function (e) {
-          const target = e.target.closest("a");
-          if (!target) return;
-          const href = target.getAttribute("href");
-          if (!href) return;
-          if (href.startsWith("#") || href.startsWith("javascript:")) return;
-          const isExternal =
-            href.startsWith("http") &&
-            !href.includes(window.location.hostname);
-          if (isExternal) {
-            triggerVibration();
+        document.querySelectorAll("p strong").forEach(function (s) {
+          if (s.textContent === "旅冬亦") {
+            s.addEventListener("click", function () {
+              openSettings();
+            });
+          } else if (s.textContent === "测试") {
+            s.addEventListener("click", function () {
+              if (!devModeEnabled) toggleDevMode();
+              openSettings();
+            });
           }
         });
 
