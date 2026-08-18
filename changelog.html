@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --spring-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --spring-easing: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -35,13 +35,17 @@
             color: #1c1b1f;
         }
         body.light-theme .sticky-header {
-            background-color: rgba(255, 255, 255, 0.68);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            background-image: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.92),
+                rgba(255, 255, 255, 0.55)
+            );
+            backdrop-filter: blur(12px) saturate(1.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: none;
         }
         body.light-theme h1 {
-            color: #00668B;
+            color: #0066bb;
         }
         body.light-theme .entry .date {
             color: #6f6e77;
@@ -50,18 +54,18 @@
             color: #1c1b1f;
         }
         body.light-theme .nav-btn {
-            background: #00668B;
+            background: #0066bb;
             color: white;
         }
         body.light-theme .nav-btn:hover {
-            background: #004c6b;
+            background: #0057a3;
         }
         body.light-theme footer {
             color: #6f6e77;
             border-top-color: rgba(0, 0, 0, 0.08);
         }
         body.light-theme .sticky-header a {
-            color: #00668B;
+            color: #0066bb;
         }
 
         body.dark-theme {
@@ -75,13 +79,17 @@
             color: #e6e1e5;
         }
         body.dark-theme .sticky-header {
-            background-color: rgba(18, 18, 24, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            background-image: linear-gradient(
+                to bottom,
+                rgba(12, 12, 16, 0.9),
+                rgba(12, 12, 16, 0.5)
+            );
+            backdrop-filter: blur(12px) saturate(1.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: none;
         }
         body.dark-theme h1 {
-            color: #00668B;
+            color: #0066bb;
         }
         body.dark-theme .entry .date {
             color: #b7b2bd;
@@ -90,18 +98,18 @@
             color: #ffffff;
         }
         body.dark-theme .nav-btn {
-            background: #00668B;
+            background: #0066bb;
             color: white;
         }
         body.dark-theme .nav-btn:hover {
-            background: #004c6b;
+            background: #0057a3;
         }
         body.dark-theme footer {
             color: #9e9aa8;
             border-top-color: rgba(255, 255, 255, 0.08);
         }
         body.dark-theme .sticky-header a {
-            color: #00668B;
+            color: #0066bb;
         }
         body.dark-theme .sticky-header a:hover {
             color: #D9E9F1;
@@ -138,13 +146,15 @@
             padding: 8px 20px;
             transform: translateY(-100%);
             opacity: 0;
-            transition: transform 0.35s var(--spring-easing), opacity 0.25s ease;
+            visibility: hidden;
+            transition: transform 0.35s var(--spring-easing), opacity 0.25s ease, visibility 0.35s;
             pointer-events: none;
             border-radius: 0 0 12px 12px;
         }
         .sticky-header.show {
             transform: translateY(0);
             opacity: 1;
+            visibility: visible;
             pointer-events: auto;
         }
         .sticky-header .sticky-content {
@@ -157,9 +167,9 @@
         .sticky-header .sticky-avatar {
             width: 40px;
             height: 40px;
-            border-radius: 12px;
+            border-radius: 6px;
             object-fit: cover;
-            border: 1px solid rgba(0, 102, 139, 0.3);
+            border: none;
         }
         .sticky-header .sticky-name {
             font-size: 1.1rem;
@@ -168,16 +178,16 @@
         }
         .sticky-header .goto-site {
             margin-left: auto;
-            padding: 6px 16px;
-            background: #00668B;
+            padding: 8px 16px;
+            background: #0066bb;
             color: white !important;
-            border-radius: 12px;
+            border-radius: 8px;
             font-size: 0.8rem;
             text-decoration: none;
             transition: background 0.2s;
         }
         .sticky-header .goto-site:hover {
-            background: #004c6b;
+            background: #0057a3;
         }
         @media (max-width: 600px) {
             .sticky-header {
@@ -227,7 +237,7 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
         body.dark-theme .entry:hover {
-            box-shadow: 0 8px 20px rgba(0, 102, 139, 0.15);
+            box-shadow: 0 8px 20px rgba(0, 102, 187, 0.15);
         }
         .entry .date {
             font-size: 0.8em;
@@ -245,7 +255,7 @@
         .nav-btn {
             display: inline-block;
             padding: 10px 22px;
-            background: #00668B;
+            background: #0066bb;
             color: white;
             border-radius: 12px;
             text-decoration: none;
@@ -310,6 +320,19 @@
         -->
 
         <div class="entry">
+            <div class="date">2026/08/18 23:00:00</div>
+            <div><strong>v1.3.1</strong><br>
+            🚀 新增：横屏状态左右排版<br>
+            📌 立项：视频播放期间卡片跑马灯效果<br>
+            🤖 测试：横屏下卡片多列展示<br>
+            🐛 问题：横屏下作品排版<br>
+            🐛 问题：流畅性（源码体积＞100K）<br>
+            ⚡ 优化：视频数据获取<br>
+            🗑️ 移除：屏幕顶部残留空白
+            </div>
+        </div>
+
+        <div class="entry">
             <div class="date">2026/08/18 00:00:00</div>
             <div><strong>v1.3.0</strong><br>
             🚀 新增：作品展示新增网站logo<br>
@@ -317,7 +340,7 @@
             🤖 测试：顶栏渐变模糊<br>
             📌 立项：iOS Sans 字体<br>
             🐛 修复：设置页面标签占宽<br>
-            ⚙️ 调整：主题色#00668B→#0066BB<br>
+            ⚙️ 调整：主题色#0066bb→#0066BB<br>
             ⚙️ 调整：精选视频数据图标样式<br>
             ⚙️ 调整：顶栏头像圆角与边框<br>
             ⚡ 优化：视频加载速度与稳定性<br>
