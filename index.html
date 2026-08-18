@@ -16,6 +16,7 @@
       body {
         height: 100%;
         overflow: hidden;
+        overflow-x: hidden;
       }
       * {
         box-sizing: border-box;
@@ -144,7 +145,7 @@
           rgba(255, 255, 255, 0.92),
           rgba(255, 255, 255, 0.55)
         );
-        backdrop-filter: blur(16px) saturate(1.4);
+        backdrop-filter: blur(12px) saturate(1.3);
         border-bottom: 1px solid rgba(255, 255, 255, 0.15);
         box-shadow: none;
       }
@@ -244,7 +245,7 @@
           rgba(12, 12, 16, 0.9),
           rgba(12, 12, 16, 0.5)
         );
-        backdrop-filter: blur(16px) saturate(1.4);
+        backdrop-filter: blur(12px) saturate(1.3);
         border-bottom: 1px solid rgba(255, 255, 255, 0.12);
         box-shadow: none;
       }
@@ -337,6 +338,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        border-color: rgba(255, 255, 255, 0.15);
       }
       body.dark-theme .settings-nav-btn:hover {
         background: rgba(42, 42, 51, 0.9);
@@ -398,14 +400,14 @@
         border-radius: 0;
         height: 100%;
         overflow-y: auto;
-        scroll-behavior: smooth;
+        overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
         padding-top: 0px;
         transition: padding-top 0.3s ease;
       }
       @media (max-width: 600px) {
-        .container {
-          padding-top: 0px;
+        .card {
+          padding: 16px 20px;
         }
       }
 
@@ -459,6 +461,7 @@
         font-size: 1.35rem;
         font-weight: 600;
         letter-spacing: -0.2px;
+        white-space: nowrap;
       }
       p {
         margin-bottom: 14px;
@@ -551,9 +554,11 @@
         padding: 8px 20px;
         transform: translateY(-100%);
         opacity: 0;
+        visibility: hidden;
         transition:
           transform 0.35s ease-out,
-          opacity 0.25s ease;
+          opacity 0.25s ease,
+          visibility 0s 0.35s;
         pointer-events: none;
         border-radius: 0 0 12px 12px;
         will-change: transform;
@@ -561,6 +566,11 @@
       .sticky-header.show {
         transform: translateY(0);
         opacity: 1;
+        visibility: visible;
+        transition:
+          transform 0.35s ease-out,
+          opacity 0.25s ease,
+          visibility 0s 0s;
         pointer-events: auto;
       }
       .sticky-header .sticky-content {
@@ -573,7 +583,7 @@
       .sticky-header .sticky-avatar {
         width: 40px;
         height: 40px;
-        border-radius: 8px;
+        border-radius: 6px;
         object-fit: cover;
         border: none;
       }
@@ -733,7 +743,7 @@
         flex: 0 0 auto;
         min-width: 84px;
         padding: 10px 16px;
-        border: none;
+        border: 1px solid rgba(0, 0, 0, 0.12);
         border-radius: 12px;
         font-size: 0.88rem;
         font-weight: 600;
@@ -910,7 +920,7 @@
         min-width: 60px;
         padding: 6px 12px;
         text-align: center;
-        border: 1px solid rgba(0, 102, 187, 0.45);
+        border: 1px solid rgba(0, 0, 0, 0.14);
         border-radius: 12px;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -1153,6 +1163,95 @@
       .video-retry-btn.press-hold {
         background-color: #0066bb;
       }
+      .project-logo {
+        transition: transform 0.3s var(--spring-easing);
+      }
+      @media (orientation: landscape) {
+        .container {
+          max-width: 1080px;
+        }
+        .card {
+          padding: 26px 30px;
+        }
+        #profileCard {
+          display: flex;
+          align-items: center;
+          gap: 44px;
+        }
+        #profileCard > div:first-child {
+          text-align: center;
+          flex: 0 0 auto;
+        }
+        #profileCard .avatar {
+          width: 140px;
+          height: 140px;
+          margin-bottom: 0;
+        }
+        #profileCard .title {
+          margin-bottom: 0;
+        }
+        .social-btn {
+          gap: 8px;
+          height: auto;
+          padding: 14px 10px;
+        }
+        .project-grid {
+          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+          gap: 24px;
+        }
+        .project-card {
+          display: grid;
+          grid-template-columns: 150px 1fr;
+          gap: 18px;
+          align-items: center;
+          background: rgba(0, 102, 187, 0.08);
+          border: 1px solid rgba(0, 102, 187, 0.2);
+        }
+        .project-title {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          white-space: nowrap;
+        }
+        .project-logo {
+          width: 64px;
+          height: 64px;
+          border-radius: 12px;
+        }
+        .project-logo:hover {
+          transform: scale(1.1);
+        }
+        .project-grid .project-card {
+          max-height: none;
+          opacity: 1;
+          transform: translateY(0);
+          margin-bottom: 0;
+        }
+        #expandBtn {
+          display: none;
+        }
+        #featured-video-card {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px 24px;
+          align-items: stretch;
+        }
+        #featured-video-card h2 {
+          flex: 1 1 100%;
+        }
+        #featured-video-card .video-container {
+          flex: 1 1 62%;
+          max-width: none !important;
+          margin-bottom: 0;
+        }
+        #featured-video-card .video-side {
+          flex: 1 1 34%;
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+        }
+      }
       ::view-transition-old(root) {
         animation: none;
       }
@@ -1282,7 +1381,8 @@
         border: 0;
         display: block;
       }
-      .video-info h3 {
+      .video-side h3,
+      #videoTitle {
         margin: 0 0 4px 0;
         font-size: 1.1rem;
       }
@@ -1328,6 +1428,7 @@
         color: #fff;
         border-radius: 8px;
         font-size: 0.8rem;
+        text-align: center;
         transition: background 0.2s;
       }
       .bili-link:hover {
@@ -1932,9 +2033,21 @@
             }
           }
           const perfNow = getStoredPerformance() || detectPerformance();
+          var resolvedTheme = theme;
+          if (theme === "auto") {
+            resolvedTheme = window.matchMedia(
+              "(prefers-color-scheme: dark)",
+            ).matches
+              ? "dark"
+              : "light";
+          }
+          var themeChanged =
+            (resolvedTheme === "dark") !==
+            document.body.classList.contains("dark-theme");
           const useVT =
             typeof document.startViewTransition === "function" &&
-            perfNow.renderQuality === "fine";
+            perfNow.renderQuality === "fine" &&
+            themeChanged;
           if (useVT) {
             if (originEl) {
               const r = originEl.getBoundingClientRect();
@@ -2322,7 +2435,7 @@
             header.style.backdropFilter =
               settings.renderQuality === "jagged"
                 ? "none"
-                : "blur(16px) saturate(1.4)";
+                : "blur(12px) saturate(1.3)";
             header.style.borderBottom = "1px solid " + headerBorderColor;
           }
 
@@ -2501,6 +2614,9 @@
             stickyHeader.style.pointerEvents = "auto";
             return;
           }
+          if (containerScroll && containerScroll.style.paddingTop !== "0px") {
+            containerScroll.style.paddingTop = "0px";
+          }
           if (!headerTicking) {
             requestAnimationFrame(function () {
               if (!profileCard || !stickyHeader) return;
@@ -2575,7 +2691,7 @@
             iframeSrc +
             '" frameborder="0" allowfullscreen allow="fullscreen" referrerpolicy="no-referrer"></iframe>';
           html += "</div>";
-          html += '<div class="video-info">';
+          html += '<div class="video-side">';
           html +=
             '<h3 id="videoTitle">' + escapeHtml(video.title || "") + "</h3>";
           html +=
@@ -2732,12 +2848,18 @@
             "https://api.bilibili.com/x/web-interface/view?bvid=" + bvid;
           const proxies = [
             function (url) {
+              return url;
+            },
+            function (url) {
               return (
                 "https://api.allorigins.win/raw?url=" + encodeURIComponent(url)
               );
             },
             function (url) {
-              return "https://corsproxy.io/?" + encodeURIComponent(url);
+              return (
+                "https://api.allorigins.win/get?url=" +
+                encodeURIComponent(url)
+              );
             },
             function (url) {
               return (
@@ -2746,7 +2868,12 @@
               );
             },
             function (url) {
-              return url;
+              return "https://corsproxy.io/?url=" + encodeURIComponent(url);
+            },
+            function (url) {
+              return (
+                "https://api.cors.lol/?url=" + encodeURIComponent(url)
+              );
             },
           ];
           for (var i = 0; i < proxies.length; i++) {
@@ -2767,6 +2894,12 @@
               if (!res.ok) continue;
               var data = await res.json();
               if (data.code === 0) return data;
+              if (data.contents) {
+                try {
+                  var inner = JSON.parse(data.contents);
+                  if (inner.code === 0) return inner;
+                } catch (e) {}
+              }
             } catch (e) {
               if (timer) clearTimeout(timer);
               continue;
@@ -2799,6 +2932,7 @@
                   : "") +
                 escapeHtml(proj.title) +
                 "</h3>";
+              html += '<div class="project-body">';
               html += "<p>" + escapeHtml(proj.description) + "</p>";
               html +=
                 '<p class="project-tech">' + proj.techStack.join(" · ") + "</p>";
@@ -2813,7 +2947,7 @@
                   '<a href="' +
                   proj.liveUrl +
                   '" target="_blank" class="project-link">前往体验 →</a>';
-              html += "</div></div>";
+              html += "</div></div></div>";
             }
             container.innerHTML = html;
             resetExpanded();
