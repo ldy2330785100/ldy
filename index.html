@@ -1368,7 +1368,7 @@
       .video-container {
         width: 100%;
         height: auto;
-        margin-bottom: 8px;
+        margin-bottom: 16px;
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -2848,11 +2848,17 @@
             "https://api.bilibili.com/x/web-interface/view?bvid=" + bvid;
           const proxies = [
             function (url) {
-              return url;
+              return (
+                "https://api.allorigins.win/raw?url=" + encodeURIComponent(url)
+              );
+            },
+            function (url) {
+              return "https://corsproxy.io/?" + encodeURIComponent(url);
             },
             function (url) {
               return (
-                "https://api.allorigins.win/raw?url=" + encodeURIComponent(url)
+                "https://api.codetabs.com/v1/proxy?quest=" +
+                encodeURIComponent(url)
               );
             },
             function (url) {
@@ -2862,18 +2868,7 @@
               );
             },
             function (url) {
-              return (
-                "https://api.codetabs.com/v1/proxy?quest=" +
-                encodeURIComponent(url)
-              );
-            },
-            function (url) {
-              return "https://corsproxy.io/?url=" + encodeURIComponent(url);
-            },
-            function (url) {
-              return (
-                "https://api.cors.lol/?url=" + encodeURIComponent(url)
-              );
+              return url;
             },
           ];
           for (var i = 0; i < proxies.length; i++) {
