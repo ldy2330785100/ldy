@@ -188,6 +188,66 @@
         border: 1px solid #cacad1;
         color: #1c1b1f;
       }
+      body.visual-transparent.light-theme .font-option {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: #cacad1;
+        color: #1c1b1f;
+      }
+      body.visual-transparent.light-theme .font-option.selected {
+        background: #0066bb;
+        border-color: #0066bb;
+        color: white;
+      }
+      body.visual-transparent.light-theme .theme-btn {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: #cacad1;
+        color: #1c1b1f;
+      }
+      body.visual-transparent.light-theme .theme-btn.active {
+        background: #0066bb;
+        color: white;
+        border-color: #0066bb;
+      }
+      body.visual-transparent.light-theme .perf-option {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: #cacad1;
+      }
+      body.visual-transparent.light-theme .perf-option.active {
+        background: #0066bb;
+        border-color: #0066bb;
+        color: white;
+      }
+      body.visual-transparent.dark-theme .font-option,
+      body.visual-transparent.dark-theme .theme-btn,
+      body.visual-transparent.dark-theme .perf-option {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: #484856;
+      }
+      body.visual-transparent.dark-theme .font-option.selected,
+      body.visual-transparent.dark-theme .theme-btn.active,
+      body.visual-transparent.dark-theme .perf-option.active {
+        background: #0066bb;
+        border-color: #0066bb;
+        color: white;
+      }
+      .card {
+        position: relative;
+      }
+      .card-marquee {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        opacity: 0;
+        z-index: 1;
+      }
+      .card-marquee rect {
+        fill: none;
+        stroke-width: 3;
+        stroke-linecap: round;
+      }
       body.light-theme .font-option.selected {
         background: #0066bb;
         border-color: #0066bb;
@@ -1375,6 +1435,12 @@
         background: rgba(0, 0, 0, 0.05);
         aspect-ratio: 16 / 9;
       }
+      #featured-video-card {
+        position: relative;
+      }
+      #featured-video-card {
+        position: relative;
+      }
       .video-container iframe {
         width: 100%;
         height: 100%;
@@ -1796,7 +1862,7 @@
         }
         document.addEventListener("click", function (e) {
           const interactive = e.target.closest(
-            "button, a, .perf-option, .font-option, .theme-btn, .settings-nav-btn",
+            "button, a, .perf-option, .font-option, .theme-btn, .settings-nav-btn, .avatar",
           );
           if (interactive) {
             try {
@@ -1805,7 +1871,193 @@
                 navigator.vibrate(20);
               }
             } catch (err) {}
+            var hitCard = e.target.closest(".card");
+            if (hitCard) flowCard(hitCard);
           }
+        });
+        var mgStateMap = {};
+        function mgCardKey(card) {
+          return card.id || card.className.split(" ")[0];
+        }
+        function mgPerimeterPoint(s, w, h) {
+          const total = 2 * (w + h);
+          let p = (((s % 1) + 1) % 1) * total;
+          if (p < w) return [p, 0];
+          p -= w;
+          if (p < h) return [w, p];
+          p -= h;
+          if (p < w) return [w - p, h];
+          p -= w;
+          return [0, h - p];
+        }
+        function mgInject(card) {
+          var key = mgCardKey(card);
+          if (mgStateMap[key]) return mgStateMap[key];
+          mgSyncCard(card);
+          var ns = "http://www.w3.org/2000/svg";
+          var uid = "mg" + Math.random().toString(36).slice(2, 7);
+          var svg = document.createElementNS(ns, "svg");
+          svg.setAttribute("class", "card-marquee");
+          svg.setAttribute("viewBox", "0 0 100 100");
+          svg.setAttribute("preserveAspectRatio", "none");
+          var defs = document.createElementNS(ns, "defs");
+          var grad = document.createElementNS(ns, "linearGradient");
+          grad.id = "mgGrad_" + uid;
+          grad.setAttribute("x1", "0");
+          grad.setAttribute("y1", "0");
+          grad.setAttribute("x2", "1");
+          grad.setAttribute("y2", "0");
+          grad.setAttribute("gradientUnits", "userSpaceOnUse");
+          var s1 = document.createElementNS(ns, "stop");
+          s1.setAttribute("offset", "0");
+          s1.setAttribute("stop-color", "#0066bb");
+          s1.setAttribute("stop-opacity", "1");
+          var s2 = document.createElementNS(ns, "stop");
+          s2.setAttribute("offset", "1");
+          s2.setAttribute("stop-color", "#0066bb");
+          s2.setAttribute("stop-opacity", "0");
+          grad.appendChild(s1);
+          grad.appendChild(s2);
+          defs.appendChild(grad);
+          var rect = document.createElementNS(ns, "rect");
+          rect.setAttribute("fill", "none");
+          rect.setAttribute("stroke", "url(#" + grad.id + ")");
+          rect.setAttribute("stroke-width", "3");
+          rect.setAttribute("stroke-linecap", "round");
+          svg.appendChild(defs);
+          svg.appendChild(rect);
+          card.appendChild(svg);
+          var st = {
+            svg: svg,
+            grad: grad,
+            rect: rect,
+            theta: 0,
+            opacity: 0,
+            rounds: 0,
+            active: false,
+            running: false,
+            raf: 0,
+            last: 0,
+            w: 0,
+            h: 0,
+            width: 0,
+            height: 0,
+            startFrac: 0.125,
+            pathLen: 0,
+          };
+          mgStateMap[key] = st;
+          mgSyncCard(card);
+          return st;
+        }
+        function mgSyncCard(card) {
+          var st = mgStateMap[mgCardKey(card)];
+          if (!st) return;
+          var r = card.getBoundingClientRect();
+          st.svg.setAttribute("viewBox", "-2 -2 " + (r.width + 4) + " " + (r.height + 4));
+          st.rect.setAttribute("x", "0");
+          st.rect.setAttribute("y", "0");
+          st.rect.setAttribute("width", r.width.toFixed(2));
+          st.rect.setAttribute("height", r.height.toFixed(2));
+          st.rect.setAttribute("rx", "15");
+          st.width = r.width;
+          st.height = r.height;
+          st.w = r.width;
+          st.h = r.height;
+          st.startFrac = (st.w / 2) / (2 * (st.w + st.h));
+          st.pathLen = 2 * (st.w + st.h);
+        }
+        function mgTickCard(key, ts) {
+          var st = mgStateMap[key];
+          if (!st || !st.running) return;
+          const dt = Math.min(0.1, (ts - st.last) / 1000);
+          st.last = ts;
+          const frac =
+            ((st.theta / (Math.PI * 2) + st.startFrac) % 1 + 1) % 1;
+          const delta = (frac - st.startFrac + 1) % 1;
+          const wave = (1 - Math.cos(delta * Math.PI * 2)) / 2;
+          const v = 0.3 + 0.7 * wave;
+          const effSpeed = 0.15 + v * 3.6;
+          st.theta += effSpeed * dt;
+          if (st.theta > Math.PI * 2) {
+            st.theta -= Math.PI * 2;
+            if (st.active) st.rounds++;
+          }
+          if (st.rounds >= 3) st.active = false;
+          if (st.active) st.opacity = Math.min(1, st.opacity + dt * 3);
+          else st.opacity = Math.max(0, st.opacity - dt * 2);
+          if (st.svg && st.grad && st.rect) {
+            const dim = Math.max(st.width, st.height);
+            const lineLen = dim * (0.3333 + 0.4167 * wave);
+            st.rect.style.strokeDasharray =
+              lineLen + " " + (st.pathLen - lineLen + 1);
+            st.rect.style.strokeDashoffset = -(frac * st.pathLen);
+            const head = mgPerimeterPoint(frac, st.w, st.h);
+            const tail = mgPerimeterPoint(
+              (frac - lineLen / st.pathLen + 1) % 1,
+              st.w,
+              st.h,
+            );
+            const hx = head[0];
+            const hy = head[1];
+            const tx = tail[0];
+            const ty = tail[1];
+            const angle = (Math.atan2(ty - hy, tx - hx) * 180) / Math.PI;
+            st.grad.setAttribute(
+              "gradientTransform",
+              "translate(" +
+                hx.toFixed(2) +
+                " " +
+                hy.toFixed(2) +
+                ") rotate(" +
+                angle.toFixed(2) +
+                ") scale(" +
+                lineLen.toFixed(2) +
+                " 1)",
+            );
+            st.svg.style.opacity = st.opacity.toFixed(3);
+          }
+          if (st.opacity <= 0.005 && !st.active) {
+            st.running = false;
+            if (st.raf) cancelAnimationFrame(st.raf);
+            st.raf = 0;
+            return;
+          }
+          st.raf = requestAnimationFrame(function (t) {
+            mgTickCard(key, t);
+          });
+        }
+        function mgStartCard(key) {
+          var st = mgStateMap[key];
+          if (!st || st.running) return;
+          st.running = true;
+          st.last = performance.now();
+          st.raf = requestAnimationFrame(function (t) {
+            mgTickCard(key, t);
+          });
+        }
+        function flowCard(card) {
+          if (!card) return;
+          if (card.id === "projects-card") return;
+          var st = mgInject(card);
+          st.active = true;
+          st.rounds = 0;
+          mgStartCard(mgCardKey(card));
+        }
+        document.querySelectorAll(".card").forEach(function (c) {
+          mgInject(c);
+        });
+        if (typeof MutationObserver !== "undefined") {
+          var mgObserver = new MutationObserver(function () {
+            document.querySelectorAll(".card").forEach(function (c) {
+              mgInject(c);
+            });
+          });
+          mgObserver.observe(document.body, { childList: true, subtree: true });
+        }
+        window.addEventListener("resize", function () {
+          document.querySelectorAll(".card").forEach(function (c) {
+            mgSyncCard(c);
+          });
         });
 
         const settingsOverlay = document.getElementById("settingsOverlay");
@@ -2424,6 +2676,10 @@
               settings.renderQuality === "jagged" ? "none" : panelBlur;
             panelEl.style.border = "1px solid " + borderColor;
           }
+          document.body.classList.toggle(
+            "visual-transparent",
+            settings.visualEffect === "transparent",
+          );
 
           const header = document.querySelector(".sticky-header");
           const container = document.getElementById("mainContainer");
@@ -2685,7 +2941,7 @@
           var html = "";
           html += "<h2>🎬 精选视频</h2>";
           html +=
-            '<div class="video-container" id="videoContainer" style="aspect-ratio:1.778;width:100%;">';
+            '<div class="video-container" id="videoContainer" style="aspect-ratio:1.778;width:100%;position:relative;">';
           html +=
             '<iframe src="' +
             iframeSrc +
@@ -2713,7 +2969,7 @@
           html +=
             '<a href="https://www.bilibili.com/video/' +
             bvid +
-            '" target="_blank" class="bili-link">前往Bilibili观看 →</a>';
+            '" target="_blank" class="bili-link">前往BiliBili观看 →</a>';
           html += "</div>";
           container.innerHTML = html;
 
