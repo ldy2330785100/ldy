@@ -119,8 +119,8 @@
 
 1. **项目性质**：本项目为个人技术练习与作品展示，非商业用途，不代表任何官方立场。
 2. **版权与许可**：
-   - **代码**：本项目采用 **[MIT License](https://opensource.org/licenses/MIT)** 开源。
-   - **字体**：项目中引用的字体文件受版权保护，**不包含在 MIT 许可范围内**。
+   - **代码**：本项目采用 **[CC-BY-NC-SA-4.0 License](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)** 开源。
+   - **字体**：项目中引用的字体文件受版权保护，**不包含在 CC-BY-NC-SA-4.0 许可范围内**。
    - **头像**：头像为原创，未经允许禁止商用；如需个人使用请告知作者。
 3. **责任限制**：作者不对因使用本项目代码或访问网站内容导致的任何损失承担责任。
 4. **隐私说明**：本网站为纯静态页面，不收集任何用户隐私数据，所有设置仅保存在浏览器本地。
@@ -128,7 +128,7 @@
 ## 🙏 特别鸣谢
 
 - [GitHub](https://github.com) 提供仓库与 Pages 托管服务
-- https://chat.deepseek.com 提供技术建议与代码优化
+- [DeepSeek](https://chat.deepseek.com) 提供技术建议与代码优化
 - [RikkaHub](https://rikka-ai.com)提供高效的开发环境
 
 ## 💬 讨论群聊
